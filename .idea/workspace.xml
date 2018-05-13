@@ -1,7 +1,117 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="49c2b76e-1c8c-4f08-a2c1-4a1c9c952587" name="デフォルト" comment="" />
+    <list default="true" id="49c2b76e-1c8c-4f08-a2c1-4a1c9c952587" name="デフォルト" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dictionaries/s_ili.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/kotlinc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/KotlinJavaRuntime.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dungeons.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Dungeons/META-INF/Dungeons.kotlin_module" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Dungeons/entry/MainKt.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Dungeons/game/GameBoard.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Dungeons/game/NamableObject.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Dungeons/game/data_list/enemy_list.rb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Dungeons/game/data_list/skill_list.rb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Dungeons/game/field/Arrow$Companion.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Dungeons/game/field/Arrow.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Dungeons/game/field/Direction$Companion.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Dungeons/game/field/Direction.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Dungeons/game/field/Field$createArrowChainQueue.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Dungeons/game/field/Field.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Dungeons/game/field/FieldArrowLayer.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Dungeons/game/field/FieldBlock.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Dungeons/game/field/FieldBlockType$Companion.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Dungeons/game/field/FieldBlockType.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Dungeons/game/field/MazeField.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Dungeons/game/field/MazeFieldArrows.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Dungeons/game/item/Enemy.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Dungeons/game/item/EquipmentItem.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Dungeons/game/item/GameCharactor.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Dungeons/game/item/GameObject.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Dungeons/game/item/Player.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Dungeons/game/item/Stair.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Dungeons/game/item/enemy.rb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Dungeons/game/item/player.rb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Dungeons/game/mold/EnemyMold.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Dungeons/game/mold/EquipmentMold.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Dungeons/game/mold/EquipmentMoldType.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Dungeons/game/mold/Skill.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Dungeons/game/param/AbilityScore.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Dungeons/game/param/ElementScore.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Dungeons/game/param/EquipmentState.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Dungeons/game/param/MaxNowValue.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/Dungeons/game/param/Position.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/KotlinAdventure/META-INF/KotlinAdventure.kotlin_module" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/KotlinAdventure/entry/MainKt.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/KotlinAdventure/game/GameBoard.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/KotlinAdventure/game/NamableObject.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/KotlinAdventure/game/data_list/enemy_list.rb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/KotlinAdventure/game/data_list/skill_list.rb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/KotlinAdventure/game/field/Arrow$Companion.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/KotlinAdventure/game/field/Arrow.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/KotlinAdventure/game/field/Direction$Companion.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/KotlinAdventure/game/field/Direction.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/KotlinAdventure/game/field/Field$GenerateMazeData.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/KotlinAdventure/game/field/Field.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/KotlinAdventure/game/field/FieldArrowLayer.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/KotlinAdventure/game/field/FieldBlock.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/KotlinAdventure/game/field/FieldBlockType$Companion.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/KotlinAdventure/game/field/FieldBlockType.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/KotlinAdventure/game/field/MazeField.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/KotlinAdventure/game/field/MazeFieldArrows.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/KotlinAdventure/game/item/Enemy.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/KotlinAdventure/game/item/EquipmentItem.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/KotlinAdventure/game/item/GameCharactor.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/KotlinAdventure/game/item/GameObject.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/KotlinAdventure/game/item/Player.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/KotlinAdventure/game/item/Stair.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/KotlinAdventure/game/item/enemy.rb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/KotlinAdventure/game/item/player.rb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/KotlinAdventure/game/mold/EnemyMold.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/KotlinAdventure/game/mold/EquipmentMold.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/KotlinAdventure/game/mold/EquipmentMoldType.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/KotlinAdventure/game/mold/Skill.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/KotlinAdventure/game/param/AbilityScore.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/KotlinAdventure/game/param/ElementScore.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/KotlinAdventure/game/param/EquipmentState.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/KotlinAdventure/game/param/MaxNowValue.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/out/production/KotlinAdventure/game/param/Position.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/entry/Main.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/game/GameBoard.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/game/NamableObject.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/game/data_list/enemyList.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/game/data_list/skillList.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/game/field/Arrow.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/game/field/Direction.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/game/field/Field.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/game/field/FieldArrowLayer.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/game/field/FieldBlock.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/game/field/FieldBlockType.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/game/field/MazeField.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/game/field/MazeFieldArrows.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/game/item/Enemy.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/game/item/EquipmentItem.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/game/item/GameCharactor.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/game/item/GameObject.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/game/item/Player.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/game/item/Stair.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/game/item/enemy.rb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/game/item/player.rb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/game/mold/EnemyMold.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/game/mold/EquipmentMold.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/game/mold/EquipmentMoldType.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/game/mold/Skill.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/game/param/AbilityScore.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/game/param/ElementScore.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/game/param/EquipmentState.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/game/param/MaxNowValue.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/game/param/Position.kt" afterDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -76,11 +186,41 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FieldArrowLayer.kt" pinned="false" current-in-tab="true">
+      <file leaf-file-name="FieldArrowLayer.kt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/game/field/FieldArrowLayer.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="26">
-              <caret line="29" column="7" lean-forward="true" selection-start-line="29" selection-start-column="7" selection-end-line="29" selection-end-column="7" />
+            <state relative-caret-position="104">
+              <caret line="35" selection-start-line="35" selection-end-line="35" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="enemyList.kt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/game/data_list/enemyList.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="104">
+              <caret line="8" column="25" lean-forward="true" selection-start-line="8" selection-start-column="25" selection-end-line="8" selection-end-column="25" />
+              <folding>
+                <element signature="e#24#111#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AbilityScore.kt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/game/param/AbilityScore.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="182">
+              <caret line="14" column="11" selection-start-line="14" selection-start-column="11" selection-end-line="28" selection-end-column="7" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="skillList.kt" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/game/data_list/skillList.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="91">
+              <caret line="7" selection-start-line="7" selection-end-line="7" />
             </state>
           </provider>
         </entry>
@@ -89,7 +229,7 @@
         <entry file="file://$PROJECT_DIR$/src/game/field/Field.kt">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="78">
-              <caret line="7" column="52" lean-forward="true" selection-start-line="7" selection-start-column="52" selection-end-line="7" selection-end-column="52" />
+              <caret line="7" column="52" selection-start-line="7" selection-start-column="52" selection-end-line="7" selection-end-column="52" />
             </state>
           </provider>
         </entry>
@@ -99,11 +239,11 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Kotlin File" />
         <option value="Enum" />
         <option value="Kotlin Enum" />
         <option value="Kotlin Class" />
         <option value="Gradle Kotlin DSL Build Script" />
+        <option value="Kotlin File" />
       </list>
     </option>
   </component>
@@ -121,8 +261,8 @@
       <find>print</find>
       <find>== Arrow.right) num++</find>
       <find>removeArrowCh</find>
-      <find>removeArrowChain</find>
       <find>random</find>
+      <find>removeArrowChain</find>
     </findStrings>
     <replaceStrings>
       <replace>}</replace>
@@ -168,7 +308,6 @@
         <option value="$PROJECT_DIR$/src/game/item/GameCharactor.kt" />
         <option value="$PROJECT_DIR$/src/game/mold/EquipmentMold.kt" />
         <option value="$PROJECT_DIR$/src/game/item/EquipmentItem.kt" />
-        <option value="$PROJECT_DIR$/src/game/param/AbilityScore.kt" />
         <option value="$PROJECT_DIR$/src/game/param/EquipmentState.kt" />
         <option value="$PROJECT_DIR$/src/game/field/FieldBlock.kt" />
         <option value="$PROJECT_DIR$/src/game/field/Arrow.java" />
@@ -185,6 +324,10 @@
         <option value="$PROJECT_DIR$/src/game/field/MazeField.kt" />
         <option value="$PROJECT_DIR$/src/game/field/Field.kt" />
         <option value="$PROJECT_DIR$/src/game/GameBoard.kt" />
+        <option value="$PROJECT_DIR$/src/game/data_list/skillList.kt" />
+        <option value="$PROJECT_DIR$/src/game/data_list/skill_list.rb" />
+        <option value="$PROJECT_DIR$/src/game/data_list/enemyList.kt" />
+        <option value="$PROJECT_DIR$/src/game/param/AbilityScore.kt" />
       </list>
     </option>
   </component>
@@ -202,7 +345,7 @@
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
-    <navigator proportions="" version="1">
+    <navigator currentView="Scope" currentSubView="Project Files" proportions="" version="1">
       <autoscrollFromSource Scope="true" ProjectPane="true" />
       <foldersAlwaysOnTop value="true" />
     </navigator>
@@ -246,54 +389,13 @@
               <item name="Dungeons" type="b2602c69:ProjectViewProjectNode" />
               <item name="Dungeons" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="entry" type="462c0819:PsiDirectoryNode" />
-              <item name="Main.kt" type="24436e51:KtFileTreeNode" />
-            </path>
-            <path>
-              <item name="Dungeons" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Dungeons" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="field" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Dungeons" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Dungeons" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="field" type="462c0819:PsiDirectoryNode" />
-              <item name="FieldArrowLayer" type="2c5a2ef7:KtClassOrObjectTreeNode" />
-            </path>
-            <path>
-              <item name="Dungeons" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Dungeons" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="field" type="462c0819:PsiDirectoryNode" />
-              <item name="MazeField" type="2c5a2ef7:KtClassOrObjectTreeNode" />
-            </path>
-            <path>
-              <item name="Dungeons" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Dungeons" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="item" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Dungeons" type="b2602c69:ProjectViewProjectNode" />
               <item name="Dungeons" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="item" type="462c0819:PsiDirectoryNode" />
-              <item name="GameObject" type="2c5a2ef7:KtClassOrObjectTreeNode" />
-            </path>
-            <path>
-              <item name="Dungeons" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Dungeons" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="param" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Dungeons" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Dungeons" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="param" type="462c0819:PsiDirectoryNode" />
-              <item name="Position" type="2c5a2ef7:KtClassOrObjectTreeNode" />
             </path>
           </expand>
           <select />
@@ -304,40 +406,40 @@
           <expand>
             <path>
               <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="KotlinAdventure" type="cbb8eebc:String" user="KotlinAdventure" />
+              <item name="Dungeons" type="cbb8eebc:String" user="Dungeons" />
             </path>
             <path>
               <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="KotlinAdventure" type="cbb8eebc:String" user="KotlinAdventure" />
+              <item name="Dungeons" type="cbb8eebc:String" user="Dungeons" />
               <item name="src" type="cbb8eebc:String" user="src" />
             </path>
             <path>
               <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="KotlinAdventure" type="cbb8eebc:String" user="KotlinAdventure" />
-              <item name="src" type="cbb8eebc:String" user="src" />
-              <item name="entry" type="cbb8eebc:String" user="entry" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="KotlinAdventure" type="cbb8eebc:String" user="KotlinAdventure" />
+              <item name="Dungeons" type="cbb8eebc:String" user="Dungeons" />
               <item name="src" type="cbb8eebc:String" user="src" />
               <item name="game" type="cbb8eebc:String" user="game" />
             </path>
             <path>
               <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="KotlinAdventure" type="cbb8eebc:String" user="KotlinAdventure" />
+              <item name="Dungeons" type="cbb8eebc:String" user="Dungeons" />
+              <item name="src" type="cbb8eebc:String" user="src" />
+              <item name="game/data_list" type="cbb8eebc:String" user="game/data_list" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="Dungeons" type="cbb8eebc:String" user="Dungeons" />
               <item name="src" type="cbb8eebc:String" user="src" />
               <item name="game/field" type="cbb8eebc:String" user="game/field" />
             </path>
             <path>
               <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="KotlinAdventure" type="cbb8eebc:String" user="KotlinAdventure" />
+              <item name="Dungeons" type="cbb8eebc:String" user="Dungeons" />
               <item name="src" type="cbb8eebc:String" user="src" />
-              <item name="game/item" type="cbb8eebc:String" user="game/item" />
+              <item name="game/mold" type="cbb8eebc:String" user="game/mold" />
             </path>
             <path>
               <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="KotlinAdventure" type="cbb8eebc:String" user="KotlinAdventure" />
+              <item name="Dungeons" type="cbb8eebc:String" user="Dungeons" />
               <item name="src" type="cbb8eebc:String" user="src" />
               <item name="game/param" type="cbb8eebc:String" user="game/param" />
             </path>
@@ -490,12 +592,12 @@
       <workItem from="1525999097972" duration="536000" />
       <workItem from="1526007267115" duration="16399000" />
       <workItem from="1526027828070" duration="71391000" />
-      <workItem from="1526169070772" duration="15294000" />
+      <workItem from="1526169070772" duration="17229000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="104243000" />
+    <option name="totallyTimeSpent" value="106178000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -516,10 +618,10 @@
       <window_info anchor="bottom" id="Event Log" order="5" side_tool="true" />
       <window_info anchor="right" id="Maven Projects" order="9" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="4" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Version Control" order="6" visible="true" weight="0.21932516" />
+      <window_info active="true" anchor="bottom" id="Version Control" order="6" visible="true" weight="0.39570552" />
       <window_info id="Run" order="9" sideWeight="0.51446944" weight="0.35396826" />
       <window_info anchor="right" id="Mongo Explorer" order="4" />
-      <window_info anchor="right" id="Terminal" order="11" weight="0.32936507" />
+      <window_info anchor="right" id="Terminal" order="11" visible="true" weight="0.32936507" />
       <window_info anchor="right" id="パレット" order="7" />
       <window_info id="Capture Tool" order="3" />
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.37116563" visible="true" weight="0.19761905" />
@@ -543,6 +645,32 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+              <option name="COLUMN_ORDER">
+                <list>
+                  <option value="0" />
+                  <option value="1" />
+                  <option value="2" />
+                  <option value="3" />
+                </list>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
@@ -665,33 +793,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/game/GameBoard.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="78">
-          <caret line="8" selection-start-line="8" selection-end-line="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/field/Field.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1222">
-          <caret line="95" column="38" selection-start-line="95" selection-start-column="38" selection-end-line="95" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/field/MazeField.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="78">
-          <caret line="6" column="12" selection-start-line="6" selection-start-column="12" selection-end-line="6" selection-end-column="12" />
-          <folding>
-            <element signature="e#20#89#0" expanded="true" />
-            <element signature="n#!!doc;n#start#0;n#!!block;n#MazeField#0" />
-            <element signature="n#!!doc;n#goal#0;n#!!block;n#MazeField#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/Game.kt" />
     <entry file="file://$PROJECT_DIR$/src/game/game.rb" />
     <entry file="file://$PROJECT_DIR$/src/game/param/max_now_value.rb" />
     <entry file="file://$PROJECT_DIR$/src/game/namable_object.rb" />
@@ -798,13 +899,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/param/AbilityScore.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="78">
-          <caret line="6" column="16" selection-start-line="6" selection-start-column="16" selection-end-line="6" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/game/item/Enemy.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="52">
@@ -908,13 +1002,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/field/Field.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="78">
-          <caret line="7" column="52" lean-forward="true" selection-start-line="7" selection-start-column="52" selection-end-line="7" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/game/field/MazeField.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="650">
@@ -946,8 +1033,45 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/game/field/FieldArrowLayer.kt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="26">
-          <caret line="29" column="7" lean-forward="true" selection-start-line="29" selection-start-column="7" selection-end-line="29" selection-end-column="7" />
+        <state relative-caret-position="104">
+          <caret line="35" selection-start-line="35" selection-end-line="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/data_list/enemy_list.rb">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/data_list/skill_list.rb">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/data_list/enemyList.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="104">
+          <caret line="8" column="25" lean-forward="true" selection-start-line="8" selection-start-column="25" selection-end-line="8" selection-end-column="25" />
+          <folding>
+            <element signature="e#24#111#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/param/AbilityScore.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="14" column="11" selection-start-line="14" selection-start-column="11" selection-end-line="28" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/field/Field.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="78">
+          <caret line="7" column="52" selection-start-line="7" selection-start-column="52" selection-end-line="7" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/data_list/skillList.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="91">
+          <caret line="7" selection-start-line="7" selection-end-line="7" />
         </state>
       </provider>
     </entry>

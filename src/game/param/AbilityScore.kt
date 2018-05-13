@@ -12,6 +12,22 @@ class AbilityScore(
         var elementDefense: ElementScore = ElementScore()
 ) {
 
+//    constructor(
+//            hp: Int,
+//            mp: Int,
+//            attack: Int,
+//            defense: Int,
+//            magicAttack: Int,
+//            magicDefense: Int,
+//            agility: Int,
+//            elementAttack: ElementScore = ElementScore(),
+//            elementDefense: ElementScore = ElementScore()
+//    ) : AbilityScore (
+//            MaxNowValue()
+//    ) {
+//
+//    }
+
     override fun toString(): String {
         return "HP: ${hp}, MP: ${mp}, " +
                 "attack: ${attack}, defense: ${defense}, " +
