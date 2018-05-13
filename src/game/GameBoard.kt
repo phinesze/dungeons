@@ -4,10 +4,13 @@ import game.field.Field
 import game.field.MazeField
 import game.item.GameObject
 
-class GameBoard() {
+/**
+ * ゲームボード
+ */
+class GameBoard {
 
     private val field: Field = MazeField(15, 9)
-    var gameObjects: List<GameObject> = listOf()
+    private val gameObjects: MutableList<GameObject> = mutableListOf()
     var count: Int = 0
 
     /**
@@ -20,5 +23,13 @@ class GameBoard() {
             for (obj in gameObjects) { obj.moveInCount() }
             count += 1
         }
+    }
+
+    /**
+     * ゲームオブジェクトを追加する。
+     * @param gameObject ゲームオブジェクト
+     */
+    fun addObject(gameObject: GameObject) {
+        gameObjects.add(gameObject)
     }
 }
