@@ -6,6 +6,7 @@ import game.param.MaxNowValue
 
 val enemyList = arrayOf(
         EnemyMold("ゴブリン",
+                "§",
                 AbilityScore(
                         MaxNowValue(10),
                         MaxNowValue(0),
@@ -17,6 +18,7 @@ val enemyList = arrayOf(
                 )
         ),
         EnemyMold("コボルト",
+                "Ξ",
                 AbilityScore(
                         MaxNowValue(13),
                         MaxNowValue(0),
