@@ -14,7 +14,7 @@ class FieldBlock(var type: FieldBlockType) {
      */
     override fun toString(): String {
         if (gameObjects.size > 0) {
-            return gameObjects[gameObjects.size - 1].toString()
+            return gameObjects[gameObjects.size - 1].display()
         } else {
             return type.toString()
         }

@@ -83,11 +83,14 @@ open class Field(val width: Int, val height: Int) {
     fun tryToSetFieldBlock(x: Int, y: Int, fieldBlock: FieldBlock) { try { setFieldBlock(x, y, fieldBlock) } catch (e: ArrayIndexOutOfBoundsException) { null } }
 
     /**
-     * フィールドにゲームオブジェクトを追加する。
+     * フィールドの指定したx, y位置にゲームオブジェクトを追加する。
      */
     fun addObject(x: Int, y: Int, gameObject: GameObject) {
         gameObjects.add(gameObject)
+        gameObject.field = this
+
         fieldBlockArray[y][x].gameObjects.add(gameObject)
+
         gameObject.position.x = x
         gameObject.position.y = y
     }

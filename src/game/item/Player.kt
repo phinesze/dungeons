@@ -17,6 +17,7 @@ w:前へ
 s:後ろへ
 a:左へ
 d:右へ
+m:マップを表示
 exit:終了
 
     """
@@ -35,30 +36,38 @@ exit:終了
             val input = readLine()
             println()
 
-            when (input) {
-                "w" -> {
-                    println("${name}は前に進んだ。")
-                    break@oneTurn
-                }
-                "s" -> {
-                    println("${name}は後ろに進んだ。")
-                    break@oneTurn
-                }
-                "a" -> {
-                    println("${name}は左に進んだ。")
-                    break@oneTurn
-                }
-                "d" -> {
-                    println("${name}は右に進んだ。")
-                    break@oneTurn
-                }
-                "exit" -> {
-                    println("さよならだ・・また会う日まで")
-                    exitProcess(0)
-                }
-                else -> println("もう一度入力してください。")
-            }
+            if (doInputAction(input)) break@oneTurn
         }
+    }
+
+    private fun doInputAction(input: String?): Boolean {
+        when (input) {
+            "w" -> {
+                println("${name}は前に進んだ。")
+                return true
+            }
+            "s" -> {
+                println("${name}は後ろに進んだ。")
+                return true
+            }
+            "a" -> {
+                println("${name}は左に進んだ。")
+                return true
+            }
+            "d" -> {
+                println("${name}は右に進んだ。")
+                return true
+            }
+            "m" -> {
+                println(field.toString())
+            }
+            "exit" -> {
+                println("さよならだ・・また会う日まで")
+                exitProcess(0)
+            }
+            else -> println("もう一度入力してください。")
+        }
+        return false
     }
 
     override fun toString(): String {

@@ -1,12 +1,18 @@
 package game.item
 
 import game.NamableObject
+import game.field.Field
 import game.param.Position
 
 /**
  * 名前と位置情報を持つオブジェクト
  */
-abstract class GameObject(name: String) : NamableObject(name) {
+ abstract class GameObject(name: String) : NamableObject(name) {
+
+    /**
+     * 自身が存在しているフィールド
+     */
+    internal var field: Field? = null
 
     /**
      * 位置
