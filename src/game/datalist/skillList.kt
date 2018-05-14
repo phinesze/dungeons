@@ -1,4 +1,4 @@
-package game.data_list
+package game.datalist
 
 import game.mold.Skill
 
