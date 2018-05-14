@@ -8,12 +8,17 @@ open class Field(val width: Int, val height: Int) {
 //    val gameObjects: Array<GameObject> = arrayOf()
 
     /**
-     *
+     * createArrowChainを実行するのに必要なパラメータのキュー
      */
     private class createArrowChainQueue(val x: Int, val y: Int, val arrowCount: Int, val arrow: Arrow, val prev: createArrowChainQueue? = null)
 
     /**
-     * フィールドブロックの2次元配列を生成する。
+     * ゲームオブジェクトのリスト
+     */
+    private val gameObjects: MutableList<GameObject> = mutableListOf()
+
+    /**
+     * フィールドブロックの2次元配列
      */
     private val fieldBlockArray = Array<Array<FieldBlock>>(height,init = {i -> Array(width, {i -> FieldBlock(FieldBlockType.floor)})})
 
@@ -21,6 +26,11 @@ open class Field(val width: Int, val height: Int) {
      * 矢印とカウントの情報
      */
     protected val arrowLayer = FieldArrowLayer(width, height)
+
+    /**
+     * 時間経過を表す値
+     */
+    private var timeCount = 0
 
     /**
      * デバッグ用カウント
@@ -76,6 +86,7 @@ open class Field(val width: Int, val height: Int) {
      * フィールドにゲームオブジェクトを追加する。
      */
     fun addObject(x: Int, y: Int, gameObject: GameObject) {
+        gameObjects.add(gameObject)
         fieldBlockArray[y][x].gameObjects.add(gameObject)
         gameObject.position.x = x
         gameObject.position.y = y
@@ -180,6 +191,13 @@ open class Field(val width: Int, val height: Int) {
         if (nearToBottomArrow == Arrow.bottom) removeArrowChain(x, y + 1)
     }
 
+    /**
+     * フィールド内で時間を経過させる。
+     */
+    fun passTime() {
+        for (obj in gameObjects) { obj.moveInCount() }
+        timeCount++
+    }
 
     /**
      * フィールドを文字列で描画する。

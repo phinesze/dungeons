@@ -9,6 +9,7 @@ import game.param.MaxNowValue
  * ゲーム開始のエントリーポイント
  */
 fun main(args: Array<String>) {
+
     val gameBoard = GameBoard()
 
     //プレイヤーの能力値
@@ -20,9 +21,11 @@ fun main(args: Array<String>) {
             15,
             15
     )
+
+
     //プレイヤーを生成してゲーム盤に追加
     val player = Player("あなた", "主", abilityScore)
-    gameBoard.addObject(player)
+    gameBoard.addPlayer(player)
 
     //ゲームを開始
     gameBoard.start()
