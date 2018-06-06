@@ -1,5 +1,9 @@
 package game.field
 
+/**
+ * フィールドマップのブロックに隣接する矢印のマップと各ブロックに1対1で対応するカウント変数
+ * フィールドマップのスタート地点とゴール地点が移動可能かどうかを検証する。
+ */
 class FieldArrowLayer(val width: Int, val height: Int) {
 
     /**
@@ -18,17 +22,17 @@ class FieldArrowLayer(val width: Int, val height: Int) {
     private val verticalArrowArray = Array<Array<Arrow>>(height - 1, init = {i -> Array(width, {i -> Arrow.none})})
 
     /**
-     * カウントを取得する。
+     * スタート地点からの移動距離を表すカウント変数を取得する。
      */
     fun getArrowCount(x: Int, y: Int): Int? = fieldCountArray[y][x]
 
     /**
-     * カウントを取得する。x,y位置が範囲外の場合はnullを返す。
+     * スタート地点からの移動距離を表すカウント変数を取得する。x,y位置が範囲外の場合はnullを返す。
      */
     fun tryToGetArrowCount(x: Int, y: Int): Int? = try { fieldCountArray[y][x] } catch (e: ArrayIndexOutOfBoundsException) { null }
 
     /**
-     * カウントを設定する。(非推奨)
+     * スタート地点からの移動距離を表すカウント変数を設定する。(非推奨)
      */
     fun setArrowCount(x: Int, y: Int, count: Int?) {
         fieldCountArray[y][x] = count
