@@ -1,5 +1,8 @@
 package game.field
 
+/**
+ * 上下左右と方向なしを表す矢印
+ */
 enum class Arrow {
     left, right, top, bottom, none;
 

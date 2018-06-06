@@ -3,6 +3,10 @@ package game.field
 import game.item.GameObject
 import java.util.*
 
+/**
+ * プレイヤーが行動するフィールドマップを表す。
+ * マップ用の2次元配列とプレイヤーや敵キャラクタなどのオブジェクトのリストを内包する。
+ */
 open class Field(val width: Int, val height: Int) {
 
 //    val gameObjects: Array<GameObject> = arrayOf()
@@ -13,14 +17,14 @@ open class Field(val width: Int, val height: Int) {
     private class createArrowChainQueue(val x: Int, val y: Int, val arrowCount: Int, val arrow: Arrow, val prev: createArrowChainQueue? = null)
 
     /**
+     * フィールドマップを表現するためのフィールドブロックの2次元配列
+     */
+    private val fieldBlockArray = Array<Array<FieldBlock>>(height,init = {i -> Array(width, {i -> FieldBlock(FieldBlockType.floor)})})
+
+    /**
      * ゲームオブジェクトのリスト
      */
     private val gameObjects: MutableList<GameObject> = mutableListOf()
-
-    /**
-     * フィールドブロックの2次元配列
-     */
-    private val fieldBlockArray = Array<Array<FieldBlock>>(height,init = {i -> Array(width, {i -> FieldBlock(FieldBlockType.floor)})})
 
     /**
      * 矢印とカウントの情報
