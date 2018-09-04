@@ -22,7 +22,7 @@ open class Field(val width: Int, val height: Int) {
     private val fieldBlockArray = Array<Array<FieldBlock>>(height,init = {i -> Array(width, {i -> FieldBlock(FieldBlockType.floor)})})
 
     /**
-     * ゲームオブジェクトのリスト
+     * フィールド上に存在する全てのゲームオブジェクトのリスト
      */
     private val gameObjects: MutableList<GameObject> = mutableListOf()
 
@@ -48,11 +48,13 @@ open class Field(val width: Int, val height: Int) {
 
     /**
      * 指定したx,y位置のフィールドブロックを取得する。
+     * @throws ArrayIndexOutOfBoundsException x,y位置が範囲外の場合に返す。
      */
     fun getFieldBlock(x: Int, y: Int): FieldBlock = fieldBlockArray[y][x]
 
     /**
      * 指定したx,y位置のフィールドブロックを設定する。
+     * @throws ArrayIndexOutOfBoundsException x,y位置が範囲外の場合に返す。
      */
     fun setFieldBlock(x: Int, y: Int, fieldBlock: FieldBlock) {
 
@@ -88,6 +90,7 @@ open class Field(val width: Int, val height: Int) {
 
     /**
      * フィールドの指定したx, y位置にゲームオブジェクトを追加する。
+     * @throws ArrayIndexOutOfBoundsException x,y位置が範囲外の場合に返す。
      */
     fun addObject(x: Int, y: Int, gameObject: GameObject) {
         gameObjects.add(gameObject)
@@ -199,7 +202,8 @@ open class Field(val width: Int, val height: Int) {
     }
 
     /**
-     * フィールド内で時間を経過させる。
+     * フィールド内で時間を1カウント経過させる。
+     * 各オブジェクト(GameObject)のmoveInCountを実行する
      */
     fun passTime() {
         for (obj in gameObjects) { obj.moveInCount() }

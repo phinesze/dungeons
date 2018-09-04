@@ -1,0 +1,4 @@
+#classファイル出力先をgitから除外
+out/
+#workspace.xmlを除外
+.idea/workspace.xml

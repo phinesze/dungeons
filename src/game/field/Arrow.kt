@@ -24,10 +24,16 @@ enum class Arrow {
 
     }
 
+    /**
+     *
+     */
     fun toDirection(): Direction? {
         return arrowToDirection[this]
     }
 
+    /**
+     * 
+     */
     override fun toString(): String {
         return str[this] ?: "  "
     }

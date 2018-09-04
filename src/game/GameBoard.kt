@@ -5,7 +5,9 @@ import game.field.MazeField
 import game.item.Player
 
 /**
- * ゲームボード
+ * ゲームボードを表す。
+ * 追加されたプレイヤーのリストと、
+ * プレイヤーや敵などが動き回る場所として「フィールド」オブジェクトを含む。
  */
 class GameBoard {
 
@@ -21,7 +23,7 @@ class GameBoard {
     }
 
     /**
-     * プレイヤーをゲーム盤に追加する。
+     * プレイヤーをゲーム盤に追加する。プレイヤーはフィールドにオブジェクトの1つとして追加される。
      * @param player プレイヤーオブジェクト
      */
     fun addPlayer(player: Player) {

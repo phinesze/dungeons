@@ -1,16 +1,14 @@
 package game.field
 
-enum class FieldBlockType {
-    floor, wall;
+class FieldBlockType (val display: String, val isFloor: Boolean) {
 
     companion object {
-        private val str = mapOf(
-            floor to "□",
-            wall to "■"
-        )
+        val floor = FieldBlockType("□", true)
+        val wall = FieldBlockType("■", false)
     }
 
     override fun toString(): String {
-        return str[this] ?: "  "
+        return this.display
     }
+
 }
