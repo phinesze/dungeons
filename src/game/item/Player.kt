@@ -1,6 +1,5 @@
 package game.item
 
-import game.field.FieldBlockType
 import game.param.AbilityScore
 import game.param.EquipmentState
 import kotlin.system.exitProcess
@@ -16,7 +15,7 @@ class Player(
         var equipmentState: EquipmentState = EquipmentState()
 ) : GameCharactor(name, abilityScore) {
 
-    val turnMessage = """
+    private val turnMessage = """
 ${name}は何をしますか？
 w:前へ
 s:後ろへ
@@ -26,6 +25,9 @@ m:マップを表示
 exit:終了
 
     """
+
+    private val moveErrorMessage = "しかし壁があって動けない"
+
 
     override fun display(): String = display
 
@@ -61,27 +63,13 @@ exit:終了
         println()
 
         when (input) {
-            "w" -> {
-                if (tryToMove(position.x, position.y - 1)) {
-                    println("${name}は前に進んだ。")
-                    return true
-                }
-            }
-            "s" -> {
-                println("${name}は後ろに進んだ。")
-                return true
-            }
-            "a" -> {
-                println("${name}は左に進んだ。")
-                return true
-            }
-            "d" -> {
-                println("${name}は右に進んだ。")
-                return true
-            }
-            "m" -> {
-                println(field.toString())
-            }
+            "w" -> return moveUp()
+            "s" -> return moveDown()
+            "a" -> return moveLeft()
+            "d" -> return moveRight()
+
+            "m" -> println(field.toString())
+
             "exit" -> {
                 println("さよならだ・・また会う日まで")
                 exitProcess(0)
@@ -91,6 +79,23 @@ exit:終了
         return false
     }
 
+    private fun moveAny(x: Int, y: Int, message: String): Boolean {
+        if (tryToMove(x, y + 1)) {
+            println("${name}は${message}に進んだ。")
+            return true
+        } else {
+            println(moveErrorMessage)
+            return false
+        }
+    }
+
+    private fun moveLeft(): Boolean = moveAny(position.x - 1, position.y, "左")
+
+    private fun moveRight(): Boolean = moveAny(position.x + 1, position.y, "右")
+
+    private fun moveUp(): Boolean = moveAny(position.x, position.y - 1, "前")
+
+    private fun moveDown(): Boolean = moveAny(position.x, position.y + 1, "後ろ")
 
     override fun toString(): String {
         return """
