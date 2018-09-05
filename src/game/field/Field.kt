@@ -102,6 +102,36 @@ open class Field(val width: Int, val height: Int) {
         gameObject.position.y = y
     }
 
+    /**
+     * フィールドに移動する。
+     */
+    fun moveObject(gameObject: GameObject, x: Int, y: Int) {
+
+        val prevX = gameObject.position.x
+        val prevY = gameObject.position.y
+        fieldBlockArray[prevX][prevY].gameObjects.remove(gameObject)
+
+        fieldBlockArray[y][x].gameObjects.add(gameObject)
+
+        gameObject.position.x = x
+        gameObject.position.y = y
+
+    }
+
+    /**
+     * フィールドからゲームオブジェクトを削除する。
+     * @throws ArrayIndexOutOfBoundsException x,y位置が範囲外の場合に返す。
+     */
+    fun removeObject(gameObject: GameObject) {
+        gameObjects.remove(gameObject)
+        gameObject.field = null
+
+        val x = gameObject.position.x
+        val y = gameObject.position.y
+        fieldBlockArray[x][y].gameObjects.remove(gameObject)
+    }
+
+
     /* 指定された位置からの矢印の鎖を生成する。*/
     protected fun createArrowChain(x: Int, y: Int) {
 
