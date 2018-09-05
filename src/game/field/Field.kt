@@ -67,7 +67,7 @@ open class Field(val width: Int, val height: Int) {
             removeArrowChain(x, y, isFirst = true)
             createArrowChainInQueue()
 
-        //壁から床に変更した場合は矢印の鎖の再生成を行う。
+            //壁から床に変更した場合は矢印の鎖の再生成を行う。
         } else if (oldBlockType == FieldBlockType.wall && fieldBlock.type == FieldBlockType.floor) {
 
             arrowLayer.tryToGetArrowCount(x - 1, y)?.let { arrowCount -> generateMazeQueue.add(createArrowChainQueue(x - 1, y, arrowCount, Arrow.none)) }
@@ -104,12 +104,16 @@ open class Field(val width: Int, val height: Int) {
 
     /**
      * フィールドに移動する。
+     * @throws ArrayIndexOutOfBoundsException x,y位置が範囲外の場合に返す。
      */
     fun moveObject(gameObject: GameObject, x: Int, y: Int) {
 
         val prevX = gameObject.position.x
         val prevY = gameObject.position.y
-        fieldBlockArray[prevX][prevY].gameObjects.remove(gameObject)
+
+        val result = fieldBlockArray[prevY][prevX].gameObjects.remove(gameObject)
+        if (!result) throw Exception()
+
 
         fieldBlockArray[y][x].gameObjects.add(gameObject)
 
