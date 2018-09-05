@@ -52,10 +52,7 @@ exit:終了
 
     /**
      * プレイヤー自身に入力を求め、入力された値をもとにコマンドを実行する。
-     *
-     * @param String input readLineでプレイヤー自身が入力した値
-     * @return Boolean
-     * この入力で行動が終了する場合はtrue、 入力が正しくない場合や行動が終了しないコマンドを入力した場合はfalse
+     * @return Boolean この入力で行動が終了する場合はtrue、 入力が正しくない場合や行動が終了しないコマンドを入力した場合はfalse
      */
     private fun doInputAction(): Boolean {
 
@@ -80,8 +77,8 @@ exit:終了
     }
 
     private fun moveAny(x: Int, y: Int, message: String): Boolean {
-        if (tryToMove(x, y + 1)) {
-            println("${name}は${message}に進んだ。")
+        println("${name}は${message}に進んだ。")
+        if (tryToMove(x, y)) {
             return true
         } else {
             println(moveErrorMessage)
