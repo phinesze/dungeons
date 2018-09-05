@@ -32,14 +32,18 @@ import game.param.Position
     open fun moveInCount() {}
 
     /**
-     * 指定したx,y位置のフィールド内での移動を試みる。
+     * フィールド内での指定したx, y位置への移動を試みる。
+     * 移動先に指定したx, y位置がフィールド内で移動可能なブロックの場合は移動を完了してtrueを返す。
+     * 移動可能なブロックでない場合はfalseを返す。
+     * @param x: Int 移動先のx位置
+     * @param y: Int 移動先のy位置
      */
-   protected fun tryToMove(x: Int, y: Int) : Boolean {
-       val fieldBlock = this.field?.tryToGetFieldBlock(x, y)
-       if (fieldBlock?.type?.isFloor !== true) return false
+    protected fun tryToMove(x: Int, y: Int) : Boolean {
 
-        this.position.x = x
-        this.position.y = y
+        val fieldBlock = this.field?.tryToGetFieldBlock(x, y)
+        if (fieldBlock?.type?.isFloor !== true) return false
+
+        try { this.field!!.moveObject(this, x, y) } catch (e: Exception) { return false }
         return true
     }
 }
