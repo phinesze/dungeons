@@ -28,7 +28,7 @@ class MazeField(width: Int, height: Int) : Field(width, height) {
         //x,yのインデックスが共に奇数になる場所のブロックを壁にする。
         createStatueWall()
         //指定された位置からの矢印の鎖を生成する。
-        createArrowChain(start.position.x, start.position.y)
+        arrowLayer.createArrowChain(start.position.x, start.position.y)
         //壁を生成する。
         createMazeWall()
 
