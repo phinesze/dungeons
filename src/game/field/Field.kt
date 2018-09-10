@@ -6,7 +6,7 @@ import java.util.*
 /**
  * プレイヤーが行動するフィールドマップを表す。
  * マップ用の2次元配列とプレイヤーや敵キャラクタなどのオブジェクトのリストを内包する。
- * また、ある地点から別の地点への移動が壁によって遮られていないか否かを監視する矢印とカウントの情報(@see FieldArrowLayer)を所有する。
+ * また、ある地点から別の地点への移動が壁によって遮られていないか否かを監視する矢印とカウントの情報(@seeFieldArrowLayer)を所有する。
  */
 open class Field(val width: Int, val height: Int) {
 
@@ -38,6 +38,8 @@ open class Field(val width: Int, val height: Int) {
 
     /**
      * 指定したx,y位置のフィールドブロックを設定する。
+     *  @param x: Int フィールドの指定したx
+     *  @param y: Int
      * @throws ArrayIndexOutOfBoundsException x,y位置が範囲外の場合に返す。
      */
     fun setFieldBlock(x: Int, y: Int, fieldBlock: FieldBlock) {
@@ -47,13 +49,10 @@ open class Field(val width: Int, val height: Int) {
 
         //床から壁に変更した場合は矢印の鎖の削除を行い再構築する。
         if (oldBlockType == FieldBlockType.floor && fieldBlock.type == FieldBlockType.wall) {
-
             arrowLayer.removeArrowChain(x, y, isFirst = true)
             arrowLayer.createArrowChainInQueue()
-
         //壁から床に変更した場合は矢印の鎖の再生成を行う。
         } else if (oldBlockType == FieldBlockType.wall && fieldBlock.type == FieldBlockType.floor) {
-
             arrowLayer.regenerateBlockChain(x, y)
         }
     }
