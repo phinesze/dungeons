@@ -1,7 +1,6 @@
 package game.field
 
 import game.item.GameObject
-import java.util.*
 
 /**
  * プレイヤーが行動するフィールドマップを表す。
@@ -23,7 +22,7 @@ open class Field(val width: Int, val height: Int) {
     /**
      * ある地点から別の地点への移動がさえぎられていないか否かを監視する矢印とカウントの情報
      */
-    protected val arrowLayer = FieldArrowLayer(width, height, this)
+    protected val arrowMap = FieldArrowMap(width, height, this)
 
     /**
      * 時間経過を表す値
@@ -49,11 +48,11 @@ open class Field(val width: Int, val height: Int) {
 
         //床から壁に変更した場合は矢印の鎖の削除を行い再構築する。
         if (oldBlockType == FieldBlockType.floor && fieldBlock.type == FieldBlockType.wall) {
-            arrowLayer.removeArrowChain(x, y, isFirst = true)
-            arrowLayer.createArrowChainInQueue()
+            arrowMap.removeArrowChain(x, y, isFirst = true)
+            arrowMap.createArrowMapInQueue()
         //壁から床に変更した場合は矢印の鎖の再生成を行う。
         } else if (oldBlockType == FieldBlockType.wall && fieldBlock.type == FieldBlockType.floor) {
-            arrowLayer.regenerateBlockChain(x, y)
+            arrowMap.regenerateBlockChain(x, y)
         }
     }
 
@@ -134,12 +133,12 @@ open class Field(val width: Int, val height: Int) {
         for ( (y, fieldBlockRow) in fieldBlockArray.withIndex() ) {
             for ( (x, fieldBlock) in fieldBlockRow.withIndex() ) {
 
-                val fieldCount :Int? = arrowLayer.getArrowCount(x, y)
+                val fieldCount :Int? = arrowMap.getArrowCount(x, y)
                 buf.append(if(fieldBlock.gameObjects.size > 0 || fieldCount == null) fieldBlock.toString() else { String.format("%02d", fieldCount) })
 
-                buf.append(arrowLayer.tryToGetHorizonalArrow(x, y) ?: "")
+                buf.append(arrowMap.tryToGetHorizonalArrow(x, y) ?: "")
 
-                buf2.append(arrowLayer.tryToGetVerticalArrow(x, y) ?: "")
+                buf2.append(arrowMap.tryToGetVerticalArrow(x, y) ?: "")
                 buf2.append("  ")
             }
 

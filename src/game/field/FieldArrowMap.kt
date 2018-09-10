@@ -6,7 +6,7 @@ import java.util.*
  * フィールドマップのブロックに隣接する矢印のマップと各ブロックに1対1で対応するカウント変数を表す。
  * フィールドマップのスタート地点とゴール地点が移動可能かどうかを検証する。
  */
-class FieldArrowLayer(val width: Int, val height: Int, val field: Field) {
+class FieldArrowMap(val width: Int, val height: Int, val field: Field) {
 
     /**
      * createArrowChainを実行するのに必要なパラメータ
@@ -64,7 +64,7 @@ class FieldArrowLayer(val width: Int, val height: Int, val field: Field) {
      */
     fun getAdjacentArrow(x: Int, y: Int, direction: Direction): Arrow {
 
-        if (direction == Direction.left || direction == Direction.right) {
+        if (direction.isHorizonal()) {
             return horizonalArrowArray[y][if (direction == Direction.left)  x - 1 else x]
         } else {
             return verticalArrowArray[if (direction == Direction.top)  y - 1 else y][x]
@@ -214,23 +214,24 @@ class FieldArrowLayer(val width: Int, val height: Int, val field: Field) {
         tryToGetArrowCount(x + 1, y)?.let { arrowCount -> arrowGenerationQueue.add(ArrowGenerationArgument(x + 1, y, arrowCount, Arrow.none)) }
         tryToGetArrowCount(x, y - 1)?.let { arrowCount -> arrowGenerationQueue.add(ArrowGenerationArgument(x, y - 1, arrowCount, Arrow.none)) }
         tryToGetArrowCount(x, y + 1)?.let { arrowCount -> arrowGenerationQueue.add(ArrowGenerationArgument(x, y + 1, arrowCount, Arrow.none)) }
-        createArrowChainInQueue()
+        createArrowMapInQueue()
     }
 
-
-    /* 指定された位置からの矢印の鎖を生成する。*/
-    fun createArrowChain(x: Int, y: Int) {
+    /**
+     * 指定された位置からの矢印の鎖を生成する。
+     */
+    fun createArrowMap(x: Int, y: Int) {
 
         setArrowCount(x, y, count = 0)
         arrowGenerationQueue.push(ArrowGenerationArgument(x, y, 0, Arrow.none))
 
-        createArrowChainInQueue()
+        createArrowMapInQueue()
     }
 
     /**
      * キューに貯められたcreateNextArrowの実行待ちをすべて実行する。
      */
-    fun createArrowChainInQueue() {
+    fun createArrowMapInQueue() {
 
         while (arrowGenerationQueue.size > 0) {
 
