@@ -22,8 +22,8 @@ class MazeField(width: Int, height: Int) : Field(width, height) {
     private val random = Random(5)
 
     init {
-        addObject(2, 2, start)
-        addObject(6, 6, goal)
+        addObjectRandom(start)
+        addObjectRandom(goal)
 
         //x,yのインデックスが共に奇数になる場所のブロックを壁にする。
         createStatueWall()
@@ -35,6 +35,10 @@ class MazeField(width: Int, height: Int) : Field(width, height) {
         println(this)
     }
 
+    /**
+     *  フィールドの種類が床であり、かつ既に他のオブジェクトが存在しないランダム位置にゲームオブジェクトを追加する。
+     *  @param gameObject: GameObject 追加するゲームオブジェクト
+     */
     fun addObjectRandom(gameObject: GameObject) {
 
         while (true) {
@@ -42,7 +46,7 @@ class MazeField(width: Int, height: Int) : Field(width, height) {
             val y = (random.nextInt((height + 1) / 2)) * 2
             val fieldBlock = getFieldBlock(x, y)
 
-            if (fieldBlock.type == FieldBlockType.floor && fieldBlock.gameObjects.size == 0) {
+            if (fieldBlock.type.isFloor && fieldBlock.gameObjects.size == 0) {
                 this.addObject(x, y, gameObject)
                 break
             }
@@ -61,7 +65,9 @@ class MazeField(width: Int, height: Int) : Field(width, height) {
     }
 
     /**
-     * 壁を生成する。
+     * フィールド上にランダムに壁を生成する。
+     *  フィールド上のランダムな位置のフィールドブロックを壁に設定していき、その都度 スタートとゴールの間がが移動可能か否かを
+     *  矢印マップ(FieldrArrowMap)を用いて調べる。 移動不能となった場合は最後に設定した壁を床に戻して生成を終了する。
      */
     private fun createMazeWall() {
 
