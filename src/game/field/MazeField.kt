@@ -1,10 +1,11 @@
 package game.field
 
 import game.item.GameObject
+import game.item.Player
 import game.item.Stair
 import java.util.*
 
-class MazeField(width: Int, height: Int) : Field(width, height) {
+class MazeField(width: Int, height: Int, player: Player) : Field(width, height) {
 
     /**
      * スタートとなる下り階段
@@ -24,6 +25,7 @@ class MazeField(width: Int, height: Int) : Field(width, height) {
     init {
         addObjectRandom(start)
         addObjectRandom(goal)
+        addObject(start.position.x, start.position.y,  player)
 
         //x,yのインデックスが共に奇数になる場所のブロックを壁にする。
         createStatueWall()
