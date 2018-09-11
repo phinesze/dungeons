@@ -21,6 +21,11 @@ import game.param.Position
     val position: Position = Position(0, 0)
 
     /**
+     *  ほかのオブジェクトの移動を妨げない個体であるかどうかを表す
+     */
+    var isThroughable: Boolean = false
+
+    /**
      * 表示
      */
     abstract fun display() : String

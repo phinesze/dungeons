@@ -118,9 +118,11 @@ open class Field(val width: Int, val height: Int) {
      * フィールド内で時間を1カウント経過させる。
      * 各オブジェクト(GameObject)のmoveInCountを実行する
      */
-    fun passTime() {
+    fun passTime(): Boolean {
         for (obj in gameObjects) { obj.moveInCount() }
         timeCount++
+
+        return true
     }
 
     /**

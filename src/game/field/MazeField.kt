@@ -5,17 +5,17 @@ import game.item.Player
 import game.item.Stair
 import java.util.*
 
-class MazeField(width: Int, height: Int, player: Player) : Field(width, height) {
+class MazeField(width: Int, height: Int, val player: Player) : Field(width, height) {
 
     /**
      * スタートとなる下り階段
      */
-    private var start = Stair(isUp = false)
+    private val start = Stair(isUp = false)
 
     /**
      * ゴールとなる上り階段
      */
-    private var goal = Stair(isUp = true)
+    private val goal = Stair(isUp = true)
 
     /**
      * ランダムオブジェクト
