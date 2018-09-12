@@ -7,7 +7,7 @@ import game.item.GameObject
  * マップ用の2次元配列とプレイヤーや敵キャラクタなどのオブジェクトのリストを内包する。
  * また、ある地点から別の地点への移動が壁によって遮られていないか否かを監視する矢印とカウントの情報(@seeFieldArrowLayer)を所有する。
  */
-open  class Field(val width: Int, val height: Int, val floor: Int) {
+open  class Field(val width: Int, val height: Int) {
 
     /**
      * フィールドマップを表現するためのフィールドブロックの2次元配列
@@ -79,7 +79,7 @@ open  class Field(val width: Int, val height: Int, val floor: Int) {
         gameObjects.add(gameObject)
         gameObject.field = this
 
-        fieldBlockArray[y][x].gameObjects.add(gameObject)
+        addObjectInFieldBlockArray(x, y, gameObject)
 
         gameObject.position.x = x
         gameObject.position.y = y
@@ -93,12 +93,8 @@ open  class Field(val width: Int, val height: Int, val floor: Int) {
 
         val prevX = gameObject.position.x
         val prevY = gameObject.position.y
-
-        val result = fieldBlockArray[prevY][prevX].gameObjects.remove(gameObject)
-        if (!result) throw Exception()
-
-        fieldBlockArray[y][x].gameObjects.add(gameObject)
-
+        removeObjectFromFieldBlockArray(prevX, prevY, gameObject)
+        addObjectInFieldBlockArray(x, y, gameObject)
         gameObject.position.x = x
         gameObject.position.y = y
 
@@ -114,7 +110,20 @@ open  class Field(val width: Int, val height: Int, val floor: Int) {
 
         val x = gameObject.position.x
         val y = gameObject.position.y
-        fieldBlockArray[x][y].gameObjects.remove(gameObject)
+
+        removeObjectFromFieldBlockArray(x, y, gameObject)
+    }
+
+    private fun addObjectInFieldBlockArray(x: Int, y: Int, gameObject: GameObject) {
+        val fieldBlock = fieldBlockArray[y][x]
+        fieldBlock.gameObjects.add(gameObject)
+        gameObject.fieldBlock = fieldBlock
+    }
+
+    private fun removeObjectFromFieldBlockArray(x: Int, y: Int, gameObject: GameObject) {
+        val fieldBlock = fieldBlockArray[x][y]
+        fieldBlock.gameObjects.remove(gameObject)
+        gameObject.fieldBlock = null
     }
 
     /**
