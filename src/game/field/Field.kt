@@ -7,7 +7,7 @@ import game.item.GameObject
  * マップ用の2次元配列とプレイヤーや敵キャラクタなどのオブジェクトのリストを内包する。
  * また、ある地点から別の地点への移動が壁によって遮られていないか否かを監視する矢印とカウントの情報(@seeFieldArrowLayer)を所有する。
  */
-open  class Field(val width: Int, val height: Int) {
+open  class Field(val width: Int, val height: Int, val floor :Int = 0) {
 
     /**
      * フィールドマップを表現するためのフィールドブロックの2次元配列

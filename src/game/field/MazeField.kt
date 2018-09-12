@@ -5,7 +5,7 @@ import game.item.Player
 import game.item.Stair
 import java.util.*
 
-class MazeField(width: Int, height: Int, player: Player, val floor: Int) : Field(width, height) {
+class MazeField(width: Int, height: Int, player: Player, floor: Int) : Field(width, height, floor) {
 
     /**
      * スタートとなる下り階段
