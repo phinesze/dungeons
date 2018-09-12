@@ -78,11 +78,11 @@ exit:終了
 
     private fun moveAny(x: Int, y: Int, message: String): Boolean {
         println("${name}は${message}に進んだ。")
-        if (tryToMove(x, y)) {
-            return true
+        return if (tryToMove(x, y)) {
+            true
         } else {
             println(moveErrorMessage)
-            return false
+            false
         }
     }
 

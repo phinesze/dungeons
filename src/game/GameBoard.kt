@@ -40,7 +40,7 @@ class GameBoard() {
 
             val floor = field.mapMoveId
             if (floor != null)
-                field = MazeField(15, 9, player, floor!!)
+                field = MazeField(15, 9, player, floor)
         }
     }
 }

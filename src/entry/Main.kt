@@ -1,9 +1,6 @@
 package entry
 
 import game.GameBoard
-import game.item.Player
-import game.param.AbilityScore
-import game.param.MaxNowValue
 
 /**
  * ゲーム開始のエントリーポイント
