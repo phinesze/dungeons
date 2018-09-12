@@ -28,7 +28,7 @@ class GameBoard() {
     )
 
     //使用するフィールド
-    private var field: Field = MazeField(15, 9, player)
+    private var field: Field = MazeField(15, 9, player, 1)
 
     /**
      * ゲームボード上の時間経過を開始する。
@@ -36,7 +36,11 @@ class GameBoard() {
      */
     fun start() {
         while(true) {
-            this.field!!.passTime()
+            this.field.count()
+
+            val floor = field.mapMoveId
+            if (floor != null)
+                field = MazeField(15, 9, player, floor!!)
         }
     }
 }

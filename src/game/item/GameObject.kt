@@ -11,30 +11,35 @@ import game.param.Position
  abstract class GameObject(name: String) : NamableObject(name) {
 
     /**
-     * 自身が存在しているフィールドを表す
+     * 自身が存在しているフィールド
      */
     internal var field: Field? = null
 
     /**
-     * 自身のフィールド内での位置を表す
+     *  ほかのオブジェクトの移動を妨げない個体であるかどうかを表す真偽値
+     */
+    internal var isThroughable: Boolean = false
+
+    /**
+     * 自身のフィールド内でのx, y位置を表す値
      */
     val position: Position = Position(0, 0)
 
     /**
-     *  ほかのオブジェクトの移動を妨げない個体であるかどうかを表す
-     */
-    var isThroughable: Boolean = false
-
-    /**
-     * 表示
+     * 自身の所属するFieldのtoStringで出力した際にオブジェクトの表示として表される文字
      */
     abstract fun display() : String
 
     /**
-     * ゲームボード上での1カウント経過時の挙動を記述することができる抽象関数
+     * ゲームボード上での1カウント経過時の挙動を記述することができる仮想関数
      * 例としてプレイヤー(Player)または敵キャラクター(Enemy)の場合は、カウントを1減らして0になった場合に特定の行動を取らせる。
      */
-    open fun moveInCount() {}
+    open fun onCount() {}
+
+    /**
+     *  フィールド上のオブジェクト同士が重なった場合の挙動を記述することができる仮想関数
+     */
+    open fun collisionDetected(otherObject: GameObject) {}
 
     /**
      * フィールド内での指定したx, y位置への移動を試みる。

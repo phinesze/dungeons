@@ -5,7 +5,7 @@ import game.item.Player
 import game.item.Stair
 import java.util.*
 
-class MazeField(width: Int, height: Int, val player: Player) : Field(width, height) {
+class MazeField(width: Int, height: Int, val player: Player, val floor: Int) : Field(width, height, ) {
 
     /**
      * スタートとなる下り階段
@@ -20,7 +20,7 @@ class MazeField(width: Int, height: Int, val player: Player) : Field(width, heig
     /**
      * ランダムオブジェクト
      */
-    private val random = Random(5)
+    private val random = Random(floor.toLong())
 
     init {
         addObjectRandom(start)

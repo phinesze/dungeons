@@ -7,7 +7,7 @@ import game.item.GameObject
  * マップ用の2次元配列とプレイヤーや敵キャラクタなどのオブジェクトのリストを内包する。
  * また、ある地点から別の地点への移動が壁によって遮られていないか否かを監視する矢印とカウントの情報(@seeFieldArrowLayer)を所有する。
  */
-open class Field(val width: Int, val height: Int) {
+open  class Field(val width: Int, val height: Int, val floor: Int) {
 
     /**
      * フィールドマップを表現するためのフィールドブロックの2次元配列
@@ -28,6 +28,11 @@ open class Field(val width: Int, val height: Int) {
      * 時間経過を表す値
      */
     private var timeCount = 0
+
+    /**
+     *  フィールド間でのマップ移動を検知した事をゲームボードに通知する。
+     */
+    var mapMoveId: Int?= null
 
     /**
      * 指定したx,y位置のフィールドブロックを取得する。
@@ -113,13 +118,12 @@ open class Field(val width: Int, val height: Int) {
         fieldBlockArray[x][y].gameObjects.remove(gameObject)
     }
 
-
     /**
      * フィールド内で時間を1カウント経過させる。
      * 各オブジェクト(GameObject)のmoveInCountを実行する
      */
-    fun passTime(): Boolean {
-        for (obj in gameObjects) { obj.moveInCount() }
+    fun count(): Boolean {
+        for (obj in gameObjects) { obj.onCount() }
         timeCount++
 
         return true
