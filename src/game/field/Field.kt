@@ -97,7 +97,6 @@ open  class Field(val width: Int, val height: Int, val floor: Int) {
         val result = fieldBlockArray[prevY][prevX].gameObjects.remove(gameObject)
         if (!result) throw Exception()
 
-
         fieldBlockArray[y][x].gameObjects.add(gameObject)
 
         gameObject.position.x = x
@@ -124,9 +123,19 @@ open  class Field(val width: Int, val height: Int, val floor: Int) {
      */
     fun count(): Boolean {
         for (obj in gameObjects) { obj.onCount() }
+
+
         timeCount++
 
         return true
+    }
+
+    /**
+     *  フィールド内のオブジェクト同士が重なっていないかどうかをチェックする。
+     */
+    private fun collisionDetect() {
+        for (obj in this.gameObjects) {
+        }
     }
 
     /**

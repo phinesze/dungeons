@@ -2,6 +2,7 @@ package game.item
 
 import game.NamableObject
 import game.field.Field
+import game.field.FieldBlock
 import game.param.Position
 
 /**
@@ -14,6 +15,11 @@ import game.param.Position
      * 自身が存在しているフィールド
      */
     internal var field: Field? = null
+
+    /**
+     *  自身が位置しているフィールド上のブロック
+     */
+    internal var fieldBlock: FieldBlock? = null
 
     /**
      *  ほかのオブジェクトの移動を妨げない個体であるかどうかを表す真偽値
