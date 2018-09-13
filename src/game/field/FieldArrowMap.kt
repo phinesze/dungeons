@@ -17,7 +17,7 @@ class FieldArrowMap(val width: Int, val height: Int, val field: Field) {
     /**
      * フィールド上のブロックに1対1で対応するカウントの2次元配列
      */
-    private val fieldCountArray = Array<Array<Int?>>(height,init = {i -> Array(width, {i -> null})})
+    private val fieldCountArray = Array<Array<Int?>>(height,init = {i -> Array(width) { i -> null} })
 
     /**
      * 左右の矢印の2次元配列
