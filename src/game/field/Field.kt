@@ -93,7 +93,7 @@ open  class Field(val width: Int, val height: Int, val floor :Int = 0) {
 
         val prevX = gameObject.position.x
         val prevY = gameObject.position.y
-        removeObjectFromFieldBlockArray(prevX, prevY, gameObject)
+        try { removeObjectFromFieldBlockArray(prevX, prevY, gameObject) } catch(e :Exception) {}
         addObjectInFieldBlockArray(x, y, gameObject)
         gameObject.position.x = x
         gameObject.position.y = y
@@ -121,7 +121,7 @@ open  class Field(val width: Int, val height: Int, val floor :Int = 0) {
     }
 
     private fun removeObjectFromFieldBlockArray(x: Int, y: Int, gameObject: GameObject) {
-        val fieldBlock = fieldBlockArray[x][y]
+        val fieldBlock = fieldBlockArray[y][x]
         fieldBlock.gameObjects.remove(gameObject)
         gameObject.fieldBlock = null
     }
