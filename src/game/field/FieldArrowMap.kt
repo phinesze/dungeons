@@ -255,24 +255,17 @@ class FieldArrowMap(val width: Int, val height: Int, val field: Field) {
         if (prev != null) {
             //自身の現在のカウントより少ない矢印カウントのブロックにたどり着いた場合は中断する。
             if (data.arrowCount > blockArrowCount ?: Int.MAX_VALUE) return false
-
             //矢印を設定する。
             setAdjacentArrow(prev.x, prev.y, data.arrow.toDirection()!!, data.arrow, ifNone = false)
-
             //カウントが同じになった場合、
             if (data.arrowCount == blockArrowCount) return false
 
         } else if (blockArrowCount == null) {
             return false
         }
-
         //ブロックに現在のカウントを代入する。
         setArrowCount(x, y, data.arrowCount)
-
         generateMazeArrowToQueue(data, x, y)
-
-        println("createArrowChainInQueueNext: debugcount = ${debugCount}"); println(this); debugCount++;
-
         return true
     }
 

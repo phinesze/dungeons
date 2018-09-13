@@ -33,8 +33,6 @@ class MazeField(width: Int, height: Int, player: Player, floor: Int) : Field(wid
         arrowMap.createArrowMap(start.position.x, start.position.y)
         //壁を生成する。
         createMazeWall()
-
-        println(this)
     }
 
     /**

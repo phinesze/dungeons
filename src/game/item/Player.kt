@@ -28,7 +28,6 @@ exit:終了
 
     private val moveErrorMessage = "しかし壁があって動けない"
 
-
     override fun display(): String = display
 
     /**
@@ -40,10 +39,9 @@ exit:終了
     override fun turn() {
 
         oneTurn@ while (true) {
-
+            println(field.toString())
             //行動可能時のメッセージを表示
             println(turnMessage)
-
             //入力値を取得してコマンドを実行
             if (doInputAction()) break@oneTurn
         }

@@ -128,22 +128,30 @@ open  class Field(val width: Int, val height: Int, val floor :Int = 0) {
 
     /**
      * フィールド内で時間を1カウント経過させる。
-     * 各オブジェクト(GameObject)のmoveInCountを実行する
+     * 各オブジェクト(GameObject)のmoveInCountを実行して、オブジェクト同士の重なり検知関数を呼び出す。
      */
     fun count(): Boolean {
         for (obj in gameObjects) { obj.onCount() }
-
-
+        collisionDetect()
         timeCount++
 
         return true
     }
 
     /**
-     *  フィールド内のオブジェクト同士が重なっていないかどうかをチェックする。
+     *  フィールド内のゲームオブジェクト(GameObject)同士が重なっていないかどうかをチェックする。
+     *   初めにフィールド内のすべてのゲームオブジェクトをfor in文でループさせ、targetObjectAとする。そのループ中でそのゲームオブジェクトが属する
+     *   フィールドブロック(FieldBlock)各オブジェクトで再度for inを掛け、targetObjectBとする。
+     *   targetObjectと
      */
     private fun collisionDetect() {
-        for (obj in this.gameObjects) {
+        for (targetObjectA: GameObject in this.gameObjects) {
+            for(targetObjectB: GameObject in targetObjectA.fieldBlock!!.gameObjects) {
+                if (targetObjectA === targetObjectB) break
+                    targetObjectA.collisionDetected(targetObjectB)
+                    targetObjectB.collisionDetected(targetObjectA)
+//                TODO("ここから")
+            }
         }
     }
 

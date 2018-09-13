@@ -11,7 +11,7 @@ class Stair(var isUp: Boolean) : GameObject(name = if (isUp) "upStair" else "dow
     }
 
     override fun collisionDetected(otherObject: GameObject) {
-        if (otherObject is Player) {
+        if (this.isUp && otherObject is Player) {
             this.field!!.mapMoveId = this.field!!.floor + 1
         }
     }

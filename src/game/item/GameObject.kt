@@ -55,7 +55,6 @@ import game.param.Position
      * @param y: Int 移動先のy位置
      */
     protected fun tryToMove(x: Int, y: Int) : Boolean {
-
         val fieldBlock = this.field?.tryToGetFieldBlock(x, y)
         if (fieldBlock?.type?.isFloor !== true) return false
 
