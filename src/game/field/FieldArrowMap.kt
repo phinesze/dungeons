@@ -214,34 +214,34 @@ class FieldArrowMap(val width: Int, val height: Int, val field: Field) {
         tryToGetArrowCount(x + 1, y)?.let { arrowCount -> arrowGenerationQueue.add(ArrowGenerationArgument(x + 1, y, arrowCount, Arrow.none)) }
         tryToGetArrowCount(x, y - 1)?.let { arrowCount -> arrowGenerationQueue.add(ArrowGenerationArgument(x, y - 1, arrowCount, Arrow.none)) }
         tryToGetArrowCount(x, y + 1)?.let { arrowCount -> arrowGenerationQueue.add(ArrowGenerationArgument(x, y + 1, arrowCount, Arrow.none)) }
-        createArrowMapInQueue()
+        generateArrowMapInQueue()
     }
 
     /**
      * 指定された位置からの矢印の鎖を生成する。
      */
-    fun createArrowMap(x: Int, y: Int) {
+    fun generateArrowMap(x: Int, y: Int) {
 
         setArrowCount(x, y, count = 0)
         arrowGenerationQueue.push(ArrowGenerationArgument(x, y, 0, Arrow.none))
 
-        createArrowMapInQueue()
+        generateArrowMapInQueue()
     }
 
     /**
      * キューに貯められたcreateNextArrowの実行待ちをすべて実行する。
      */
-    fun createArrowMapInQueue() {
+    fun generateArrowMapInQueue() {
 
         while (arrowGenerationQueue.size > 0) {
 
-            val params = arrowGenerationQueue.getFirst()
+            val params = arrowGenerationQueue.first
             arrowGenerationQueue.removeFirst()
-            createArrowChainInQueueNext(params)
+            generateArrowMapInQueueNext(params)
         }
     }
 
-    private fun createArrowChainInQueueNext(data : ArrowGenerationArgument): Boolean {
+    private fun generateArrowMapInQueueNext(data : ArrowGenerationArgument): Boolean {
         val prev = data.prev
         val x = data.x
         val y = data.y
