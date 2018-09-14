@@ -25,6 +25,18 @@ enum class Arrow {
     }
 
     /**
+     * 方向が水平方向(左右の方向)か否かの値を返す。
+     * @return 水平(左右)である場合true、そうでない場合はfalseを返す。
+     */
+    fun isHorizontal(): Boolean = this == Arrow.left || this == Arrow.right
+
+    /**
+     * 方向が垂直方向(上下の方向)か否かの値を返す。
+     * @return 垂直(上下)である場合true、そうでない場合はfalseを返す。
+     */
+    fun isVertical(): Boolean = this == Arrow.top || this == Arrow.bottom
+
+    /**
      *
      */
     fun toDirection(): Direction? {
