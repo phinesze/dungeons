@@ -22,7 +22,7 @@ enum class Direction {
      * 方向が水平方向(左右の方向)か否かの値を返す。
      * @return 水平(左右)である場合true、そうでない場合はfalseを返す。
      */
-    fun isHorizonal(): Boolean = this == Direction.left || this == Direction.right
+    fun isHorizontal(): Boolean = this == Direction.left || this == Direction.right
 
     /**
      * 方向が垂直方向(上下の方向)か否かの値を返す。
