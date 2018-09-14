@@ -168,7 +168,7 @@ open  class Field(val width: Int, val height: Int, val floor :Int = 0) {
                 val fieldCount :Int? = arrowMap.getArrowCount(x, y)
                 buf.append(if(fieldBlock.gameObjects.size > 0 || fieldCount == null) fieldBlock.toString() else { String.format("%02d", fieldCount) })
 
-                buf.append(arrowMap.tryToGetHorizonalArrow(x, y) ?: "")
+                buf.append(arrowMap.tryToGetHorizontalArrow(x, y) ?: "")
 
                 buf2.append(arrowMap.tryToGetVerticalArrow(x, y) ?: "")
                 buf2.append("  ")

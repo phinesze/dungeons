@@ -6,7 +6,7 @@ import java.util.*
  * フィールドマップのブロックに隣接する矢印のマップと各ブロックに1対1で対応するカウント変数を表す。
  * フィールドマップのスタート地点とゴール地点が移動可能かどうかを検証する。
  */
-class FieldArrowMap(val width: Int, val height: Int, val field: Field) {
+internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
 
     /**
      * createArrowChainを実行するのに必要なパラメータ
@@ -17,27 +17,22 @@ class FieldArrowMap(val width: Int, val height: Int, val field: Field) {
     /**
      * フィールド上のブロックに1対1で対応するカウントの2次元配列
      */
-    private val fieldCountArray = Array<Array<Int?>>(height,init = {i -> Array(width) { i -> null} })
+    private val fieldCountArray = Array<Array<Int?>>(height) { Array(width) { null } }
 
     /**
      * 左右の矢印の2次元配列
      */
-    private val horizonalArrowArray = Array<Array<Arrow>>(height, init = {i -> Array(width - 1, {i -> Arrow.none})})
+    private val horizontalArrowArray = Array(height) { Array(width - 1) { Arrow.none } }
 
     /**
      * 上下の矢印の2次元配列
      */
-    private val verticalArrowArray = Array<Array<Arrow>>(height - 1, init = {i -> Array(width, {i -> Arrow.none})})
+    private val verticalArrowArray = Array(height - 1) { Array(width) { Arrow.none } }
 
     /**
      * createArrowChainを実行するのに必要なパラメータを格納するキュー
      */
     private val arrowGenerationQueue = LinkedList<ArrowGenerationArgument>()
-
-    /**
-     * デバッグ用カウント
-     */
-    private var debugCount = 0
 
     /**
      * スタート地点からの移動距離を表すカウント変数を取得する。
@@ -53,7 +48,7 @@ class FieldArrowMap(val width: Int, val height: Int, val field: Field) {
      *  @param y*Int フィールドのy位置
      *  @return Int? カウント変数
      */
-    fun tryToGetArrowCount(x: Int, y: Int): Int? = try { fieldCountArray[y][x] } catch (e: ArrayIndexOutOfBoundsException) { null }
+    private fun tryToGetArrowCount(x: Int, y: Int): Int? = try { fieldCountArray[y][x] } catch (e: ArrayIndexOutOfBoundsException) { null }
 
     /**
      * フィールド内の指定した位置の上下左右の隣にある矢印を取得する。
@@ -62,12 +57,12 @@ class FieldArrowMap(val width: Int, val height: Int, val field: Field) {
      * @param direction: Direction  矢印を取得するフィールドのxy位置からの方向
      * @return 上下左右の矢印またはnone
      */
-    fun getAdjacentArrow(x: Int, y: Int, direction: Direction): Arrow {
+    private fun getAdjacentArrow(x: Int, y: Int, direction: Direction): Arrow {
 
-        if (direction.isHorizonal()) {
-            return horizonalArrowArray[y][if (direction == Direction.left)  x - 1 else x]
+        return if (direction.isHorizonal()) {
+            horizontalArrowArray[y][if (direction == Direction.left)  x - 1 else x]
         } else {
-            return verticalArrowArray[if (direction == Direction.top)  y - 1 else y][x]
+            verticalArrowArray[if (direction == Direction.top)  y - 1 else y][x]
         }
     }
 
@@ -78,8 +73,12 @@ class FieldArrowMap(val width: Int, val height: Int, val field: Field) {
      * @param direction: Direction  矢印を取得するフィールドのxy位置からの方向
      * @return 上下左右の矢印またはnone
      */
-    fun tryToGetAdjacentArrow(x: Int, y: Int, direction: Direction): Arrow? {
-        try { return getAdjacentArrow(x, y, direction) } catch (e: ArrayIndexOutOfBoundsException) { return null }
+    private fun tryToGetAdjacentArrow(x: Int, y: Int, direction: Direction): Arrow? {
+        return try {
+            getAdjacentArrow(x, y, direction)
+        } catch (e: ArrayIndexOutOfBoundsException) {
+            null
+        }
     }
 
     /**
@@ -103,8 +102,8 @@ class FieldArrowMap(val width: Int, val height: Int, val field: Field) {
         if (direction == Direction.left || direction == Direction.right) {
 
             val arrowX = if (direction == Direction.left) x - 1 else x
-            if (ifNone && horizonalArrowArray[y][arrowX] != Arrow.none) return false
-            horizonalArrowArray[y][arrowX] = arrow
+            if (ifNone && horizontalArrowArray[y][arrowX] != Arrow.none) return false
+            horizontalArrowArray[y][arrowX] = arrow
 
         } else {
 
@@ -121,8 +120,8 @@ class FieldArrowMap(val width: Int, val height: Int, val field: Field) {
      */
     private fun removeCountAndArrow(x: Int, y: Int) {
         fieldCountArray[y][x] = null
-        tryToSetHorizonalArrow(x - 1, y, Arrow.none)
-        tryToSetHorizonalArrow(x, y, Arrow.none)
+        tryToSetHorizontalArrow(x - 1, y, Arrow.none)
+        tryToSetHorizontalArrow(x, y, Arrow.none)
         tryToSetVerticalArrow(x, y - 1, Arrow.none)
         tryToSetVerticalArrow(x, y, Arrow.none)
     }
@@ -130,63 +129,63 @@ class FieldArrowMap(val width: Int, val height: Int, val field: Field) {
     /**
      *
      */
-    fun getHorizonalArrow(x: Int, y: Int): Arrow {
-        return horizonalArrowArray[y][x]
+    private fun getHorizontalArrow(x: Int, y: Int): Arrow {
+        return horizontalArrowArray[y][x]
     }
 
-    fun setHorizonalArrow(x: Int, y: Int, arrow: Arrow) {
-        horizonalArrowArray[y][x] = arrow
+    private fun setHorizontalArrow(x: Int, y: Int, arrow: Arrow) {
+        horizontalArrowArray[y][x] = arrow
     }
 
-    fun getVerticalArrow(x: Int, y: Int): Arrow {
+    private fun getVerticalArrow(x: Int, y: Int): Arrow {
         return verticalArrowArray[y][x]
     }
 
-    fun setVerticalArrow(x: Int, y: Int, arrow: Arrow) {
+    private fun setVerticalArrow(x: Int, y: Int, arrow: Arrow) {
         verticalArrowArray[y][x] = arrow
     }
 
-    fun tryToGetHorizonalArrow(x: Int, y: Int): Arrow? {
-        try {
-            return getHorizonalArrow(x, y)
+    fun tryToGetHorizontalArrow(x: Int, y: Int): Arrow? {
+        return try {
+            getHorizontalArrow(x, y)
         } catch (e: ArrayIndexOutOfBoundsException) {
-            return null
+            null
         }
     }
 
-    fun tryToSetHorizonalArrow(x: Int, y: Int, arrow: Arrow): Boolean {
-        try {
-            setHorizonalArrow(x, y, arrow)
-            return true
+    private fun tryToSetHorizontalArrow(x: Int, y: Int, arrow: Arrow): Boolean {
+        return try {
+            setHorizontalArrow(x, y, arrow)
+            true
         } catch (e: ArrayIndexOutOfBoundsException) {
-            return false
+            false
         }
     }
 
     fun tryToGetVerticalArrow(x: Int, y: Int): Arrow? {
-        try {
-            return getVerticalArrow(x, y)
+        return try {
+            getVerticalArrow(x, y)
         } catch (e: ArrayIndexOutOfBoundsException) {
-            return null
+            null
         }
     }
 
-    fun tryToSetVerticalArrow(x: Int, y: Int, arrow: Arrow): Boolean {
-        try {
+    private fun tryToSetVerticalArrow(x: Int, y: Int, arrow: Arrow): Boolean {
+        return try {
             setVerticalArrow(x, y, arrow)
-            return true
+            true
         } catch (e: ArrayIndexOutOfBoundsException) {
-            return false
+            false
         }
     }
 
     /**
      * 指定された位置から向かう矢印の本数を取得する。
      */
-    fun getReferingNum(x: Int, y: Int): Int {
+    fun getReferringNum(x: Int, y: Int): Int {
         var num = 0
-        if (tryToGetHorizonalArrow(x - 1, y) == Arrow.left) num++
-        if (tryToGetHorizonalArrow(x, y) == Arrow.right) num++
+        if (tryToGetHorizontalArrow(x - 1, y) == Arrow.left) num++
+        if (tryToGetHorizontalArrow(x, y) == Arrow.right) num++
         if (tryToGetVerticalArrow(x, y - 1) == Arrow.top) num++
         if (tryToGetVerticalArrow(x, y) == Arrow.bottom) num++
         return num
@@ -195,18 +194,13 @@ class FieldArrowMap(val width: Int, val height: Int, val field: Field) {
     /**
      * 指定された位置に向かう矢印の本数を取得する。
      */
-    fun getReferedNum(x: Int, y: Int): Int {
+    private fun getReferredNum(x: Int, y: Int): Int {
         var num = 0
-        if (tryToGetHorizonalArrow(x - 1, y) == Arrow.right) num++
-        if (tryToGetHorizonalArrow(x, y) == Arrow.left) num++
+        if (tryToGetHorizontalArrow(x - 1, y) == Arrow.right) num++
+        if (tryToGetHorizontalArrow(x, y) == Arrow.left) num++
         if (tryToGetVerticalArrow(x, y - 1) == Arrow.bottom) num++
         if (tryToGetVerticalArrow(x, y) == Arrow.top) num++
         return num
-    }
-
-
-    fun pushGenerateMazeQueue(x: Int,  y: Int,  arrowCount: Int,  arrow: Arrow) {
-        arrowGenerationQueue.push(ArrowGenerationArgument(x, y, arrowCount, arrow))
     }
 
     fun regenerateBlockChain(x: Int, y: Int) {
@@ -218,7 +212,7 @@ class FieldArrowMap(val width: Int, val height: Int, val field: Field) {
     }
 
     /**
-     * 指定された位置からの矢印の鎖を生成する。
+     * 指定された位置からの矢印マップを生成する。
      */
     fun generateArrowMap(x: Int, y: Int) {
 
@@ -286,7 +280,7 @@ class FieldArrowMap(val width: Int, val height: Int, val field: Field) {
      */
     fun removeArrowChain(x: Int, y: Int, isFirst: Boolean = false) {
 
-        if (!isFirst && getReferedNum(x, y) > 0) {
+        if (!isFirst && getReferredNum(x, y) > 0) {
             arrowGenerationQueue.push(ArrowGenerationArgument(x, y, getArrowCount(x, y)!!, Arrow.none))
             return
         }
