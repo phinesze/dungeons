@@ -226,9 +226,7 @@ internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
      * キューに貯められたcreateNextArrowの実行待ちをすべて実行する。
      */
     fun generateArrowMapInQueue() {
-
         while (arrowGenerationQueue.size > 0) {
-
             val params = arrowGenerationQueue.first
             arrowGenerationQueue.removeFirst()
             generateArrowMapInQueueNext(params)
@@ -280,11 +278,11 @@ internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
      */
     fun removeArrowChain(x: Int, y: Int, isFirst: Boolean = false) {
 
-        if (!isFirst && getReferredNum(x, y) > 0) {
-            arrowGenerationQueue.push(ArrowGenerationArgument(x, y, getArrowCount(x, y)!!, Arrow.none))
-            return
-        }
+        removeArrowChain_core(x, y)
+        generateArrowMapInQueue()
+    }
 
+    private fun removeArrowChain_core(x: Int, y: Int) {
         val nearLeftArrow = tryToGetAdjacentArrow(x, y, Direction.left)
         val nearRightArrow = tryToGetAdjacentArrow(x, y, Direction.right)
         val nearTopArrow = tryToGetAdjacentArrow(x, y, Direction.top)
@@ -293,10 +291,17 @@ internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
         //現在位置の矢印カウントを削除して上下左右の隣の矢印もnoneにする。
         removeCountAndArrow(x, y)
 
-        if (nearLeftArrow == Arrow.left) removeArrowChain(x - 1, y)
-        if (nearRightArrow == Arrow.right) removeArrowChain(x + 1, y)
-        if (nearTopArrow == Arrow.top) removeArrowChain(x, y - 1)
-        if (nearToBottomArrow == Arrow.bottom) removeArrowChain(x, y + 1)
+        if (nearLeftArrow == Arrow.left) removeArrowChain_inner(x - 1, y)
+        if (nearRightArrow == Arrow.right) removeArrowChain_inner(x + 1, y)
+        if (nearTopArrow == Arrow.top) removeArrowChain_inner(x, y - 1)
+        if (nearToBottomArrow == Arrow.bottom) removeArrowChain_inner(x, y + 1)
     }
 
+    private fun removeArrowChain_inner(x: Int, y: Int) {
+        if (getReferredNum(x, y) > 0) {
+            arrowGenerationQueue.push(ArrowGenerationArgument(x, y, getArrowCount(x, y)!!, Arrow.none))
+            return
+        }
+        removeArrowChain_core(x, y)
+    }
 }
