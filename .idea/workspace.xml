@@ -1,22 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="49c2b76e-1c8c-4f08-a2c1-4a1c9c952587" name="デフォルト" comment="moveObject/removeObject">
+    <list default="true" id="49c2b76e-1c8c-4f08-a2c1-4a1c9c952587" name="デフォルト" comment="GameCharactorで管理するよう変更">
+      <change afterPath="$PROJECT_DIR$/src/game/param/AbilityMold.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Dungeons/entry/MainKt.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Dungeons/entry/MainKt.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Dungeons/game/GameBoard.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Dungeons/game/GameBoard.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Dungeons/game/field/Arrow.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Dungeons/game/field/Arrow.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Dungeons/game/field/Direction$Companion.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Dungeons/game/field/Direction$Companion.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Dungeons/game/field/Direction.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Dungeons/game/field/Direction.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Dungeons/game/field/Field$createArrowChainQueue.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Dungeons/game/field/Field.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Dungeons/game/field/Field.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Dungeons/game/field/FieldArrowLayer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Dungeons/game/field/FieldArrowLayer.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Dungeons/game/field/FieldArrowLayer.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Dungeons/game/field/FieldBlockType$Companion.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Dungeons/game/field/FieldBlockType$Companion.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Dungeons/game/field/FieldBlockType.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Dungeons/game/field/FieldBlockType.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Dungeons/game/field/MazeField.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Dungeons/game/field/MazeField.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Dungeons/game/item/Enemy.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Dungeons/game/item/Enemy.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Dungeons/game/item/GameCharactor.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Dungeons/game/item/GameCharactor.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Dungeons/game/item/GameObject.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Dungeons/game/item/GameObject.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Dungeons/game/item/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Dungeons/game/item/Player.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Dungeons/game/param/MaxNowValue.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Dungeons/game/param/MaxNowValue.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Dungeons/game/item/Stair.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Dungeons/game/item/Stair.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Dungeons/game/item/enemy.rb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Dungeons/game/mold/EnemyMold.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Dungeons/game/mold/EnemyMold.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Dungeons/game/param/AbilityScore.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Dungeons/game/param/AbilityScore.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/game/GameBoard.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/GameBoard.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/field/Field.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/field/Field.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/field/MazeField.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/field/MazeField.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/item/GameObject.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/item/GameObject.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game/item/Stair.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/item/Stair.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/game/datalist/enemyList.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/datalist/enemyList.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/game/item/GameCharactor.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/item/GameCharactor.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/game/item/Player.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/item/Player.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/game/mold/EquipmentMold.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/mold/EquipmentMold.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/game/param/AbilityScore.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/game/param/AbilityScore.kt" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -56,35 +68,36 @@
       <usages-collector id="statistics.js.language.service.starts" />
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Kotlin" value="2879" />
-          <entry key="PLAIN_TEXT" value="252" />
+          <entry key="Kotlin" value="5998" />
+          <entry key="PLAIN_TEXT" value="341" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="kt" value="2879" />
-          <entry key="txt" value="252" />
+          <entry key="dummy" value="8" />
+          <entry key="kt" value="5998" />
+          <entry key="txt" value="333" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Kotlin" value="58" />
-          <entry key="PLAIN_TEXT" value="7" />
+          <entry key="Kotlin" value="70" />
+          <entry key="PLAIN_TEXT" value="8" />
           <entry key="XML" value="6" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.spring.boot.run.usages" />
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="gitignore" value="6" />
-          <entry key="kt" value="58" />
+          <entry key="gitignore" value="7" />
+          <entry key="kt" value="70" />
           <entry key="ssh_config" value="1" />
           <entry key="xml" value="6" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.vcs.git.usages">
         <counts>
-          <entry key="git.branch.checkout.local" value="2" />
+          <entry key="git.branch.checkout.local" value="3" />
           <entry key="git.checkout.as.new.branch" value="2" />
         </counts>
       </usages-collector>
@@ -96,25 +109,88 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/game/field/MazeField.kt">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="163">
-              <caret line="28" selection-start-line="28" selection-end-line="28" />
+            <state relative-caret-position="51">
+              <caret line="3" column="17" selection-start-line="3" selection-start-column="17" selection-end-line="3" selection-end-column="17" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/game/item/GameCharactor.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="10" column="21" lean-forward="true" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/game/item/Player.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="107">
+              <caret line="11" column="11" selection-start-line="11" selection-start-column="11" selection-end-line="11" selection-end-column="11" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/game/mold/EnemyMold.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="51">
+              <caret line="3" selection-start-line="3" selection-end-line="3" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/game/param/AbilityScore.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="10" column="18" selection-start-line="10" selection-start-column="18" selection-end-line="10" selection-end-column="18" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/game/item/Enemy.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="85">
+              <caret line="5" column="87" lean-forward="true" selection-start-line="5" selection-start-column="87" selection-end-line="5" selection-end-column="87" />
               <folding>
-                <element signature="e#20#89#0" expanded="true" />
-                <element signature="n#!!doc;n#start#0;n#!!block;n#MazeField#0" />
-                <element signature="n#!!doc;n#goal#0;n#!!block;n#MazeField#0" />
-                <element signature="n#!!doc;n#random#0;n#!!block;n#MazeField#0" />
+                <element signature="e#19#106#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="true" current-in-tab="false">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/game/param/AbilityMold.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="10" column="1" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/game/datalist/enemyList.kt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="221">
+              <caret line="13" column="66" lean-forward="true" selection-start-line="13" selection-start-column="66" selection-end-line="13" selection-end-column="66" />
+              <folding>
+                <element signature="e#23#108#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/game/GameBoard.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="248">
-              <caret line="38" column="35" selection-start-line="38" selection-start-column="35" selection-end-line="38" selection-end-column="35" />
+            <state relative-caret-position="175">
+              <caret line="19" column="21" selection-start-line="19" selection-start-column="21" selection-end-line="19" selection-end-column="21" />
               <folding>
                 <element signature="e#14#150#0" expanded="true" />
               </folding>
@@ -123,79 +199,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/game/field/Field.kt">
+        <entry file="file://$PROJECT_DIR$/src/game/param/MaxNowValue.kt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="23" column="7" lean-forward="true" selection-start-line="23" selection-start-column="7" selection-end-line="23" selection-end-column="7" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/entry/Main.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="13" column="23" selection-start-line="13" selection-start-column="23" selection-end-line="13" selection-end-column="23" />
-              <folding>
-                <element signature="e#15#121#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/game/item/Player.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="215">
-              <caret line="45" selection-start-line="45" selection-end-line="45" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/game/field/Direction.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="351">
-              <caret line="34" column="7" selection-start-line="34" selection-start-column="7" selection-end-line="34" selection-end-column="7" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/game/field/FieldArrowMap.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="160" column="37" selection-start-line="160" selection-start-column="37" selection-end-line="160" selection-end-column="37" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="jar://$KOTLIN_BUNDLED$/lib/kotlin-stdlib-sources.jar!/kotlin/Array.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="181">
-              <caret line="25" column="13" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/game/item/GameObject.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="266">
-              <caret line="37" lean-forward="true" selection-start-line="37" selection-end-line="37" />
-              <folding>
-                <element signature="e#19#95#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/game/item/Stair.kt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="7" column="4" lean-forward="true" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="4" />
+            <state relative-caret-position="34">
+              <caret line="2" column="17" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -215,14 +222,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>safe_wi</find>
-      <find>safeHeight</find>
-      <find>if (.*?)\n</find>
-      <find>:none</find>
-      <find>@arrows[0]</find>
-      <find>set_arrow</find>
-      <find>old_arrow</find>
-      <find>)</find>
       <find>OutOf</find>
       <find>== Arrow.right) num++</find>
       <find>removeArrowCh</find>
@@ -245,6 +244,14 @@
       <find>ifnone</find>
       <find>create</find>
       <find>フィールドの指定したx</find>
+      <find>getlef</find>
+      <find>x - 1</find>
+      <find>getbottom</find>
+      <find>get</find>
+      <find>remove</find>
+      <find>fieldArrowMap</find>
+      <find>arrow</find>
+      <find>set</find>
     </findStrings>
     <replaceStrings>
       <replace>}</replace>
@@ -263,6 +270,7 @@
       <replace>{$</replace>
       <replace>print(&quot;$1&quot;)</replace>
       <replace>print(</replace>
+      <replace>get</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -270,7 +278,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="arrowlayerMove" />
+        <entry key="$PROJECT_DIR$" value="normal" />
       </map>
     </option>
     <option name="RESET_MODE" value="SOFT" />
@@ -295,20 +303,16 @@
         <option value="$PROJECT_DIR$/src/game/mold/enemy_mold.rb" />
         <option value="$PROJECT_DIR$/src/game/mold/Skill.kt" />
         <option value="$PROJECT_DIR$/src/game/NamableObject.kt" />
-        <option value="$PROJECT_DIR$/src/game/item/GameCharactor.kt" />
         <option value="$PROJECT_DIR$/src/game/mold/EquipmentMold.kt" />
         <option value="$PROJECT_DIR$/src/game/item/EquipmentItem.kt" />
         <option value="$PROJECT_DIR$/src/game/param/EquipmentState.kt" />
         <option value="$PROJECT_DIR$/src/game/field/Arrow.java" />
         <option value="$PROJECT_DIR$/src/game/field/maze_field_arrows.rb" />
         <option value="$PROJECT_DIR$/src/Main.kt" />
-        <option value="$PROJECT_DIR$/src/game/item/Enemy.kt" />
         <option value="$PROJECT_DIR$/src/game/field/GameField.kt" />
         <option value="$PROJECT_DIR$/src/game/field/MazeFieldArrowLayer.kt" />
         <option value="$PROJECT_DIR$/src/game/data_list/skillList.kt" />
         <option value="$PROJECT_DIR$/src/game/data_list/skill_list.rb" />
-        <option value="$PROJECT_DIR$/src/game/param/AbilityScore.kt" />
-        <option value="$PROJECT_DIR$/src/game/mold/EnemyMold.kt" />
         <option value="$PROJECT_DIR$/src/game/data_list/enemyList.kt" />
         <option value="$PROJECT_DIR$/src/game/datalist/skillList.kt" />
         <option value="$PROJECT_DIR$/src/game/field/FieldBlock.kt" />
@@ -318,14 +322,21 @@
         <option value="$PROJECT_DIR$/src/game/field/FieldBlockType.kt" />
         <option value="$PROJECT_DIR$/src/game/field/Direction.kt" />
         <option value="$PROJECT_DIR$/src/game/field/FieldArrowLayer.kt" />
-        <option value="$PROJECT_DIR$/src/game/field/FieldArrowMap.kt" />
         <option value="$PROJECT_DIR$/src/entry/Main.kt" />
-        <option value="$PROJECT_DIR$/src/game/field/Field.kt" />
-        <option value="$PROJECT_DIR$/src/game/GameBoard.kt" />
         <option value="$PROJECT_DIR$/src/game/field/MazeField.kt" />
-        <option value="$PROJECT_DIR$/src/game/item/Player.kt" />
         <option value="$PROJECT_DIR$/src/game/item/GameObject.kt" />
         <option value="$PROJECT_DIR$/src/game/item/Stair.kt" />
+        <option value="$PROJECT_DIR$/src/game/field/Field.kt" />
+        <option value="$PROJECT_DIR$/src/game/field/FieldArrowMap.kt" />
+        <option value="$PROJECT_DIR$/src/game/param/HpMpScore.kt" />
+        <option value="$PROJECT_DIR$/src/game/datalist/enemyList.kt" />
+        <option value="$PROJECT_DIR$/src/game/item/Player.kt" />
+        <option value="$PROJECT_DIR$/src/game/item/Enemy.kt" />
+        <option value="$PROJECT_DIR$/src/game/mold/EnemyMold.kt" />
+        <option value="$PROJECT_DIR$/src/game/item/GameCharactor.kt" />
+        <option value="$PROJECT_DIR$/src/game/GameBoard.kt" />
+        <option value="$PROJECT_DIR$/src/game/param/AbilityMold.kt" />
+        <option value="$PROJECT_DIR$/src/game/param/AbilityScore.kt" />
       </list>
     </option>
   </component>
@@ -387,57 +398,48 @@
             </path>
             <path>
               <item name="Dungeons" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Dungeons" type="462c0819:PsiDirectoryNode" />
-              <item name=".idea" type="462c0819:PsiDirectoryNode" />
+              <item name="外部ライブラリー" type="cb654da1:ExternalLibrariesNode" />
             </path>
             <path>
               <item name="Dungeons" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Dungeons" type="462c0819:PsiDirectoryNode" />
-              <item name="out" type="462c0819:PsiDirectoryNode" />
+              <item name="外部ライブラリー" type="cb654da1:ExternalLibrariesNode" />
+              <item name="KotlinJavaRuntime" type="70bed36:NamedLibraryElementNode" />
             </path>
             <path>
               <item name="Dungeons" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Dungeons" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="外部ライブラリー" type="cb654da1:ExternalLibrariesNode" />
+              <item name="KotlinJavaRuntime" type="70bed36:NamedLibraryElementNode" />
+              <item name="kotlin-stdlib.jar" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Dungeons" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Dungeons" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="game" type="462c0819:PsiDirectoryNode" />
+              <item name="外部ライブラリー" type="cb654da1:ExternalLibrariesNode" />
+              <item name="KotlinJavaRuntime" type="70bed36:NamedLibraryElementNode" />
+              <item name="kotlin-stdlib.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="collections" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Dungeons" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Dungeons" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="field" type="462c0819:PsiDirectoryNode" />
+              <item name="外部ライブラリー" type="cb654da1:ExternalLibrariesNode" />
+              <item name="KotlinJavaRuntime" type="70bed36:NamedLibraryElementNode" />
+              <item name="kotlin-stdlib.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="collections" type="462c0819:PsiDirectoryNode" />
+              <item name="CollectionsKt.class" type="24436e51:KtFileTreeNode" />
             </path>
             <path>
               <item name="Dungeons" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Dungeons" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="field" type="462c0819:PsiDirectoryNode" />
-              <item name="Field" type="2c5a2ef7:KtClassOrObjectTreeNode" />
+              <item name="外部ライブラリー" type="cb654da1:ExternalLibrariesNode" />
+              <item name="KotlinJavaRuntime" type="70bed36:NamedLibraryElementNode" />
+              <item name="kotlin-stdlib.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="io" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="Dungeons" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Dungeons" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="field" type="462c0819:PsiDirectoryNode" />
-              <item name="FieldBlockType" type="2c5a2ef7:KtClassOrObjectTreeNode" />
-            </path>
-            <path>
-              <item name="Dungeons" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Dungeons" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="item" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Dungeons" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Dungeons" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="item" type="462c0819:PsiDirectoryNode" />
-              <item name="Player" type="2c5a2ef7:KtClassOrObjectTreeNode" />
+              <item name="外部ライブラリー" type="cb654da1:ExternalLibrariesNode" />
+              <item name="KotlinJavaRuntime" type="70bed36:NamedLibraryElementNode" />
+              <item name="kotlin-stdlib.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="io" type="462c0819:PsiDirectoryNode" />
+              <item name="ConsoleKt.class" type="24436e51:KtFileTreeNode" />
             </path>
           </expand>
           <select />
@@ -459,19 +461,6 @@
               <item name="Dungeons" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
               <item name="Dungeons" type="2674bda8:ScopeViewTreeModel$GroupNode" />
               <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="entry" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-            <path>
-              <item name="Dungeons" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="Dungeons" type="2674bda8:ScopeViewTreeModel$GroupNode" />
-              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="entry" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="Main.kt" type="24436e51:KtFileTreeNode" />
-            </path>
-            <path>
-              <item name="Dungeons" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="Dungeons" type="2674bda8:ScopeViewTreeModel$GroupNode" />
-              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
               <item name="game" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
             <path>
@@ -485,27 +474,34 @@
               <item name="Dungeons" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
               <item name="Dungeons" type="2674bda8:ScopeViewTreeModel$GroupNode" />
               <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="game.field" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="game.datalist" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
             <path>
               <item name="Dungeons" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
               <item name="Dungeons" type="2674bda8:ScopeViewTreeModel$GroupNode" />
               <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="game.field" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="Field" type="2c5a2ef7:KtClassOrObjectTreeNode" />
-            </path>
-            <path>
-              <item name="Dungeons" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="Dungeons" type="2674bda8:ScopeViewTreeModel$GroupNode" />
-              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="game.field" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="FieldBlockType" type="2c5a2ef7:KtClassOrObjectTreeNode" />
+              <item name="game.datalist" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="enemyList.kt" type="24436e51:KtFileTreeNode" />
             </path>
             <path>
               <item name="Dungeons" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
               <item name="Dungeons" type="2674bda8:ScopeViewTreeModel$GroupNode" />
               <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
               <item name="game.item" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="Dungeons" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="Dungeons" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="game.item" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="Enemy" type="2c5a2ef7:KtClassOrObjectTreeNode" />
+            </path>
+            <path>
+              <item name="Dungeons" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="Dungeons" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="game.item" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="GameCharactor" type="2c5a2ef7:KtClassOrObjectTreeNode" />
             </path>
             <path>
               <item name="Dungeons" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
@@ -513,6 +509,39 @@
               <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
               <item name="game.item" type="9f88c78c:ScopeViewTreeModel$FileNode" />
               <item name="Player" type="2c5a2ef7:KtClassOrObjectTreeNode" />
+            </path>
+            <path>
+              <item name="Dungeons" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="Dungeons" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="game.mold" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="Dungeons" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="Dungeons" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="game.mold" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="EnemyMold" type="2c5a2ef7:KtClassOrObjectTreeNode" />
+            </path>
+            <path>
+              <item name="Dungeons" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="Dungeons" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="game.param" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="Dungeons" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="Dungeons" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="game.param" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="AbilityMold" type="2c5a2ef7:KtClassOrObjectTreeNode" />
+            </path>
+            <path>
+              <item name="Dungeons" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="Dungeons" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="game.param" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="MaxNowValue" type="2c5a2ef7:KtClassOrObjectTreeNode" />
             </path>
           </expand>
           <select />
@@ -561,7 +590,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1536706554219" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1536998537087" />
     <property name="last_opened_file_path" value="C:/Program Files/Git/bin/git.exe" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -572,13 +601,13 @@
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\s_ili\IdeaProjects\Dungeons\out" />
-      <recent name="C:\Users\s_ili\IdeaProjects\Dungeons\src" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\s_ili\IdeaProjects\Dungeons\src" />
       <recent name="C:\Users\s_ili\IdeaProjects\KotlinAdventure\src\entry" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\s_ili\IdeaProjects\Dungeons\out" />
+      <recent name="C:\Users\s_ili\IdeaProjects\Dungeons\src" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -852,11 +881,32 @@
       <option name="project" value="LOCAL" />
       <updated>1536660624803</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="FieldArrowLayer関連を大幅改変">
+      <created>1536977717415</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1536977717415</updated>
+    </task>
+    <task id="LOCAL-00025" summary="FieldArrowMapの変更">
+      <created>1536979286325</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1536979286325</updated>
+    </task>
+    <task id="LOCAL-00026" summary="fieldArrowMapの修正">
+      <created>1536982180738</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1536982180738</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="177858000" />
+    <option name="totallyTimeSpent" value="191180000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -868,28 +918,28 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1295" height="704" extended-state="6" />
+    <frame x="-7" y="-7" width="1233" height="735" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49112427" visible="true" weight="0.23238866" />
-      <window_info id="Structure" order="1" sideWeight="0.4647239" side_tool="true" weight="0.35714287" />
-      <window_info id="デザイナー" order="2" />
-      <window_info id="Capture Tool" order="3" />
-      <window_info id="UI デザイナー" order="4" />
-      <window_info id="Image Layers" order="5" />
-      <window_info id="Favorites" order="6" show_stripe_button="false" sideWeight="0.4969325" side_tool="true" weight="0.20793651" />
-      <window_info id="Messages" order="7" sideWeight="0.48773006" weight="0.32874495" />
-      <window_info id="Debug" order="8" sideWeight="0.5874233" weight="0.35627836" />
-      <window_info id="Run" order="9" sideWeight="0.53527606" weight="0.25910932" />
-      <window_info auto_hide="true" id="TODO" order="10" show_stripe_button="false" sideWeight="0.5460123" weight="0.39761904" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49112427" visible="true" weight="0.23103154" />
+      <window_info id="Messages" order="1" sideWeight="0.48773006" weight="0.32821825" />
+      <window_info id="Structure" order="2" sideWeight="0.4647239" side_tool="true" weight="0.35714287" />
+      <window_info id="デザイナー" order="3" />
+      <window_info id="Capture Tool" order="4" />
+      <window_info id="UI デザイナー" order="5" />
+      <window_info id="Image Layers" order="6" />
+      <window_info id="Favorites" order="7" show_stripe_button="false" sideWeight="0.4969325" side_tool="true" weight="0.20793651" />
+      <window_info id="Debug" order="8" sideWeight="0.5874233" weight="0.35549873" />
+      <window_info id="Run" order="9" sideWeight="0.53527606" weight="0.43648764" />
+      <window_info auto_hide="true" id="TODO" order="10" sideWeight="0.5460123" weight="0.39727196" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32517484" />
       <window_info anchor="bottom" id="Cvs" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Database Changes" order="4" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Event Log" order="5" sideWeight="0.5020243" side_tool="true" weight="0.3146853" />
-      <window_info anchor="bottom" id="Version Control" order="6" sideWeight="0.4979757" weight="0.31873906" />
-      <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.49959514" weight="0.66549915" />
+      <window_info anchor="bottom" id="Event Log" order="5" sideWeight="0.50468886" side_tool="true" weight="0.2913793" />
+      <window_info active="true" anchor="bottom" id="Version Control" order="6" sideWeight="0.49531117" visible="true" weight="0.2672414" />
+      <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.49786872" weight="0.6637931" />
       <window_info anchor="right" id="Coverage" order="0" side_tool="true" weight="0.32936507" />
       <window_info anchor="right" id="Commander" order="1" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="2" show_stripe_button="false" weight="0.25" />
@@ -980,7 +1030,6 @@
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="Dungeons" />
     <MESSAGE value="EnemyMoldにdisplayを追加" />
     <MESSAGE value="Player.ktの作成" />
     <MESSAGE value="ゲームオブジェクトのリストの管理をGameBoardからFieldに変更、" />
@@ -1003,15 +1052,10 @@
     <MESSAGE value="FieldArrowLayerをFieldArrowMapにクラス名を変更" />
     <MESSAGE value="MazeFieldのaddObjectをaddObjectRandomに名前変更" />
     <MESSAGE value="プレイヤーとフィールドの設定をGameBoard上で行うよう変更" />
-    <option name="LAST_COMMIT_MESSAGE" value="プレイヤーとフィールドの設定をGameBoard上で行うよう変更" />
-  </component>
-  <component name="XDebuggerManager">
-    <watches-manager>
-      <configuration name="JetRunConfigurationType">
-        <watch expression="fieldBlockArray[prevX][prevY].gameObjects" language="kotlin" />
-        <watch expression="fieldBlockArray[y][x].gameObjects" language="kotlin" />
-      </configuration>
-    </watches-manager>
+    <MESSAGE value="FieldArrowLayer関連を大幅改変" />
+    <MESSAGE value="FieldArrowMapの変更" />
+    <MESSAGE value="fieldArrowMapの修正" />
+    <option name="LAST_COMMIT_MESSAGE" value="fieldArrowMapの修正" />
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
@@ -1114,12 +1158,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/out/production/Dungeons/game/field/Arrow$Companion.class">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/out/production/Dungeons/game/field/Direction$Companion.class">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/game/mold/EquipmentMold.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="65">
@@ -1137,13 +1175,6 @@
     <entry file="file://$PROJECT_DIR$/src/game/item/equipment_item.rb" />
     <entry file="file://$PROJECT_DIR$/src/game/param/equipment_state.rb" />
     <entry file="file://$PROJECT_DIR$/src/game/field/Arrow.java" />
-    <entry file="file://$PROJECT_DIR$/src/game/param/MaxNowValue.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="65">
-          <caret line="5" column="8" selection-start-line="5" selection-start-column="8" selection-end-line="5" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/game/param/EquipmentState.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="52">
@@ -1200,20 +1231,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/param/AbilityScore.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="14" column="11" selection-start-line="14" selection-start-column="11" selection-end-line="28" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/mold/EnemyMold.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-7">
-          <caret line="5" column="46" selection-start-line="5" selection-start-column="46" selection-end-line="5" selection-end-column="46" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/game/item/EquipmentItem.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-7">
@@ -1221,39 +1238,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/item/Enemy.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-7">
-          <caret line="4" column="52" selection-start-line="4" selection-start-column="26" selection-end-line="4" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/item/enemy.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-7">
-          <caret line="21" column="19" selection-start-line="21" selection-start-column="19" selection-end-line="21" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/item/enemy.rb" />
     <entry file="file://$PROJECT_DIR$/src/game/item/player.rb" />
-    <entry file="file://$PROJECT_DIR$/src/game/datalist/enemyList.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="19" column="25" selection-start-line="19" selection-start-column="25" selection-end-line="19" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/game/datalist/skillList.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="91">
           <caret line="7" column="1" selection-start-line="7" selection-start-column="1" selection-end-line="7" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/item/GameCharactor.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="52">
-          <caret line="4" column="80" selection-start-line="4" selection-start-column="80" selection-end-line="4" selection-end-column="80" />
         </state>
       </provider>
     </entry>
@@ -1272,13 +1262,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/out/ああ" />
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="19" selection-start-line="3" selection-start-column="19" selection-end-line="3" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="408">
@@ -1307,27 +1290,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/field/Arrow.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="167">
-          <caret line="11" column="29" selection-start-line="11" selection-start-column="29" selection-end-line="11" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/field/FieldArrowMap.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="160" column="37" selection-start-line="160" selection-start-column="37" selection-end-line="160" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/field/Direction.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="351">
-          <caret line="34" column="7" selection-start-line="34" selection-start-column="7" selection-end-line="34" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/entry/Main.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
@@ -1345,43 +1307,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/GameBoard.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="248">
-          <caret line="38" column="35" selection-start-line="38" selection-start-column="35" selection-end-line="38" selection-end-column="35" />
-          <folding>
-            <element signature="e#14#150#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/field/MazeField.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="163">
-          <caret line="28" selection-start-line="28" selection-end-line="28" />
-          <folding>
-            <element signature="e#20#89#0" expanded="true" />
-            <element signature="n#!!doc;n#start#0;n#!!block;n#MazeField#0" />
-            <element signature="n#!!doc;n#goal#0;n#!!block;n#MazeField#0" />
-            <element signature="n#!!doc;n#random#0;n#!!block;n#MazeField#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/item/Player.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="215">
-          <caret line="45" selection-start-line="45" selection-end-line="45" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/game/field/Field.kt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="23" column="7" lean-forward="true" selection-start-line="23" selection-start-column="7" selection-end-line="23" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/game/item/GameObject.kt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="266">
@@ -1396,6 +1321,142 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
           <caret line="7" column="4" lean-forward="true" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/field/Arrow.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="35" column="7" lean-forward="true" selection-start-line="35" selection-start-column="7" selection-end-line="35" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/field/Direction.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="28" column="48" lean-forward="true" selection-start-line="28" selection-start-column="48" selection-end-line="28" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/item/GameItem.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="8" selection-start-line="12" selection-start-column="8" selection-end-line="12" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/field/MazeField.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="32" column="23" lean-forward="true" selection-start-line="32" selection-start-column="23" selection-end-line="32" selection-end-column="23" />
+          <folding>
+            <element signature="n#!!doc;n#start#0;n#!!block;n#MazeField#0" />
+            <element signature="n#!!doc;n#goal#0;n#!!block;n#MazeField#0" />
+            <element signature="n#!!doc;n#random#0;n#!!block;n#MazeField#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/field/Field.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/field/FieldArrowMap.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-309">
+          <caret line="71" column="5" lean-forward="true" selection-start-line="71" selection-start-column="5" selection-end-line="71" selection-end-column="5" />
+          <folding>
+            <element signature="n#!!doc;n#FieldArrowMap#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/mold/AbilityScoreMold.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" selection-start-line="2" selection-end-line="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/param/MaxNowValue.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="17" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/datalist/enemyList.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" column="66" lean-forward="true" selection-start-line="13" selection-start-column="66" selection-end-line="13" selection-end-column="66" />
+          <folding>
+            <element signature="e#23#108#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/mold/EnemyMold.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" selection-start-line="3" selection-end-line="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/item/Enemy.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="87" lean-forward="true" selection-start-line="5" selection-start-column="87" selection-end-line="5" selection-end-column="87" />
+          <folding>
+            <element signature="e#19#106#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="17" selection-start-line="3" selection-start-column="17" selection-end-line="3" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/item/GameCharactor.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="21" lean-forward="true" selection-start-line="10" selection-start-column="21" selection-end-line="10" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/item/Player.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="107">
+          <caret line="11" column="11" selection-start-line="11" selection-start-column="11" selection-end-line="11" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/GameBoard.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="19" column="21" selection-start-line="19" selection-start-column="21" selection-end-line="19" selection-end-column="21" />
+          <folding>
+            <element signature="e#14#150#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/param/AbilityMold.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="1" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game/param/AbilityScore.kt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="18" selection-start-line="10" selection-start-column="18" selection-end-line="10" selection-end-column="18" />
         </state>
       </provider>
     </entry>

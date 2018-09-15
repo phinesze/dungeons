@@ -8,7 +8,7 @@ import game.param.AbilityScore
  * 経過ごとにtimeWaitを1減らしていき0になった場合にメソッドturnを呼び出し、その後にtimeWaitを一定値に戻す。
  * turnは派生先のプレイヤー/敵キャラクターでオーバーライドされる。
  */
-abstract class GameCharactor(name: String, var abilityScore: AbilityScore) : GameObject(name = name) {
+abstract class GameCharactor(name: String, val abilityScore: AbilityScore) : GameObject(name = name) {
 
     /**
      * プレイヤーまたは敵キャラクタが行動できるまでの時間(カウント)を表す。
@@ -34,5 +34,4 @@ abstract class GameCharactor(name: String, var abilityScore: AbilityScore) : Gam
      * プレイヤー/敵キャラクターはこの関数をオーバーライドして、行動可能時の行動を記述する。
      */
     open fun turn() {}
-
 }

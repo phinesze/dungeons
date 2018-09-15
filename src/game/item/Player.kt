@@ -1,18 +1,15 @@
 package game.item
 
-import game.param.AbilityScore
+import game.param.AbilityMold
 import game.param.EquipmentState
+import game.param.AbilityScore
 import kotlin.system.exitProcess
 
 /**
  * プレイヤーキャラクタを表すクラス。GameCharactorを継承する。
  * GameCharactorのopen関数turnをオーバーライドして、行動可能時に対話型メッセージを出力する。
  */
-class Player(
-        name: String,
-        var display:
-        String, abilityScore: AbilityScore,
-        var equipmentState: EquipmentState = EquipmentState()
+class Player(name: String, var display: String, abilityScore: AbilityScore, var equipmentState: EquipmentState = EquipmentState()
 ) : GameCharactor(name, abilityScore) {
 
     private val turnMessage = """

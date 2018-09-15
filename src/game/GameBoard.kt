@@ -3,8 +3,8 @@ package game
 import game.field.Field
 import game.field.MazeField
 import game.item.Player
+import game.param.AbilityMold
 import game.param.AbilityScore
-import game.param.MaxNowValue
 
 /**
  * ゲームボードを表す。
@@ -17,13 +17,8 @@ class GameBoard() {
     private val player: Player = Player(
             "あなた",
             "主",
-            AbilityScore(
-                    MaxNowValue(50),
-                    MaxNowValue(40),
-                    15, 15,
-                    15,
-                    15,
-                    15
+            AbilityScore(50, 40,
+                    AbilityMold(15, 15, 15, 15, 15)
             )
     )
 
