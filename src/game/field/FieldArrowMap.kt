@@ -40,13 +40,55 @@ internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
      * 指定された位置からの矢印マップを生成する。
      */
     fun generateArrowMap(x: Int, y: Int) {
-
         setArrowCount(x, y, count = 0)
         arrowGenerationQueue.push(ArrowGenerationArgument(x, y, 0, Arrow.none))
 
         generateArrowMapInQueue()
     }
 
+    /*
+     * フィールド上の指定された位置が「壁」に変更された場合に矢印マップを再構築する。
+     *
+     * 指定した位置から向かう矢印の鎖を削除して、
+     * 指定した位置の上下左右の隣の矢印を調べ、指定した位置から外へ向かう矢印の場合は、削除を実行する。
+     * @params x :Int フィールドのx位置
+     * @params y :Int フィールドのy位置
+     * @params isFirst  : Boolean 再起呼び出しでない場合はtrue、再起呼び出しの場合はfalse
+     */
+    fun restructureArrowMap(x: Int, y: Int) {
+        removeArrowChain(x, y)
+        generateArrowMapInQueue()
+    }
+
+    /**
+     *  restructureArrowMapから呼び出される関数。
+     *  当関数から再起呼び出しする場合は
+     */
+    private fun removeArrowChain(x: Int, y: Int) {
+        val nearLeftArrow = getLeftSideArrow(x, y)
+        val nearRightArrow = getRightSideArrow(x, y)
+        val nearTopArrow = getTopSideArrow(x, y)
+        val nearToBottomArrow = getBottomSideArrow(x, y)
+
+        //現在位置の矢印カウントを削除して上下左右の隣の矢印もnoneにする。
+        removeCountAndArrow(x, y)
+
+        if (nearLeftArrow == Arrow.left) pushArrowGenerationQueueAndRemoveArrowChain(x - 1, y)
+        if (nearRightArrow == Arrow.right) pushArrowGenerationQueueAndRemoveArrowChain(x + 1, y)
+        if (nearTopArrow == Arrow.top) pushArrowGenerationQueueAndRemoveArrowChain(x, y - 1)
+        if (nearToBottomArrow == Arrow.bottom) pushArrowGenerationQueueAndRemoveArrowChain(x, y + 1)
+    }
+
+    /**
+     *
+     */
+    private fun pushArrowGenerationQueueAndRemoveArrowChain(x: Int, y: Int) {
+        if (getReferredNum(x, y) > 0) {
+            arrowGenerationQueue.push(ArrowGenerationArgument(x, y, getArrowCount(x, y)!!, Arrow.none))
+            return
+        }
+        removeArrowChain(x, y)
+    }
 
     fun regenerateBlockChain(x: Int, y: Int) {
         tryToGetArrowCount(x - 1, y)?.let { arrowCount -> arrowGenerationQueue.add(ArrowGenerationArgument(x - 1, y, arrowCount, Arrow.none)) }
@@ -77,25 +119,6 @@ internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
     }
 
     /**
-     * フィールド内の指定した位置の上下左右の隣にある矢印を取得する。位置が範囲外の場合はnullを返す。
-     * @param x : Int フィールドのx位置
-     * @param y: Int フィールドのy位置
-     * @param direction: Direction  矢印を取得するフィールドのxy位置からの方向
-     * @return 上下左右の矢印またはnone
-     */
-    private fun tryToGetAdjacentArrow(x: Int, y: Int, direction: Direction): Arrow? = try {
-        if (direction.isHorizontal()) {
-            val x2 = if (direction == Direction.left) x - 1 else x
-            getHorizontalArrow(x2, y)
-        } else {
-            val y2 = if (direction == Direction.top) y - 1 else y
-            getVerticalArrow(x, y2)
-        }
-    } catch (e: ArrayIndexOutOfBoundsException) {
-        null
-    }
-
-    /**
      *  左右の矢印マップから左右の矢印を取得する。
      * @param x : Int x位置
      * @param y: Int y位置
@@ -118,12 +141,30 @@ internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
     }
 
     /**
+     * フィールド内の指定した位置の上下左右の隣にある矢印を取得する。位置が範囲外の場合はnullを返す。
+     * @param x : Int フィールドのx位置
+     * @param y: Int フィールドのy位置
+     * @param direction: Direction  矢印を取得するフィールドのxy位置からの方向
+     * @return 上下左右の矢印またはnone
+     */
+    fun getAnySideArrow(x: Int, y: Int, direction: Direction): Arrow? = try {
+        when (direction) {
+            Direction.left -> getLeftSideArrow(x, y)
+            Direction.right -> getRightSideArrow(x, y)
+            Direction.top -> getTopSideArrow(x, y)
+            Direction.bottom -> getBottomSideArrow(x, y)
+        }
+    } catch (e: ArrayIndexOutOfBoundsException) {
+        null
+    }
+
+    /**
      *  フィールド内の指定した位置から左にある位置の矢印を取得する。
      * @param x : Int フィールドのx位置
      * @param y: Int フィールドのy位置
      * @return arrow? 左右どちらかの矢印またはnone、範囲外の場合はnullを返す。
      */
-    fun getLeftArrow(x: Int, y: Int): Arrow? = getHorizontalArrow(x - 1, y)
+    fun getLeftSideArrow(x: Int, y: Int): Arrow? = getHorizontalArrow(x - 1, y)
 
     /**
      *  フィールド内の指定した位置から右にある位置の矢印を取得する。
@@ -131,7 +172,7 @@ internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
      * @param y: Int フィールドのy位置
      * @return arrow? 左右どちらかの矢印またはnone、範囲外の場合はnullを返す。
      */
-    fun getRightArrow(x: Int, y: Int): Arrow? = getHorizontalArrow(x, y)
+    fun getRightSideArrow(x: Int, y: Int): Arrow? = getHorizontalArrow(x, y)
 
     /**
      *  フィールド内の指定した位置から上にある位置の矢印を取得する。
@@ -139,7 +180,7 @@ internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
      * @param y: Int フィールドのy位置
      * @return arrow? 上下どちらかの矢印またはnone、範囲外の場合はnullを返す。
      */
-    fun getTopArrow(x: Int, y: Int): Arrow? = getVerticalArrow(x, y - 1)
+    fun getTopSideArrow(x: Int, y: Int): Arrow? = getVerticalArrow(x, y - 1)
 
     /**
      *  フィールド内の指定した位置から下にある位置の矢印を取得する。
@@ -147,7 +188,7 @@ internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
      * @param y: Int フィールドのy位置
      * @return arrow? 上下どちらかの矢印またはnone、範囲外の場合はnullを返す。
      */
-    fun getBottomArrow(x: Int, y: Int): Arrow? = getVerticalArrow(x, y)
+    fun getBottomSideArrow(x: Int, y: Int): Arrow? = getVerticalArrow(x, y)
 
     /**
      * スタート地点からの移動距離を表すカウント変数を設定する。
@@ -169,12 +210,12 @@ internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
      * @param direction: Direction  矢印を設定するフィールドのxy位置からの方向
      * @param arrow: Arrow 設定する矢印の種類
      */
-    fun setArrowToAnySide(x: Int, y: Int, direction: Direction, arrow: Arrow) {
+    fun setAnySideArrow(x: Int, y: Int, direction: Direction, arrow: Arrow) {
         when (direction) {
-            Direction.left -> setArrowToLeftSide(x, y, arrow)
-            Direction.right -> setArrowToRightSide(x, y, arrow)
-            Direction.top -> setArrowToTopSide(x, y, arrow)
-            Direction.bottom -> setArrowToBottomSide(x, y, arrow)
+            Direction.left -> setLeftSideArrow(x, y, arrow)
+            Direction.right -> setRightSideArrow(x, y, arrow)
+            Direction.top -> setTopSideArrow(x, y, arrow)
+            Direction.bottom -> setBottomSideArrow(x, y, arrow)
         }
     }
 
@@ -184,7 +225,7 @@ internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
      * @param y: Int フィールドのy位置
      * @param arrow: Arrow? 左右どちらかの矢印またはnone
      */
-    fun setArrowToLeftSide(x: Int, y: Int, arrow: Arrow): Boolean = try {
+    fun setLeftSideArrow(x: Int, y: Int, arrow: Arrow): Boolean = try {
         horizontalArrowArray[y][x - 1] = arrow
         true
     } catch (e: ArrayIndexOutOfBoundsException) {
@@ -197,7 +238,7 @@ internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
      * @param y: Int フィールドのy位置
      * @param arrow: Arrow? 左右どちらかの矢印またはnone
      */
-    fun setArrowToRightSide(x: Int, y: Int, arrow: Arrow): Boolean = try {
+    fun setRightSideArrow(x: Int, y: Int, arrow: Arrow): Boolean = try {
         horizontalArrowArray[y][x] = arrow
         true
     } catch (e: ArrayIndexOutOfBoundsException) {
@@ -210,7 +251,7 @@ internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
      * @param y: Int フィールドのy位置
      * @param arrow: Arrow? 上下どちらかの矢印またはnone
      */
-    fun setArrowToTopSide(x: Int, y: Int, arrow: Arrow): Boolean = try {
+    fun setTopSideArrow(x: Int, y: Int, arrow: Arrow): Boolean = try {
         verticalArrowArray[y - 1][x] = arrow
         true
     } catch (e: ArrayIndexOutOfBoundsException) {
@@ -223,7 +264,7 @@ internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
      * @param y: Int フィールドのy位置
      * @param arrow: Arrow? 上下どちらかの矢印またはnone
      */
-    fun setArrowToBottomSide(x: Int, y: Int, arrow: Arrow) = try {
+    fun setBottomSideArrow(x: Int, y: Int, arrow: Arrow) = try {
         verticalArrowArray[y][x] = arrow
         true
     } catch (e: ArrayIndexOutOfBoundsException) {
@@ -235,10 +276,10 @@ internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
      */
     private fun removeCountAndArrow(x: Int, y: Int) {
         fieldCountArray[y][x] = null
-        setArrowToLeftSide(x, y, Arrow.none)
-        setArrowToRightSide(x, y, Arrow.none)
-        setArrowToTopSide(x, y, Arrow.none)
-        setArrowToBottomSide(x, y, Arrow.none)
+        setLeftSideArrow(x, y, Arrow.none)
+        setRightSideArrow(x, y, Arrow.none)
+        setTopSideArrow(x, y, Arrow.none)
+        setBottomSideArrow(x, y, Arrow.none)
     }
 
     /**
@@ -246,10 +287,10 @@ internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
      */
     private fun getReferredNum(x: Int, y: Int): Int {
         var num = 0
-        if (getLeftArrow(x, y) == Arrow.right) num++
-        if (getRightArrow(x, y) == Arrow.left) num++
-        if (getTopArrow(x, y) == Arrow.bottom) num++
-        if (getBottomArrow(x, y) == Arrow.top) num++
+        if (getLeftSideArrow(x, y) == Arrow.right) num++
+        if (getRightSideArrow(x, y) == Arrow.left) num++
+        if (getTopSideArrow(x, y) == Arrow.bottom) num++
+        if (getBottomSideArrow(x, y) == Arrow.top) num++
         return num
     }
 
@@ -281,7 +322,7 @@ internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
             //自身の現在のカウントより少ない矢印カウントのブロックにたどり着いた場合は中断する。
             if (data.arrowCount > blockArrowCount ?: Int.MAX_VALUE) return false
             //矢印を設定する。
-            setArrowToAnySide(prev.x, prev.y, data.arrow.toDirection()!!, data.arrow)
+            setAnySideArrow(prev.x, prev.y, data.arrow.toDirection()!!, data.arrow)
             //カウントが同じになった場合、
             if (data.arrowCount == blockArrowCount) return false
 
@@ -300,41 +341,5 @@ internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
         arrowGenerationQueue.add(ArrowGenerationArgument(x + 1, y, nextArrowCount, Arrow.right, prev = data))
         arrowGenerationQueue.add(ArrowGenerationArgument(x, y - 1, nextArrowCount, Arrow.top, prev = data))
         arrowGenerationQueue.add(ArrowGenerationArgument(x, y + 1, nextArrowCount, Arrow.bottom, prev = data))
-    }
-
-    /*
-     * フィールド上の指定した位置から向かう矢印の鎖を削除する。
-     * 指定した位置の上下左右の隣の矢印を調べ、指定した位置から外へ向かう矢印の場合は、削除を実行する。
-     * @params x :Int フィールドのx位置
-     * @params y :Int フィールドのy位置
-     * @params isFirst  : Boolean 再起呼び出しでない場合はtrue、再起呼び出しの場合はfalse
-     */
-    fun removeArrowChain(x: Int, y: Int, isFirst: Boolean = false) {
-
-        removeArrowChain_core(x, y)
-        generateArrowMapInQueue()
-    }
-
-    private fun removeArrowChain_core(x: Int, y: Int) {
-        val nearLeftArrow = tryToGetAdjacentArrow(x, y, Direction.left)
-        val nearRightArrow = tryToGetAdjacentArrow(x, y, Direction.right)
-        val nearTopArrow = tryToGetAdjacentArrow(x, y, Direction.top)
-        val nearToBottomArrow = tryToGetAdjacentArrow(x, y, Direction.bottom)
-
-        //現在位置の矢印カウントを削除して上下左右の隣の矢印もnoneにする。
-        removeCountAndArrow(x, y)
-
-        if (nearLeftArrow == Arrow.left) removeArrowChain_inner(x - 1, y)
-        if (nearRightArrow == Arrow.right) removeArrowChain_inner(x + 1, y)
-        if (nearTopArrow == Arrow.top) removeArrowChain_inner(x, y - 1)
-        if (nearToBottomArrow == Arrow.bottom) removeArrowChain_inner(x, y + 1)
-    }
-
-    private fun removeArrowChain_inner(x: Int, y: Int) {
-        if (getReferredNum(x, y) > 0) {
-            arrowGenerationQueue.push(ArrowGenerationArgument(x, y, getArrowCount(x, y)!!, Arrow.none))
-            return
-        }
-        removeArrowChain_core(x, y)
     }
 }

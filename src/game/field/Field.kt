@@ -53,7 +53,7 @@ open  class Field(val width: Int, val height: Int, val floor :Int = 0) {
 
         //床から壁に変更した場合は矢印の鎖の削除を行い再構築する。
         if (oldBlockType == FieldBlockType.floor && fieldBlock.type == FieldBlockType.wall) {
-            arrowMap.removeArrowChain(x, y, isFirst = true)
+            arrowMap.restructureArrowMap(x, y)
         //壁から床に変更した場合は矢印の鎖の再生成を行う。
         } else if (oldBlockType == FieldBlockType.wall && fieldBlock.type == FieldBlockType.floor) {
             arrowMap.regenerateBlockChain(x, y)
