@@ -8,4 +8,8 @@ class AbilityMold(
         var agility: Int,
         var elementAttack: ElementScore = ElementScore(),
         var elementDefense: ElementScore = ElementScore()
-)
+): Cloneable {
+    override fun clone(): AbilityMold {
+        return AbilityMold(attack, defense, magicAttack, magicDefense, agility)
+    }
+}

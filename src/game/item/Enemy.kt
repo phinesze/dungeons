@@ -8,7 +8,7 @@ class Enemy(name: String, abilityScore: AbilityScore): GameCharactor(name, abili
     /**
      *  敵キャラクターのモールド(EnemyMold)から敵キャラクターを生成する。
      */
-    constructor(mold: EnemyMold) : this(mold.name,  mold.abilityScore)
+    constructor(mold: EnemyMold) : this(mold.name,  mold.abilityScore.clone())
 
     override fun display(): String = "EE"
 }
