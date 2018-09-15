@@ -22,7 +22,7 @@ open  class Field(val width: Int, val height: Int, val floor :Int = 0) {
     /**
      * ある地点から別の地点への移動がさえぎられていないか否かを監視する矢印とカウントの情報
      */
-    private val arrowMap = FieldArrowMap(width, height, this)
+    internal val arrowMap = FieldArrowMap(width, height, this)
 
     /**
      * 時間経過を表す値
@@ -149,7 +149,6 @@ open  class Field(val width: Int, val height: Int, val floor :Int = 0) {
                 if (targetObjectA === targetObjectB) break
                     targetObjectA.collisionDetected(targetObjectB)
                     targetObjectB.collisionDetected(targetObjectA)
-//                TODO("ここから")
             }
         }
     }
@@ -167,9 +166,9 @@ open  class Field(val width: Int, val height: Int, val floor :Int = 0) {
                 val fieldCount :Int? = arrowMap.getArrowCount(x, y)
                 buf.append(if(fieldBlock.gameObjects.size > 0 || fieldCount == null) fieldBlock.toString() else { String.format("%02d", fieldCount) })
 
-                buf.append(arrowMap.tryToGetHorizontalArrow(x, y) ?: "")
+                buf.append(arrowMap.getHorizontalArrow(x, y) ?: "")
 
-                buf2.append(arrowMap.tryToGetVerticalArrow(x, y) ?: "")
+                buf2.append(arrowMap.getVerticalArrow(x, y) ?: "")
                 buf2.append("  ")
             }
 
