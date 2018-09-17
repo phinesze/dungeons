@@ -12,7 +12,7 @@ open  class Field(val width: Int, val height: Int, val floor :Int = 0) {
     /**
      * フィールドマップを表現するためのフィールドブロックの2次元配列
      */
-    private val fieldBlockArray = Array<Array<FieldBlock>>(height,init = {i -> Array(width, {i -> FieldBlock(FieldBlockType.floor)})})
+    private val fieldBlockArray = Array<Array<FieldBlock>>(height,init = {i -> Array(width) { FieldBlock(FieldBlockType.floor)} })
 
     /**
      * フィールド上に存在する全てのゲームオブジェクトのリスト
@@ -137,7 +137,6 @@ open  class Field(val width: Int, val height: Int, val floor :Int = 0) {
      */
     private fun removeObject(gameObject: GameObject) {
         gameObjects.remove(gameObject)
-        gameObject.field = null
 
         val x = gameObject.position.x
         val y = gameObject.position.y

@@ -8,13 +8,9 @@ import game.param.Position
 /**
  * 名前と位置情報を持つオブジェクトを表す抽象クラス。プレイヤー、敵キャラクター、アイテムなどはすべてこのクラスを継承する。
  * このクラスから派生するクラスのすべてのオブジェクトは1つのフィールドオブジェクト(field)に所属する。
+ * @param field 自身が存在しているフィールド
  */
- abstract class GameObject(name: String) : NamableObject(name) {
-
-    /**
-     * 自身が存在しているフィールド
-     */
-    internal var field: Field? = null
+ abstract class GameObject(name: String, internal var field: Field) : NamableObject(name) {
 
     /**
      *  自身が位置しているフィールド上のブロック
@@ -55,10 +51,10 @@ import game.param.Position
      * @param y: Int 移動先のy位置
      */
     protected fun tryToMove(x: Int, y: Int) : Boolean {
-        val fieldBlock = this.field?.tryToGetFieldBlock(x, y)
+        val fieldBlock = this.field.tryToGetFieldBlock(x, y)
         if (fieldBlock?.type?.isFloor !== true) return false
 
-        try { this.field!!.moveObject(this, x, y) } catch (e: Exception) { return false }
+        try { this.field.moveObject(this, x, y) } catch (e: Exception) { return false }
         return true
     }
 }

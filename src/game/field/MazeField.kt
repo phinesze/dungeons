@@ -7,17 +7,17 @@ import game.item.Player
 import game.item.Stair
 import java.util.*
 
-class MazeField(width: Int, height: Int, player: Player, floor: Int) : Field(width, height, floor) {
+class MazeField(width: Int, height: Int, floor: Int) : Field(width, height, floor) {
 
     /**
      * スタートとなる下り階段
      */
-    private val start = Stair(isUp = false)
+    private val start = Stair(isUp = false, field = this)
 
     /**
      * ゴールとなる上り階段
      */
-    private val goal = Stair(isUp = true)
+    private val goal = Stair(isUp = true, field = this)
 
     /**
      * ランダムオブジェクト
@@ -28,16 +28,21 @@ class MazeField(width: Int, height: Int, player: Player, floor: Int) : Field(wid
         //スタートとゴールをランダムに配置する。
         addObjectRandom(start)
         addObjectRandom(goal)
-        //プレイヤーをスタートに配置する。
-        addObject(start.position.x, start.position.y,  player)
         //敵キャラクターを配置する。
-        for(i in 0..5) addObjectRandom(Enemy(enemyList[0]))
+        for(i in 0..5) addObjectRandom(Enemy(enemyList[0], this))
         //x,yのインデックスが共に奇数になる場所のブロックを壁にする。
         createStatueWall()
         //指定された位置からの矢印の鎖を生成する。
         arrowMap.generateArrowMap(start.position.x, start.position.y)
         //壁を生成する。
         createMazeWall()
+    }
+
+    /**
+     * プレイヤーをスタートに配置する。
+     */
+    fun setPlayer(player: Player) {
+        addObject(start.position.x, start.position.y,  player)
     }
 
     /**

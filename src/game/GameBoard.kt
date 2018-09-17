@@ -5,6 +5,7 @@ import game.field.MazeField
 import game.item.Player
 import game.param.AbilityMold
 import game.param.AbilityScore
+import game.param.EquipmentState
 
 /**
  * ゲームボードを表す。
@@ -13,17 +14,23 @@ import game.param.AbilityScore
  */
 class GameBoard() {
 
+    //使用するフィールド
+    private var field: MazeField = MazeField(15, 9, 1)
+
     //使用するプレイヤー
     private val player: Player = Player(
             "あなた",
             "主",
             AbilityScore(50, 40,
                     AbilityMold(15, 15, 15, 15, 15)
-            )
+            ),
+            EquipmentState(),
+            field
     )
 
-    //使用するフィールド
-    private var field: Field = MazeField(15, 9, player, 1)
+    init {
+        field.setPlayer(player)
+    }
 
     /**
      * ゲームボード上の時間経過を開始する。
@@ -35,7 +42,7 @@ class GameBoard() {
 
             val floor = field.mapMoveId
             if (floor != null)
-                field = MazeField(15, 9, player, floor)
+                field = MazeField(15, 9, floor)
         }
     }
 }

@@ -1,6 +1,8 @@
 package game.item
 
-class Stair(var isUp: Boolean) : GameObject(name = if (isUp) "upStair" else "downStair") {
+import game.field.Field
+
+class Stair(var isUp: Boolean, field: Field) : GameObject(name = if (isUp) "upStair" else "downStair", field = field) {
 
     init {
         this.isThroughable = true
@@ -12,7 +14,7 @@ class Stair(var isUp: Boolean) : GameObject(name = if (isUp) "upStair" else "dow
 
     override fun collisionDetected(otherObject: GameObject) {
         if (this.isUp && otherObject is Player) {
-            this.field!!.mapMoveId = this.field!!.floor + 1
+            this.field.mapMoveId = this.field.floor + 1
         }
     }
 

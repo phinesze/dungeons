@@ -1,5 +1,6 @@
 package game.item
 
+import game.field.Field
 import game.param.AbilityScore
 
 /**
@@ -8,7 +9,7 @@ import game.param.AbilityScore
  * 経過ごとにtimeWaitを1減らしていき0になった場合にメソッドturnを呼び出し、その後にtimeWaitを一定値に戻す。
  * turnは派生先のプレイヤー/敵キャラクターでオーバーライドされる。
  */
-abstract class GameCharactor(name: String, val abilityScore: AbilityScore) : GameObject(name = name) {
+abstract class GameCharactor(name: String, val abilityScore: AbilityScore, field: Field) : GameObject(name, field) {
 
     /**
      * プレイヤーまたは敵キャラクタが行動できるまでの時間(カウント)を表す。
@@ -47,7 +48,7 @@ abstract class GameCharactor(name: String, val abilityScore: AbilityScore) : Gam
         val damage = thisAttack - targetDefense / 2
         target.abilityScore.hp.damage(damage)
 
-        if (target.abilityScore.hp.now <= 0) field!!.trashObject(target)
+        if (target.abilityScore.hp.now <= 0) field.trashObject(target)
 
         return damage
     }

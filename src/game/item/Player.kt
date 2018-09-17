@@ -1,5 +1,6 @@
 package game.item
 
+import game.field.Field
 import game.param.EquipmentState
 import game.param.AbilityScore
 import kotlin.system.exitProcess
@@ -8,8 +9,8 @@ import kotlin.system.exitProcess
  * プレイヤーキャラクタを表すクラス。GameCharactorを継承する。
  * GameCharactorのopen関数turnをオーバーライドして、行動可能時に対話型メッセージを出力する。
  */
-class Player(name: String, var display: String, abilityScore: AbilityScore, var equipmentState: EquipmentState = EquipmentState()
-) : GameCharactor(name, abilityScore) {
+class Player(name: String, var display: String, abilityScore: AbilityScore, var equipmentState: EquipmentState = EquipmentState(), field: Field
+) : GameCharactor(name, abilityScore, field) {
 
     private val turnMessage = """
 ${name}は何をしますか？
