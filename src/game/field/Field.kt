@@ -7,6 +7,9 @@ import game.item.Player
  * プレイヤーが行動するフィールドマップを表す。
  * マップ用の2次元配列とプレイヤーや敵キャラクタなどのオブジェクトのリストを内包する。
  * また、ある地点から別の地点への移動が壁によって遮られていないか否かを監視する矢印とカウントの情報(@seeFieldArrowLayer)を所有する。
+ * @property width フィールドの幅を表す数値
+ * @property height フィールドの高さを表す数値
+ * @property  floor 現在の階層を表す数値
  */
 open  class Field(val width: Int, val height: Int, val floor :Int = 0) {
 
@@ -47,14 +50,17 @@ open  class Field(val width: Int, val height: Int, val floor :Int = 0) {
 
     /**
      * 指定したx,y位置のフィールドブロックを取得する。
+     * @param x フィールド内のx位置
+     * ＠param y フィールド内のy位置
      * @throws ArrayIndexOutOfBoundsException x,y位置が範囲外の場合に返す。
      */
     fun getFieldBlock(x: Int, y: Int): FieldBlock = fieldBlockArray[y][x]
 
     /**
      * 指定したx,y位置のフィールドブロックを設定する。
-     *  @param x: Int フィールドの指定したx
-     *  @param y: Int
+     *  @param x フィールド内のx位置
+     *  @param y フィールド内のy位置
+     *  @param fieldBlock 設定するフィールドブロック
      * @throws ArrayIndexOutOfBoundsException x,y位置が範囲外の場合に返す。
      */
     fun setFieldBlock(x: Int, y: Int, fieldBlock: FieldBlock) {
@@ -73,52 +79,62 @@ open  class Field(val width: Int, val height: Int, val floor :Int = 0) {
 
     /**
      * 指定したx,y位置のフィールドブロックを取得する。x,y位置が範囲外の場合はnullを返す。
+     *  @param x フィールド内のx位置
+     *  @param y フィールド内のy位置
+     *  @return  取得したフィールドブロック
      */
     fun tryToGetFieldBlock(x: Int, y: Int): FieldBlock? = try { getFieldBlock(x, y) } catch (e: ArrayIndexOutOfBoundsException) { null }
 
     /**
      * 指定したx,y位置のフィールドブロックを設定する。x,y位置が範囲外の場合はnullを返す。
+     *  @param x フィールド内のx位置
+     *  @param y フィールド内のy位置
+     *  @param fieldBlock 設定するフィールドブロック
      */
     fun tryToSetFieldBlock(x: Int, y: Int, fieldBlock: FieldBlock) { try { setFieldBlock(x, y, fieldBlock) } catch (e: ArrayIndexOutOfBoundsException) { null } }
 
     /**
-     * フィールドの指定したx, y位置にゲームオブジェクトを追加する。
+     * フィールド内のx, y位置にゲームオブジェクトを追加する。
+     * 追加されたゲームオブジェクトのx, y位置は指定した位置に変更される。
+     * @param x フィールド内のx位置
+     * @param y フィールド内のy位置
+     * @param gameObject 追加するゲームオブジェクト
      * @throws ArrayIndexOutOfBoundsException x,y位置が範囲外の場合に返す。
      */
     fun addObject(x: Int, y: Int, gameObject: GameObject) {
-        gameObjects.add(gameObject)
-        if (gameObject is Player) playerObjects.add(gameObject)
-        gameObject.field = this
 
-        addObjectInFieldBlockArray(x, y, gameObject)
-
+        this.gameObjects.add(gameObject)
+        if (gameObject is Player) this.playerObjects.add(gameObject)
+        //
+        addObjectInFieldBlock(x, y, gameObject)
+        //ゲームオブジェクトの位置を指定された位置に変更
         gameObject.position.x = x
         gameObject.position.y = y
+        gameObject.field = this
     }
 
     /**
-     * フィールドに移動する。
+     * フィールド内のx, y位置に指定したゲームオブジェクトに移動する。
+     * @param x フィールド内のx位置
+     * @param y フィールド内のy位置
+     * @param gameObject  移動するゲームオブジェクト
      * @throws ArrayIndexOutOfBoundsException x,y位置が範囲外の場合に返す。
      */
-    fun moveObject(gameObject: GameObject, x: Int, y: Int) {
-        //衝突判定
-        val otherObject = getNotThroughable(x, y)
-        if (otherObject != null) {
-            gameObject.collisionDetected(otherObject)
-            return
-        }
+    fun moveObject(x: Int, y: Int, gameObject: GameObject) {
         //移動
         val prevX = gameObject.position.x
         val prevY = gameObject.position.y
-        try { removeObjectFromFieldBlockArray(prevX, prevY, gameObject) } catch(e :Exception) {}
-        addObjectInFieldBlockArray(x, y, gameObject)
+        try { removeObjectFromFieldBlock(prevX, prevY, gameObject) } catch(e :Exception) {}
+        addObjectInFieldBlock(x, y, gameObject)
         gameObject.position.x = x
         gameObject.position.y = y
-
     }
 
     /**
-     *
+     * フィールド内のx, y位置に移動を妨げるオブジェクトがある場合にその中で一番上にあるオブジェクトを返す。
+     * @param x フィールド内のx位置
+     * @param y フィールド内のy位置
+     * @return 指定された位置の一番上にあるゲームオブジェクト。存在しない場合はnullを返す。
      */
     fun getNotThroughable(x: Int, y: Int): GameObject? {
         val fieldBlock = this.getFieldBlock(x, y)
@@ -130,7 +146,9 @@ open  class Field(val width: Int, val height: Int, val floor :Int = 0) {
 
     /**
      *  削除予定のオブジェクトにゲームオブジェクトを追加する。
-     *  対象のオブジェクトは1カウント経過後の処理でremoveObjectが実行される。
+     *  対象となったゲームオブジェクトは削除予定のゲームオブジェクトのリストに追加され、1カウント経過後の処理でリスト内のすべてのオブジェクトに
+     *  removeObjectを実行して削除予定リストを空にする。
+     *  @param gameObject  削除予定のゲームオブジェクト
      */
     fun trashObject(gameObject: GameObject) {
         trashObjects.add(gameObject)
@@ -138,7 +156,8 @@ open  class Field(val width: Int, val height: Int, val floor :Int = 0) {
 
     /**
      * フィールドからゲームオブジェクトを削除する。
-     *  1カウント経過後に削除予定のオブジェクトリストに入っている場合に実行される。
+     *  直接呼び出さずに1カウント経過後に削除予定のオブジェクトリストに入っている場合に実行される。
+     * @params gameObject 削除するゲームオブジェクト
      * @throws ArrayIndexOutOfBoundsException x,y位置が範囲外の場合に返す。
      */
     private fun removeObject(gameObject: GameObject) {
@@ -148,16 +167,28 @@ open  class Field(val width: Int, val height: Int, val floor :Int = 0) {
         val x = gameObject.position.x
         val y = gameObject.position.y
 
-        removeObjectFromFieldBlockArray(x, y, gameObject)
+        removeObjectFromFieldBlock(x, y, gameObject)
     }
 
-    private fun addObjectInFieldBlockArray(x: Int, y: Int, gameObject: GameObject) {
+    /**
+     *  ゲームオブジェクトをフィールド内ブロックのオブジェクトリストに追加する。
+     *  @param x フィールド内のx位置
+     *  @param y フィールド内のy位置
+     *  @param gameObject 追加するゲームオブジェクト
+     */
+    private fun addObjectInFieldBlock(x: Int, y: Int, gameObject: GameObject) {
         val fieldBlock = fieldBlockArray[y][x]
         fieldBlock.gameObjects.add(gameObject)
         gameObject.fieldBlock = fieldBlock
     }
 
-    private fun removeObjectFromFieldBlockArray(x: Int, y: Int, gameObject: GameObject) {
+    /**
+     *  ゲームオブジェクトをフィールド内ブロックのオブジェクトリストから削除する。
+     *  @param x フィールド内のx位置
+     *  @param y フィールド内のy位置
+     *  @param gameObject  削除するゲームオブジェクト
+     */
+    private fun removeObjectFromFieldBlock(x: Int, y: Int, gameObject: GameObject) {
         val fieldBlock = fieldBlockArray[y][x]
         fieldBlock.gameObjects.remove(gameObject)
         gameObject.fieldBlock = null

@@ -41,8 +41,10 @@ class GameBoard() {
             this.field.count()
 
             val floor = field.mapMoveId
-            if (floor != null)
-                field = MazeField(15, 9, floor)
+            if (floor != null) {
+                this.field = MazeField(15, 9, floor)
+                this.field.setPlayer(player)
+            }
         }
     }
 }
