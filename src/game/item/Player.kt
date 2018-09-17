@@ -18,8 +18,10 @@ w:前へ
 s:後ろへ
 a:左へ
 d:右へ
+n:何もしない
 m:マップを表示
-exit:終了
+
+q:終了
 
     """
 
@@ -42,7 +44,6 @@ exit:終了
             //入力値を取得してコマンドを実行
             if (doInputAction()) break@oneTurn
         }
-        println("行動終了")
     }
 
     /**
@@ -59,10 +60,10 @@ exit:終了
             "s" -> return moveDownWithMes()
             "a" -> return moveLeftWithMes()
             "d" -> return moveRightWithMes()
-
+            "n" -> return true
             "m" -> println(field.toString())
 
-            "exit" -> {
+            "q" -> {
                 println("さよならだ・・また会う日まで")
                 exitProcess(0)
             }
