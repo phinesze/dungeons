@@ -49,6 +49,11 @@ open  class Field(val width: Int, val height: Int, val floor :Int = 0) {
     var mapMoveId: Int?= null
 
     /**
+     *  toString時にデバッグ用に矢印マップを出力するか否かの値
+     */
+    private var printArrowMap: Boolean = false
+
+    /**
      *  フィールド内のプレイヤーオブジェクトを取得する。
      *  @param index インデックス
      *  @return 取得したプレイヤーオブジェクト
@@ -247,16 +252,21 @@ open  class Field(val width: Int, val height: Int, val floor :Int = 0) {
         for ( (y, fieldBlockRow) in fieldBlockArray.withIndex() ) {
             for ( (x, fieldBlock) in fieldBlockRow.withIndex() ) {
 
-                val fieldCount :Int? = arrowMap.getArrowCount(x, y)
-                buf.append(if(fieldBlock.gameObjects.size > 0 || fieldCount == null) fieldBlock.toString() else { String.format("%02d", fieldCount) })
+                var fieldCount: Int? = null
+                if (this.printArrowMap)
+                    fieldCount = arrowMap.getArrowCount(x, y)
 
-                buf.append(arrowMap.getHorizontalArrow(x, y) ?: "")
+                val str = if (fieldBlock.gameObjects.size > 0 || fieldCount == null) fieldBlock.toString() else String.format("%02d", fieldCount)
+                buf.append(str)
 
-                buf2.append(arrowMap.getVerticalArrow(x, y) ?: "")
-                buf2.append("  ")
+                if (this.printArrowMap) {
+                    buf.append(arrowMap.getHorizontalArrow(x, y) ?: "")
+                    buf2.append(arrowMap.getVerticalArrow(x, y) ?: "")
+                    buf2.append("  ")
+                }
             }
 
-            buf.append("\n${buf2}\n")
+            buf.append(if (this.printArrowMap) {"\n${buf2}\n"} else {"\n"})
             buf2.setLength(0)
         }
         return buf.toString()
