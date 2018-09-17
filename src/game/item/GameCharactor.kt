@@ -21,12 +21,11 @@ abstract class GameCharactor(name: String, val abilityScore: AbilityScore) : Gam
      * timeWaitが1以上ある場合は1減らし、 0になった場合はturnを呼び出す。timeWaitはturn終了後に一定の値に戻す。
      */
     override fun onCount() {
-
-        if (timeWait <= 0) {
+        if (this.timeWait <= 0) {
             turn()
-            timeWait = 300
+            this.timeWait = 300
         } else {
-            timeWait--
+            this.timeWait--
         }
     }
 
@@ -36,15 +35,20 @@ abstract class GameCharactor(name: String, val abilityScore: AbilityScore) : Gam
     open fun turn() {}
 
     /**
-     * ゲームキャラクター
+     * 別のゲームキャラクターにダメージを与える。
+     *  @param target ダメージを受ける相手キャラクター
      * @return 与えたダメージの量を表す数値
      */
     fun attackTarget (target: GameCharactor): Int {
 
         val thisAttack = this.abilityScore.abilityMold.attack
         val targetDefense = target.abilityScore.abilityMold.defense
+
         val damage = thisAttack - targetDefense / 2
         target.abilityScore.hp.damage(damage)
+
+        if (target.abilityScore.hp.now <= 0) field!!.trashObject(target)
+
         return damage
     }
 }

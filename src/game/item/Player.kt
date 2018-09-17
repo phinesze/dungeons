@@ -1,6 +1,5 @@
 package game.item
 
-import game.param.AbilityMold
 import game.param.EquipmentState
 import game.param.AbilityScore
 import kotlin.system.exitProcess
@@ -97,9 +96,14 @@ exit:終了
         }
     }
 
-    private fun attackEnemy(otherObject: Enemy) {
-        val damage = this.attackTarget(otherObject)
-        println("${name}は${otherObject.name}に${damage}ダメージを与えた")
+    /**
+     *  敵キャラクターにダメージを与える。
+     *  @param enemy ダメージを受ける敵キャラクター
+     */
+    private fun attackEnemy(enemy: Enemy) {
+        val damage = this.attackTarget(enemy)
+        println("${name}は${enemy.name}に${damage}ダメージを与えた")
+        if (enemy.abilityScore.hp.now <= 0) println("${enemy.name}を倒した")
     }
 
     override fun toString(): String {

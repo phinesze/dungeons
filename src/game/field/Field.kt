@@ -20,6 +20,11 @@ open  class Field(val width: Int, val height: Int, val floor :Int = 0) {
     private val gameObjects: MutableList<GameObject> = mutableListOf()
 
     /**
+     *  削除予定のゲームオブジェクトのリスト
+     */
+    private val trashObjects:  MutableList<GameObject> = mutableListOf()
+
+    /**
      * ある地点から別の地点への移動がさえぎられていないか否かを監視する矢印とカウントの情報
      */
     internal val arrowMap = FieldArrowMap(width, height, this)
@@ -118,10 +123,19 @@ open  class Field(val width: Int, val height: Int, val floor :Int = 0) {
     }
 
     /**
+     *  削除予定のオブジェクトにゲームオブジェクトを追加する。
+     *  対象のオブジェクトは1カウント経過後の処理でremoveObjectが実行される。
+     */
+    fun trashObject(gameObject: GameObject) {
+        trashObjects.add(gameObject)
+    }
+
+    /**
      * フィールドからゲームオブジェクトを削除する。
+     *  1カウント経過後に削除予定のオブジェクトリストに入っている場合に実行される。
      * @throws ArrayIndexOutOfBoundsException x,y位置が範囲外の場合に返す。
      */
-    fun removeObject(gameObject: GameObject) {
+    private fun removeObject(gameObject: GameObject) {
         gameObjects.remove(gameObject)
         gameObject.field = null
 
@@ -145,13 +159,19 @@ open  class Field(val width: Int, val height: Int, val floor :Int = 0) {
 
     /**
      * フィールド内で時間を1カウント経過させる。
-     * 各オブジェクト(GameObject)のmoveInCountを実行して、オブジェクト同士の重なり検知関数を呼び出す。
+     * 各オブジェクト(GameObject)のonCountを実行して、オブジェクト同士の重なり検知関数を呼び出す。
      */
     fun count(): Boolean {
-        for (obj in gameObjects) { obj.onCount() }
-        collisionDetect()
-        timeCount++
 
+        //各オブジェクトのonCountを実行
+        for (obj in gameObjects) obj.onCount()
+        //削除予定のオブジェクトリストにあるオブジェクトを実際に削除F
+        for(trashObject in trashObjects) this.removeObject(trashObject)
+        trashObjects.clear()
+        //重なり検知
+        collisionDetect()
+
+        timeCount++
         return true
     }
 

@@ -14,9 +14,11 @@ class FieldBlock(var type: FieldBlockType) {
      */
     override fun toString(): String {
         if (gameObjects.size > 0) {
-            return gameObjects[gameObjects.size - 1].display()
-        } else {
-            return type.toString()
+            for (i in gameObjects.size - 1..0) {
+                val gameObject = gameObjects[i]
+                return gameObject.display()
+            }
         }
+        return type.toString()
     }
 }

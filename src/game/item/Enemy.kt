@@ -10,5 +10,9 @@ class Enemy(name: String, abilityScore: AbilityScore): GameCharactor(name, abili
      */
     constructor(mold: EnemyMold) : this(mold.name,  mold.abilityScore.clone())
 
+    override fun turn() {
+        //TODO("敵の行動")
+    }
+
     override fun display(): String = "EE"
 }
