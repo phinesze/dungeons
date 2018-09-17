@@ -1,6 +1,7 @@
 package game.field
 
 import game.item.GameObject
+import game.item.Player
 
 /**
  * プレイヤーが行動するフィールドマップを表す。
@@ -18,6 +19,11 @@ open  class Field(val width: Int, val height: Int, val floor :Int = 0) {
      * フィールド上に存在する全てのゲームオブジェクトのリスト
      */
     private val gameObjects: MutableList<GameObject> = mutableListOf()
+
+    /**
+     * ゲームオブジェクトの内のプレイヤーオブジェクトのリスト
+     */
+    private val playerObjects:  MutableList<Player> = mutableListOf()
 
     /**
      *  削除予定のゲームオブジェクトのリスト
@@ -81,6 +87,7 @@ open  class Field(val width: Int, val height: Int, val floor :Int = 0) {
      */
     fun addObject(x: Int, y: Int, gameObject: GameObject) {
         gameObjects.add(gameObject)
+        if (gameObject is Player) playerObjects.add(gameObject)
         gameObject.field = this
 
         addObjectInFieldBlockArray(x, y, gameObject)
@@ -94,14 +101,13 @@ open  class Field(val width: Int, val height: Int, val floor :Int = 0) {
      * @throws ArrayIndexOutOfBoundsException x,y位置が範囲外の場合に返す。
      */
     fun moveObject(gameObject: GameObject, x: Int, y: Int) {
-
         //衝突判定
         val otherObject = getNotThroughable(x, y)
         if (otherObject != null) {
             gameObject.collisionDetected(otherObject)
             return
         }
-
+        //移動
         val prevX = gameObject.position.x
         val prevY = gameObject.position.y
         try { removeObjectFromFieldBlockArray(prevX, prevY, gameObject) } catch(e :Exception) {}
@@ -137,6 +143,7 @@ open  class Field(val width: Int, val height: Int, val floor :Int = 0) {
      */
     private fun removeObject(gameObject: GameObject) {
         gameObjects.remove(gameObject)
+        if (gameObject is Player) playerObjects.remove(gameObject)
 
         val x = gameObject.position.x
         val y = gameObject.position.y
