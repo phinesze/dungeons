@@ -16,6 +16,8 @@ class Enemy(name: String, abilityScore: AbilityScore, field: Field): GameCharact
      * プレイヤーキャラクターに直線状に近づくように移動する。
      */
     override fun turn() {
+
+        if (isDead) return
         //プレイヤーオブジェクトを取得
         val player = field.getPlayer(0)
         //敵キャラクターとプレイヤーとの間のx, y位置の差を取得
@@ -28,6 +30,22 @@ class Enemy(name: String, abilityScore: AbilityScore, field: Field): GameCharact
             if (y < 0) this.moveUp() else this.moveDown()
         }
     }
+
+    override fun collisionDetected(otherObject: GameObject) {
+        if (otherObject is Player) {
+            attackPlayer(otherObject)
+        }
+    }
+
+    /**
+     * プレイヤーにダメージを与える
+     * @param player ダメージを受けるプレイヤー
+     */
+    private fun attackPlayer(player: Player) {
+        val damage = this.attackTarget(player)
+        println("${player.name}は${this.name}に${damage}ダメージを受けた")
+        if (player.abilityScore.hp.now <= 0) println("${player.name}は死んでしまった")    }
+
 
     override fun display(): String = "EE"
 }

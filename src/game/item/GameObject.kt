@@ -27,6 +27,7 @@ import game.param.Position
      */
     val position: Position = Position(0, 0)
 
+
     /**
      * 自身の所属するFieldのtoStringで出力した際にオブジェクトの表示として表される文字
      */

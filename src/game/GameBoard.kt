@@ -6,6 +6,7 @@ import game.item.Player
 import game.param.AbilityMold
 import game.param.AbilityScore
 import game.param.EquipmentState
+import kotlin.system.exitProcess
 
 /**
  * ゲームボードを表す。
@@ -38,13 +39,25 @@ class GameBoard() {
      */
     fun start() {
         while(true) {
+            //フィールドの時間経過
             this.field.count()
+            //mapMoveIdがある場合は、新しいフィールドを生成する。
+            detectMoveFloor()
+            //プレイヤー死亡時に終了
+            if (this.player.isDead) exitProcess(0)
 
-            val floor = field.mapMoveId
-            if (floor != null) {
-                this.field = MazeField(15, 9, floor)
-                this.field.setPlayer(player)
-            }
+        }
+    }
+
+
+    /**
+     * mapMoveIdを監視し値がある場合は現在のフィールドを破棄し、新しいフィールドを生成する。
+     */
+    private fun detectMoveFloor() {
+        val floor = field.mapMoveId
+        if (floor != null) {
+            this.field = MazeField(15, 9, floor)
+            this.field.setPlayer(player)
         }
     }
 }

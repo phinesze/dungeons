@@ -13,7 +13,7 @@ class Player(name: String, var display: String, abilityScore: AbilityScore, var 
 ) : GameCharactor(name, abilityScore, field) {
 
     private val turnMessage = """
-${name}は何をしますか？ HP : ${this.abilityScore.hp}  MP : ${this.abilityScore.mp}
+${name}は何をしますか？
 w:前へ  s:後ろへ  a:左へ  d:右へ
 n:何もしない
 m:マップを表示
@@ -35,8 +35,13 @@ q:終了
      */
     override fun turn() {
 
+        if (isDead) return
+
         oneTurn@ while (true) {
+            //マップを表示
             println(field.toString())
+            //HP・MPの現在値/最大値を表示
+            println("HP : ${this.abilityScore.hp}  MP : ${this.abilityScore.mp}")
             //行動可能時のメッセージを表示
             println(turnMessage)
             //入力値を取得してコマンドを実行

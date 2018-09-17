@@ -18,6 +18,12 @@ abstract class GameCharactor(name: String, val abilityScore: AbilityScore, field
     var timeWait :Int = 300
 
     /**
+     * HPの現在地が0以下の場合か否かを表す
+     */
+    val isDead :Boolean
+        get() = this.abilityScore.hp.now <= 0
+
+    /**
      * 1カウント経過時の挙動を記述するGameObjectの同名関数をオーバーライドする。
      * timeWaitが1以上ある場合は1減らし、 0になった場合はturnを呼び出す。timeWaitはturn終了後に一定の値に戻す。
      */
