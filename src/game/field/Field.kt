@@ -90,6 +90,13 @@ open  class Field(val width: Int, val height: Int, val floor :Int = 0) {
      */
     fun moveObject(gameObject: GameObject, x: Int, y: Int) {
 
+        //衝突判定
+        val otherObject = getNotThroughable(x, y)
+        if (otherObject != null) {
+            gameObject.collisionDetected(otherObject)
+            return
+        }
+
         val prevX = gameObject.position.x
         val prevY = gameObject.position.y
         try { removeObjectFromFieldBlockArray(prevX, prevY, gameObject) } catch(e :Exception) {}
@@ -97,6 +104,17 @@ open  class Field(val width: Int, val height: Int, val floor :Int = 0) {
         gameObject.position.x = x
         gameObject.position.y = y
 
+    }
+
+    /**
+     *
+     */
+    fun getNotThroughable(x: Int, y: Int): GameObject? {
+        val fieldBlock = this.getFieldBlock(x, y)
+        for(obj in fieldBlock.gameObjects) {
+            if (!obj.isThroughable) return obj
+        }
+        return null
     }
 
     /**

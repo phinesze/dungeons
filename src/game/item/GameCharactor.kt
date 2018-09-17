@@ -34,4 +34,17 @@ abstract class GameCharactor(name: String, val abilityScore: AbilityScore) : Gam
      * プレイヤー/敵キャラクターはこの関数をオーバーライドして、行動可能時の行動を記述する。
      */
     open fun turn() {}
+
+    /**
+     * ゲームキャラクター
+     * @return 与えたダメージの量を表す数値
+     */
+    fun attackTarget (target: GameCharactor): Int {
+
+        val thisAttack = this.abilityScore.abilityMold.attack
+        val targetDefense = target.abilityScore.abilityMold.defense
+        val damage = thisAttack - targetDefense / 2
+        target.abilityScore.hp.damage(damage)
+        return damage
+    }
 }

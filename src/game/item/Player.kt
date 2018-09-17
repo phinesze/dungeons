@@ -89,6 +89,19 @@ exit:終了
 
     private fun moveDown(): Boolean = moveAny(position.x, position.y + 1, "後ろ")
 
+    override fun collisionDetected(otherObject: GameObject) {
+        if (otherObject is Enemy) {
+            attackEnemy(otherObject)
+        } else if (otherObject is GameItem) {
+            //TODO("アイテム取得関連")
+        }
+    }
+
+    private fun attackEnemy(otherObject: Enemy) {
+        val damage = this.attackTarget(otherObject)
+        println("${name}は${otherObject.name}に${damage}ダメージを与えた")
+    }
+
     override fun toString(): String {
         return """
 ${name}:

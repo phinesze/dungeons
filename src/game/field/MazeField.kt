@@ -1,5 +1,7 @@
 package game.field
 
+import game.datalist.enemyList
+import game.item.Enemy
 import game.item.GameObject
 import game.item.Player
 import game.item.Stair
@@ -23,10 +25,13 @@ class MazeField(width: Int, height: Int, player: Player, floor: Int) : Field(wid
     private val random = Random(floor.toLong())
 
     init {
+        //スタートとゴールをランダムに配置する。
         addObjectRandom(start)
         addObjectRandom(goal)
+        //プレイヤーをスタートに配置する。
         addObject(start.position.x, start.position.y,  player)
-
+        //敵キャラクターを配置する。
+        for(i in 0..5) addObjectRandom(Enemy(enemyList[0]))
         //x,yのインデックスが共に奇数になる場所のブロックを壁にする。
         createStatueWall()
         //指定された位置からの矢印の鎖を生成する。
