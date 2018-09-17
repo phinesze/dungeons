@@ -11,6 +11,14 @@ class Enemy(name: String, abilityScore: AbilityScore): GameCharactor(name, abili
     constructor(mold: EnemyMold) : this(mold.name,  mold.abilityScore.clone())
 
     override fun turn() {
+        moveLeft()
+        val arrowMap = field!!.arrowMap
+
+        arrowMap.getLeftSideArrow(this.position.x,  this.position.y)
+        arrowMap.getTopSideArrow(this.position.x,  this.position.y)
+        arrowMap.getRightSideArrow(this.position.x,  this.position.y)
+        arrowMap.getBottomSideArrow(this.position.x,  this.position.y)
+
         //TODO("敵の行動")
     }
 

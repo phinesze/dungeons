@@ -54,10 +54,10 @@ exit:終了
         println()
 
         when (input) {
-            "w" -> return moveUp()
-            "s" -> return moveDown()
-            "a" -> return moveLeft()
-            "d" -> return moveRight()
+            "w" -> return moveUpWithMes()
+            "s" -> return moveDownWithMes()
+            "a" -> return moveLeftWithMes()
+            "d" -> return moveRightWithMes()
 
             "m" -> println(field.toString())
 
@@ -80,13 +80,10 @@ exit:終了
         }
     }
 
-    private fun moveLeft(): Boolean = moveAny(position.x - 1, position.y, "左")
-
-    private fun moveRight(): Boolean = moveAny(position.x + 1, position.y, "右")
-
-    private fun moveUp(): Boolean = moveAny(position.x, position.y - 1, "前")
-
-    private fun moveDown(): Boolean = moveAny(position.x, position.y + 1, "後ろ")
+    private fun moveLeftWithMes(): Boolean = moveAny(position.x - 1, position.y, "左")
+    private fun moveRightWithMes(): Boolean = moveAny(position.x + 1, position.y, "右")
+    private fun moveUpWithMes(): Boolean = moveAny(position.x, position.y - 1, "前")
+    private fun moveDownWithMes(): Boolean = moveAny(position.x, position.y + 1, "後ろ")
 
     override fun collisionDetected(otherObject: GameObject) {
         if (otherObject is Enemy) {

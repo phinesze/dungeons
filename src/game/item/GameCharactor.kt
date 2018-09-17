@@ -51,4 +51,9 @@ abstract class GameCharactor(name: String, val abilityScore: AbilityScore) : Gam
 
         return damage
     }
+
+    protected fun moveLeft(): Boolean = tryToMove(position.x - 1, position.y)
+    protected fun moveRight(): Boolean = tryToMove(position.x + 1, position.y)
+    protected fun moveUp(): Boolean = tryToMove(position.x, position.y - 1)
+    protected fun moveDown(): Boolean = tryToMove(position.x, position.y + 1)
 }
