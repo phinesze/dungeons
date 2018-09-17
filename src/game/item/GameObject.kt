@@ -51,13 +51,17 @@ import game.param.Position
      * @param y: Int 移動先のy位置
      */
     protected fun tryToMove(x: Int, y: Int) : Boolean {
-        //
-        if (field.tryToGetFieldBlock(x, y)?.type?.isFloor !== true) return false
-        //衝突判定
-        val otherObject = this.field.getNotThroughable(x, y)
-        if (otherObject != null) { this.collisionDetected(otherObject); return true }
-        //フィールドブロックの移動
-        try { this.field.moveObject(x, y, this) } catch (e: Exception) { return false }
+        try {
+            //フィールドブロックを取得して床ではない場合はfalse
+            if (field.getFieldBlock(x, y)!!.type.isFloor !== true) return false
+            //衝突判定
+            val otherObject = this.field.getNotThroughable(x, y)
+            if (otherObject != null) { this.collisionDetected(otherObject); return true }
+            //指定した位置への移動
+            this.field.moveObject(x, y, this)
+        } catch (e: Exception) {
+            return false
+        }
         return true
     }
 }

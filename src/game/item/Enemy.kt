@@ -11,16 +11,22 @@ class Enemy(name: String, abilityScore: AbilityScore, field: Field): GameCharact
      */
     constructor(mold: EnemyMold, field: Field) : this(mold.name,  mold.abilityScore.clone(), field)
 
+    /**
+     *  敵キャラクターの行動可能時の動作
+     * プレイヤーキャラクターに直線状に近づくように移動する。
+     */
     override fun turn() {
-        moveLeft()
-        val arrowMap = field.arrowMap
-
-        arrowMap.getLeftSideArrow(this.position.x,  this.position.y)
-        arrowMap.getTopSideArrow(this.position.x,  this.position.y)
-        arrowMap.getRightSideArrow(this.position.x,  this.position.y)
-        arrowMap.getBottomSideArrow(this.position.x,  this.position.y)
-
-        //TODO("敵の行動")
+        //プレイヤーオブジェクトを取得
+        val player = field.getPlayer(0)
+        //敵キャラクターとプレイヤーとの間のx, y位置の差を取得
+        var x = player.position.x - this.position.x
+        var y = player.position.y - this.position.y
+        //上下左右どちらに移動するかを決定
+        if (Math.abs(x) > Math.abs(y)) {
+            if (x < 0) this.moveLeft() else this.moveRight()
+        } else {
+            if (y < 0) this.moveUp() else this.moveDown()
+        }
     }
 
     override fun display(): String = "EE"

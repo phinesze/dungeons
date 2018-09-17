@@ -49,6 +49,15 @@ open  class Field(val width: Int, val height: Int, val floor :Int = 0) {
     var mapMoveId: Int?= null
 
     /**
+     *  フィールド内のプレイヤーオブジェクトを取得する。
+     *  @param index インデックス
+     *  @return 取得したプレイヤーオブジェクト
+     */
+    fun getPlayer(index: Int = 0): Player {
+        return playerObjects[index]
+    }
+
+    /**
      * 指定したx,y位置のフィールドブロックを取得する。
      * @param x フィールド内のx位置
      * ＠param y フィールド内のy位置
