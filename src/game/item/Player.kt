@@ -13,13 +13,11 @@ class Player(name: String, var display: String, abilityScore: AbilityScore, var 
 ) : GameCharactor(name, abilityScore, field) {
 
     private val turnMessage = """
-${name}は何をしますか？
-w:前へ
-s:後ろへ
-a:左へ
-d:右へ
+${name}は何をしますか？ HP : ${this.abilityScore.hp}  MP : ${this.abilityScore.mp}
+w:前へ  s:後ろへ  a:左へ  d:右へ
 n:何もしない
 m:マップを表示
+p:能力値を表示
 
 q:終了
 
@@ -62,6 +60,7 @@ q:終了
             "d" -> return moveRightWithMes()
             "n" -> return true
             "m" -> println(field.toString())
+            "p" -> println(this)
 
             "q" -> {
                 println("さよならだ・・また会う日まで")
