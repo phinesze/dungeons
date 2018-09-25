@@ -1,11 +1,11 @@
 package game.param
 
-class AbilityScore(hp: Int, mp: Int, var abilityMold: AbilityMold): Cloneable {
-    val hp = MaxNowValue(hp)
-    val mp = MaxNowValue(mp)
+class AbilityScore(var abilityMold: AbilityMold): Cloneable {
+    val hp = MaxNowValue(abilityMold.maxHp)
+    val mp = MaxNowValue(abilityMold.maxMp)
 
     public override fun clone(): AbilityScore {
-        return AbilityScore(hp.max, mp.max, abilityMold)
+        return AbilityScore(abilityMold)
     }
 
     override fun toString(): String {

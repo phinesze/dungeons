@@ -1,10 +1,10 @@
 package game.mold
 
 import game.NamableObject
-import game.param.AbilityScore
+import game.param.AbilityMold
 
 /**
  *  敵キャラクターの種類を表す
  *
  */
-class EnemyMold(name: String, display: String, var abilityScore: AbilityScore): NamableObject(name)
+class EnemyMold(name: String, display: String, internal var abilityMold: AbilityMold): NamableObject(name)

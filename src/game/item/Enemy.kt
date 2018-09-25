@@ -4,12 +4,12 @@ import game.field.Field
 import game.mold.EnemyMold
 import game.param.AbilityScore
 
-class Enemy(name: String, abilityScore: AbilityScore, field: Field): GameCharactor(name, abilityScore, field) {
+class Enemy(name: String, abilityScore: AbilityScore, field: Field) : GameCharactor(name, abilityScore, field) {
 
     /**
      *  敵キャラクターのモールド(EnemyMold)から敵キャラクターを生成する。
      */
-    constructor(mold: EnemyMold, field: Field) : this(mold.name,  mold.abilityScore.clone(), field)
+    constructor(mold: EnemyMold, field: Field) : this(mold.name, AbilityScore(mold.abilityMold), field)
 
     /**
      *  敵キャラクターの行動可能時の動作
@@ -23,6 +23,7 @@ class Enemy(name: String, abilityScore: AbilityScore, field: Field): GameCharact
         //敵キャラクターとプレイヤーとの間のx, y位置の差を取得
         var x = player.position.x - this.position.x
         var y = player.position.y - this.position.y
+
         //上下左右どちらに移動するかを決定
         if (Math.abs(x) > Math.abs(y)) {
             if (x < 0) this.moveLeft() else this.moveRight()
@@ -44,7 +45,8 @@ class Enemy(name: String, abilityScore: AbilityScore, field: Field): GameCharact
     private fun attackPlayer(player: Player) {
         val damage = this.attackTarget(player)
         println("${player.name}は${this.name}に${damage}ダメージを受けた")
-        if (player.abilityScore.hp.now <= 0) println("${player.name}は死んでしまった")    }
+        if (player.abilityScore.hp.now <= 0) println("${player.name}は死んでしまった")
+    }
 
 
     override fun display(): String = "EE"

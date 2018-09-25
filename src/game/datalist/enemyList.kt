@@ -7,10 +7,10 @@ import game.param.AbilityScore
 val enemyList = arrayOf(
         EnemyMold("ゴブリン",
                 "§",
-                AbilityScore(15, 0, AbilityMold(10, 10, 10, 10, 6))
+                AbilityMold(15, 0, 10, 10, 10, 10, 6)
         ),
         EnemyMold("コボルト",
                 "Ξ",
-                AbilityScore(20, 0, AbilityMold(12, 12, 4, 4, 10))
+                AbilityMold(20, 10, 12, 12, 4, 4, 10)
         )
 )

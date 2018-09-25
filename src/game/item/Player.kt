@@ -2,27 +2,61 @@ package game.item
 
 import game.field.Field
 import game.param.EquipmentState
+import game.param.AbilityMold
 import game.param.AbilityScore
+import game.param.LevelAndExperience
 import kotlin.system.exitProcess
 
 /**
  * プレイヤーキャラクタを表すクラス。GameCharactorを継承する。
  * GameCharactorのopen関数turnをオーバーライドして、行動可能時に対話型メッセージを出力する。
  */
-class Player(name: String, var display: String, abilityScore: AbilityScore, var equipmentState: EquipmentState = EquipmentState(), field: Field
-) : GameCharactor(name, abilityScore, field) {
+class Player(
+        name: String,
+        var display: String,
+        level: Int,
+        abilityMap: Map<Int, AbilityMold>,
+        var equipmentState: EquipmentState = EquipmentState(),
+        field: Field
+) : GameCharactor(name, AbilityScore(abilityMap[level]!!), field) {
 
+    /**
+     * 現在のレベルと経験値を表す。
+     */
+    private val levelAndExperience = LevelAndExperience(level = level)
+
+    /**
+     * 現在のレベルを取得する。
+     */
+    val level :Int = this.levelAndExperience.level
+
+    /**
+     * 現在の累積経験値を取得する。
+     */
+    val experience :Long = this.levelAndExperience.experience
+
+    /**
+     * 各レベルごとの能力値の型
+     */
+    val abilityMap: Map<Int, AbilityMold> = abilityMap
+
+    /**
+     * 行動可能時に出力されるメッセージ文字列
+     */
     private val turnMessage = """
 ${name}は何をしますか？
 w:前へ  s:後ろへ  a:左へ  d:右へ
-n:何もしない
+n:待機
 m:マップを表示
 p:能力値を表示
 
-q:終了
-
+q:ゲームを終了
     """
 
+
+    /**
+     * MoveAnyを実行した際に壁に阻まれた際に表示されるメッセージ
+     */
     private val moveErrorMessage = "しかし壁があって動けない"
 
     override fun display(): String = display
@@ -59,24 +93,36 @@ q:終了
         println()
 
         when (input) {
-            "w" -> return moveUpWithMes()
-            "s" -> return moveDownWithMes()
-            "a" -> return moveLeftWithMes()
-            "d" -> return moveRightWithMes()
+            //上へ移動
+            "w" -> return moveUpWithMessage()
+            //下へ移動
+            "s" -> return moveDownWithMessage()
+            //左へ移動
+            "a" -> return moveLeftWithMessage()
+            //右へ移動
+            "d" -> return moveRightWithMessage()
+            //待機
             "n" -> return true
+            //マップを表示
             "m" -> println(field.toString())
+            //能力値を表示
             "p" -> println(this)
-
+            //ゲームを終了
             "q" -> {
                 println("さよならだ・・また会う日まで")
                 exitProcess(0)
             }
+            //入力失敗
             else -> println("もう一度入力してください。")
         }
         return false
     }
 
-    private fun moveAny(x: Int, y: Int, message: String): Boolean {
+    /**
+     * 上下左右いずれかへの移動がコマンドとして入力された場合に「(プレイヤー名)は(上|下|左|右)に進んだ。」というメッセージとともに移動を試みる。
+     * @return 移動先のフィールドブロックが床である場合(別のゲームオブジェクト重なった場合も)はtrue、壁であり移動不可能な場合はfalse
+     */
+    private fun moveAnyWithMessage(x: Int, y: Int, message: String): Boolean {
         println("${name}は${message}に進んだ。")
         return if (tryToMove(x, y)) {
             true
@@ -86,10 +132,29 @@ q:終了
         }
     }
 
-    private fun moveLeftWithMes(): Boolean = moveAny(position.x - 1, position.y, "左")
-    private fun moveRightWithMes(): Boolean = moveAny(position.x + 1, position.y, "右")
-    private fun moveUpWithMes(): Boolean = moveAny(position.x, position.y - 1, "前")
-    private fun moveDownWithMes(): Boolean = moveAny(position.x, position.y + 1, "後ろ")
+    /**
+     * 「左へ移動」が入力された場合にメッセージとともに左に移動する。
+     * @return 移動先のフィールドブロックが床であり移動可能な場合はtrue、壁であり移動不可能な場合はfalse
+     */
+    private fun moveLeftWithMessage(): Boolean = moveAnyWithMessage(position.x - 1, position.y, "左")
+
+    /**
+     * 「右へ移動」が入力された場合にメッセージとともに右に移動する。
+     * @return 移動先のフィールドブロックが床であり移動可能な場合はtrue、壁であり移動不可能な場合はfalse
+     */
+    private fun moveRightWithMessage(): Boolean = moveAnyWithMessage(position.x + 1, position.y, "右")
+
+    /**
+     * 「上へ移動」が入力された場合にメッセージとともに上に移動する。
+     * @return 移動先のフィールドブロックが床であり移動可能な場合はtrue、壁であり移動不可能な場合はfalse
+     */
+    private fun moveUpWithMessage(): Boolean = moveAnyWithMessage(position.x, position.y - 1, "前")
+
+    /**
+     * 「下へ移動」が入力された場合にメッセージとともに下に移動する。
+     * @return 移動先のフィールドブロックが床であり移動可能な場合はtrue、壁であり移動不可能な場合はfalse
+     */
+    private fun moveDownWithMessage(): Boolean = moveAnyWithMessage(position.x, position.y + 1, "後ろ")
 
     override fun collisionDetected(otherObject: GameObject) {
         if (otherObject is Enemy) {
