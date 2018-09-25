@@ -1,10 +1,8 @@
 package game
 
-import game.field.Field
 import game.field.MazeField
 import game.item.Player
 import game.param.AbilityMold
-import game.param.AbilityScore
 import game.param.EquipmentState
 import kotlin.system.exitProcess
 
@@ -18,18 +16,30 @@ class GameBoard() {
     //使用するフィールド
     private var field: MazeField = MazeField(15, 9, 1)
 
+
+    private val abilityMold = AbilityMold.generateAbilityMoldMap(
+            AbilityMold(
+                    50,
+                    40,
+                    15,
+                    15,
+                    15,
+                    15,
+                    15
+            ))
+
     //使用するプレイヤー
     private val player: Player = Player(
             "あなた",
             "主",
-            AbilityScore(50, 40,
-                    AbilityMold(15, 15, 15, 15, 15)
-            ),
+            1,
+            abilityMold,
             EquipmentState(),
             field
     )
 
     init {
+
         field.setPlayer(player)
     }
 
