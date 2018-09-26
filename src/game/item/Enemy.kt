@@ -21,7 +21,7 @@ class Enemy(
     /**
      *  敵キャラクターのモールド(EnemyMold)から敵キャラクターを生成する。
      */
-    constructor(mold: EnemyMold, field: Field) : this(mold.name, AbilityScore(mold.abilityMold), field)
+    constructor(mold: EnemyMold, field: Field) : this(mold.name, AbilityScore(mold.abilityMold), field, mold.level, mold.experience)
 
     /**
      *  敵キャラクターの行動可能時の動作
