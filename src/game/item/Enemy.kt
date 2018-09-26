@@ -6,7 +6,7 @@ import game.param.AbilityScore
 import game.param.LevelAndExperience
 
 /**
- * 敵キャラクターを表すクラス。GameCharactorを継承する。
+ * 敵キャラクターを表すクラス。GameCharacterを継承する。
  */
 class Enemy(
         name: String,
@@ -14,7 +14,7 @@ class Enemy(
         abilityScore: AbilityScore,
         field: Field,
         levelAndExp: LevelAndExperience
-) : GameCharactor(name, display, abilityScore, field, levelAndExp) {
+) : GameCharacter(name, display, abilityScore, field, levelAndExp) {
 
     override val levelAndExperience: LevelAndExperience = levelAndExp
 

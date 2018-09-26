@@ -4,8 +4,8 @@ import game.param.*
 import kotlin.system.exitProcess
 
 /**
- * プレイヤーキャラクタを表すクラス。GameCharactorを継承する。
- * GameCharactorのopen関数turnをオーバーライドして、行動可能時に対話型メッセージを出力する。
+ * プレイヤーキャラクタを表すクラス。GameCharacterを継承する。
+ * GameCharacterのopen関数turnをオーバーライドして、行動可能時に対話型メッセージを出力する。
  */
 class Player(
         name: String,
@@ -14,7 +14,7 @@ class Player(
         var equipmentState: EquipmentState = EquipmentState(),
         field: Field,
         levelAndExp: LevelAndExperience
-) : GameCharactor(name, display, AbilityScore(abilityMap[levelAndExp.level]!!), field, levelAndExp) {
+) : GameCharacter(name, display, AbilityScore(abilityMap[levelAndExp.level]!!), field, levelAndExp) {
 
     /**
      * プレイヤーのレベルと
@@ -46,7 +46,7 @@ q:ゲームを終了
     private val moveErrorMessage = "しかし壁があって動けない"
 
     /**
-     * GameCharactorの同名関数をオーバーライドする。
+     * GameCharacterの同名関数をオーバーライドする。
      * 行動可能時になった場合に実行可能なコマンド一覧を表示して、実際の行動をプレイヤー自身にコマンドとして入力させる。
      * 入力したコマンドが有効な場合は実際にコマンドを実行して終了する。
      * 入力が無効な場合または行動が終了しないコマンドの場合は、繰り返し入力させる。

@@ -10,7 +10,7 @@ import game.param.LevelAndExperience
  * 経過ごとにtimeWaitを1減らしていき0になった場合にメソッドturnを呼び出し、その後にtimeWaitを一定値に戻す。
  * turnは派生先のプレイヤー/敵キャラクターでオーバーライドされる。
  */
-abstract class GameCharactor(name: String, display: String, val abilityScore: AbilityScore, field: Field, levelAndExp: LevelAndExperience) : GameObject(name, field) {
+abstract class GameCharacter(name: String, display: String, val abilityScore: AbilityScore, field: Field, levelAndExp: LevelAndExperience) : GameObject(name, field) {
 
     /**
      * 表示
@@ -66,7 +66,7 @@ abstract class GameCharactor(name: String, display: String, val abilityScore: Ab
      *  @param target ダメージを受ける相手キャラクター
      * @return 与えたダメージの量を表す数値
      */
-    fun attackTarget(target: GameCharactor): Int {
+    fun attackTarget(target: GameCharacter): Int {
 
         val thisAttack = this.abilityScore.abilityMold.attack
         val targetDefense = target.abilityScore.abilityMold.defense
