@@ -17,11 +17,6 @@ class Player(
 ) : GameCharacter(name, display, AbilityScore(abilityMap[levelAndExp.level]!!), field, levelAndExp) {
 
     /**
-     * プレイヤーのレベルと
-     */
-//    override val levelAndExperience: PlayerLevelAndExperience = levelAndExp
-
-    /**
      * 各レベルごとの能力値の型
      */
     val abilityMap: Map<Int, AbilityMold> = abilityMap
