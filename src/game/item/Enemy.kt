@@ -12,16 +12,15 @@ class Enemy(
         name: String,
         abilityScore: AbilityScore,
         field: Field,
-        level: Int = 1,
-        experience: Long = 0
-) : GameCharactor(name, abilityScore, field, level, experience) {
+        levelAndExp: LevelAndExperience
+) : GameCharactor(name, abilityScore, field, levelAndExp) {
 
-    override val levelAndExperience: LevelAndExperience = LevelAndExperience(level, experience)
+    override val levelAndExperience: LevelAndExperience = levelAndExp
 
     /**
      *  敵キャラクターのモールド(EnemyMold)から敵キャラクターを生成する。
      */
-    constructor(mold: EnemyMold, field: Field) : this(mold.name, AbilityScore(mold.abilityMold), field, mold.level, mold.experience)
+    constructor(mold: EnemyMold, field: Field) : this(mold.name, AbilityScore(mold.abilityMold), field, mold.levelAndExp)
 
     /**
      *  敵キャラクターの行動可能時の動作

@@ -10,7 +10,7 @@ import game.param.LevelAndExperience
  * 経過ごとにtimeWaitを1減らしていき0になった場合にメソッドturnを呼び出し、その後にtimeWaitを一定値に戻す。
  * turnは派生先のプレイヤー/敵キャラクターでオーバーライドされる。
  */
-abstract class GameCharactor(name: String, val abilityScore: AbilityScore, field: Field, level: Int, experience: Long = 0) : GameObject(name, field) {
+abstract class GameCharactor(name: String, val abilityScore: AbilityScore, field: Field, levelAndExp: LevelAndExperience) : GameObject(name, field) {
 
     /**
      * プレイヤーまたは敵キャラクタが行動できるまでの時間(カウント)を表す。
@@ -27,7 +27,7 @@ abstract class GameCharactor(name: String, val abilityScore: AbilityScore, field
     /**
      * 現在のレベルと経験値を表す。
      */
-    open val levelAndExperience: LevelAndExperience = LevelAndExperience(level, experience)
+    open val levelAndExperience: LevelAndExperience = levelAndExp
     /**
      * 現在のレベルを取得する。
      */

@@ -10,16 +10,16 @@ import kotlin.system.exitProcess
 class Player(
         name: String,
         var display: String,
-        level: Int,
         abilityMap: Map<Int, AbilityMold>,
         var equipmentState: EquipmentState = EquipmentState(),
-        field: Field
-) : GameCharactor(name, AbilityScore(abilityMap[level]!!), field, level) {
+        field: Field,
+        levelAndExp: LevelAndExperience
+) : GameCharactor(name, AbilityScore(abilityMap[levelAndExp.level]!!), field, levelAndExp) {
 
     /**
      * プレイヤーのレベルと
      */
-    override val levelAndExperience: PlayerLevelAndExperience = PlayerLevelAndExperience(level)
+//    override val levelAndExperience: PlayerLevelAndExperience = levelAndExp
 
     /**
      * 各レベルごとの能力値の型

@@ -4,6 +4,7 @@ import game.field.MazeField
 import game.item.Player
 import game.param.AbilityMold
 import game.param.EquipmentState
+import game.param.LevelAndExperience
 import kotlin.system.exitProcess
 
 /**
@@ -38,10 +39,10 @@ class GameBoard() {
     private val player: Player = Player(
             "あなた",
             "主",
-            1,
             abilityMoldMap,
             EquipmentState(),
-            field
+            field,
+            LevelAndExperience(1, 0)
     )
 
     init {
