@@ -9,12 +9,12 @@ import kotlin.system.exitProcess
  */
 class Player(
         name: String,
-        var display: String,
+        display: String,
         abilityMap: Map<Int, AbilityMold>,
         var equipmentState: EquipmentState = EquipmentState(),
         field: Field,
         levelAndExp: LevelAndExperience
-) : GameCharactor(name, AbilityScore(abilityMap[levelAndExp.level]!!), field, levelAndExp) {
+) : GameCharactor(name, display, AbilityScore(abilityMap[levelAndExp.level]!!), field, levelAndExp) {
 
     /**
      * プレイヤーのレベルと
@@ -44,8 +44,6 @@ q:ゲームを終了
      * MoveAnyを実行した際に壁に阻まれた際に表示されるメッセージ
      */
     private val moveErrorMessage = "しかし壁があって動けない"
-
-    override fun display(): String = display
 
     /**
      * GameCharactorの同名関数をオーバーライドする。

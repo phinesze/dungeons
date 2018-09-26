@@ -10,17 +10,18 @@ import game.param.LevelAndExperience
  */
 class Enemy(
         name: String,
+        display: String,
         abilityScore: AbilityScore,
         field: Field,
         levelAndExp: LevelAndExperience
-) : GameCharactor(name, abilityScore, field, levelAndExp) {
+) : GameCharactor(name, display, abilityScore, field, levelAndExp) {
 
     override val levelAndExperience: LevelAndExperience = levelAndExp
 
     /**
      *  敵キャラクターのモールド(EnemyMold)から敵キャラクターを生成する。
      */
-    constructor(mold: EnemyMold, field: Field) : this(mold.name, AbilityScore(mold.abilityMold), field, mold.levelAndExp)
+    constructor(mold: EnemyMold, field: Field) : this(mold.name, mold.display, AbilityScore(mold.abilityMold), field, mold.levelAndExp)
 
     /**
      *  敵キャラクターの行動可能時の動作
@@ -58,7 +59,4 @@ class Enemy(
         println("${player.name}は${this.name}に${damage}ダメージを受けた")
         if (player.abilityScore.hp.now <= 0) println("${player.name}は死んでしまった")
     }
-
-
-    override fun display(): String = "EE"
 }
