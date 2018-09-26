@@ -2,6 +2,7 @@ package game.item
 
 import game.field.Field
 import game.param.AbilityScore
+import game.param.LevelAndExperience
 
 /**
  * プレイヤー(Player)と敵キャラクター(Enemy)の基となる派生元クラス。GameObjectを継承する。
@@ -9,19 +10,34 @@ import game.param.AbilityScore
  * 経過ごとにtimeWaitを1減らしていき0になった場合にメソッドturnを呼び出し、その後にtimeWaitを一定値に戻す。
  * turnは派生先のプレイヤー/敵キャラクターでオーバーライドされる。
  */
-abstract class GameCharactor(name: String, val abilityScore: AbilityScore, field: Field) : GameObject(name, field) {
+abstract class GameCharactor(name: String, val abilityScore: AbilityScore, field: Field, level: Int, experience: Long = 0) : GameObject(name, field) {
 
     /**
      * プレイヤーまたは敵キャラクタが行動できるまでの時間(カウント)を表す。
      * 1カウント経過時に1減らす。
      */
-    var timeWait :Int = 300
+    var timeWait: Int = 300
 
     /**
      * HPの現在地が0以下の場合か否かを表す
      */
-    val isDead :Boolean
+    val isDead: Boolean
         get() = this.abilityScore.hp.now <= 0
+
+    /**
+     * 現在のレベルと経験値を表す。
+     */
+    open val levelAndExperience: LevelAndExperience = LevelAndExperience(level, experience)
+    /**
+     * 現在のレベルを取得する。
+     */
+    val level : Int
+            get() = this.levelAndExperience.level
+    /**
+     * 現在の累積経験値を取得する。
+     */
+    val experience : Long
+            get() = this.levelAndExperience.experience
 
     /**
      * 1カウント経過時の挙動を記述するGameObjectの同名関数をオーバーライドする。
@@ -46,7 +62,7 @@ abstract class GameCharactor(name: String, val abilityScore: AbilityScore, field
      *  @param target ダメージを受ける相手キャラクター
      * @return 与えたダメージの量を表す数値
      */
-    fun attackTarget (target: GameCharactor): Int {
+    fun attackTarget(target: GameCharactor): Int {
 
         val thisAttack = this.abilityScore.abilityMold.attack
         val targetDefense = target.abilityScore.abilityMold.defense

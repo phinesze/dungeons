@@ -3,8 +3,20 @@ package game.item
 import game.field.Field
 import game.mold.EnemyMold
 import game.param.AbilityScore
+import game.param.LevelAndExperience
 
-class Enemy(name: String, abilityScore: AbilityScore, field: Field) : GameCharactor(name, abilityScore, field) {
+/**
+ * 敵キャラクターを表すクラス。GameCharactorを継承する。
+ */
+class Enemy(
+        name: String,
+        abilityScore: AbilityScore,
+        field: Field,
+        level: Int = 1,
+        experience: Long = 0
+) : GameCharactor(name, abilityScore, field, level, experience) {
+
+    override val levelAndExperience: LevelAndExperience = LevelAndExperience(level, experience)
 
     /**
      *  敵キャラクターのモールド(EnemyMold)から敵キャラクターを生成する。

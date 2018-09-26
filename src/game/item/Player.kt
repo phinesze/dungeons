@@ -1,10 +1,6 @@
 package game.item
-
 import game.field.Field
-import game.param.EquipmentState
-import game.param.AbilityMold
-import game.param.AbilityScore
-import game.param.LevelAndExperience
+import game.param.*
 import kotlin.system.exitProcess
 
 /**
@@ -18,22 +14,12 @@ class Player(
         abilityMap: Map<Int, AbilityMold>,
         var equipmentState: EquipmentState = EquipmentState(),
         field: Field
-) : GameCharactor(name, AbilityScore(abilityMap[level]!!), field) {
+) : GameCharactor(name, AbilityScore(abilityMap[level]!!), field, level) {
 
     /**
-     * 現在のレベルと経験値を表す。
+     * プレイヤーのレベルと
      */
-    private val levelAndExperience = LevelAndExperience(level = level)
-
-    /**
-     * 現在のレベルを取得する。
-     */
-    val level :Int = this.levelAndExperience.level
-
-    /**
-     * 現在の累積経験値を取得する。
-     */
-    val experience :Long = this.levelAndExperience.experience
+    override val levelAndExperience: PlayerLevelAndExperience = PlayerLevelAndExperience(level)
 
     /**
      * 各レベルごとの能力値の型

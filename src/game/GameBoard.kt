@@ -13,11 +13,15 @@ import kotlin.system.exitProcess
  */
 class GameBoard() {
 
-    //使用するフィールド
+    /**
+     * 使用するフィールド
+     */
     private var field: MazeField = MazeField(15, 9, 1)
 
-
-    private val abilityMold = AbilityMold.generateAbilityMoldMap(
+    /**
+     * プレイヤーのレベルごとの能力値のハッシュマップ
+     */
+    private val abilityMoldMap :Map<Int, AbilityMold> = AbilityMold.generateAbilityMoldMap(
             AbilityMold(
                     50,
                     40,
@@ -28,12 +32,14 @@ class GameBoard() {
                     15
             ))
 
-    //使用するプレイヤー
+    /**
+     * 使用するプレイヤー
+     */
     private val player: Player = Player(
             "あなた",
             "主",
             1,
-            abilityMold,
+            abilityMoldMap,
             EquipmentState(),
             field
     )
