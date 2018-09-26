@@ -135,6 +135,11 @@ q:ゲームを終了
      */
     private fun moveDownWithMessage(): Boolean = moveAnyWithMessage(position.x, position.y + 1, "後ろ")
 
+    /**
+     * プレイヤーがほかの敵キャラクターまたはアイテムと位置が重なった（衝突した）場合の処理を行う。
+     * 敵キャラクターに衝突した場合はその敵キャラクターにダメージを与える処理を行う。
+     * @param otherObject 重なった（衝突した）相手側のゲームオブジェクト
+     */
     override fun collisionDetected(otherObject: GameObject) {
         if (otherObject is Enemy) {
             attackEnemy(otherObject)
@@ -150,7 +155,9 @@ q:ゲームを終了
     private fun attackEnemy(enemy: Enemy) {
         val damage = this.attackTarget(enemy)
         println("${name}は${enemy.name}に${damage}ダメージを与えた")
-        if (enemy.abilityScore.hp.now <= 0) println("${enemy.name}を倒した")
+        if (enemy.abilityScore.hp.now <= 0) {
+            println("${enemy.name}を倒した")
+        }
     }
 
     override fun toString(): String {
