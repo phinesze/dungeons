@@ -17,6 +17,7 @@ class AbilityMold(
 ): Cloneable {
 
     companion object {
+
         /**
          *
          */

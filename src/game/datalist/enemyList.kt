@@ -2,15 +2,8 @@ package game.datalist
 
 import game.mold.EnemyMold
 import game.param.AbilityMold
-import game.param.AbilityScore
 
 val enemyList = arrayOf(
-        EnemyMold("ゴブリン",
-                "§",
-                AbilityMold(15, 0, 10, 10, 10, 10, 6)
-        ),
-        EnemyMold("コボルト",
-                "Ξ",
-                AbilityMold(20, 10, 12, 12, 4, 4, 10)
-        )
+        EnemyMold(name = "ゴブリン", display = "§", abilityMold = AbilityMold(maxHp = 15, maxMp = 0, attack = 10, defense = 10, magicAttack = 10, magicDefense = 10, agility = 6), level = 1, experience = 1),
+        EnemyMold(name = "コボルト", display = "Ξ", abilityMold = AbilityMold(maxHp = 20, maxMp = 10, attack = 12, defense = 12, magicAttack = 4, magicDefense = 4, agility = 10), level = 1, experience = 3)
 )
