@@ -5,6 +5,7 @@ import game.item.Player
 import game.param.AbilityMold
 import game.param.EquipmentState
 import game.param.LevelAndExperience
+import game.param.PlayerLevelAndExperience
 import kotlin.system.exitProcess
 
 /**
@@ -30,7 +31,7 @@ class GameBoard() {
                     15,
                     15,
                     15,
-                    15
+                    10
             ))
 
     /**
@@ -42,7 +43,7 @@ class GameBoard() {
             abilityMoldMap,
             EquipmentState(),
             field,
-            LevelAndExperience(1, 0)
+            PlayerLevelAndExperience()
     )
 
     init {

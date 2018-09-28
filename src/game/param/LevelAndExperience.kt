@@ -19,6 +19,6 @@ open class LevelAndExperience(level: Int, experience: Long) {
     /**
      * 現在までの累積経験値
      */
-    var experience: Long = 0
+    var experience: Long = experience
         protected set
 }

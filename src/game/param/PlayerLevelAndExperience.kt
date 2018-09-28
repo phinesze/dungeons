@@ -2,10 +2,10 @@ package game.param
 
 /**
  * プレイヤーキャラクターの経験値とレベルを表現する。LevelAndExperienceを継承する。
- * プレイヤー用の場合は、初期レベル・最大レベル・初期累積経験値を指定する。
+ * 初期レベル・最大レベル・初期累積経験値と累積経験値のハッシュマップを作成する際の仮数と基数を指定する。
  *
- * レベル１時点での必要経験値は仮数の値そのままの数値となる。
- * 累積した経験値に 仮数 × 基数^あああ(レベル) を足した値となる。
+ * レベルが1の時点での必要経験値は仮数の値そのままの数値となる。
+ * 各レベルの必要累積経験値は、前のレベルまで累積した経験値に 仮数 × 基数^(現在のレベル - 1) を足した値となる。
  *
  * @param level レベルの初期値
  * @param maxLevel レベルの最大値
@@ -28,7 +28,7 @@ class PlayerLevelAndExperience(
         set(maxLevelValue) { if (this.level > maxLevelValue) throw IllegalArgumentException(); field = maxLevelValue }
 
     /**
-     * 各時点でのレベルレベルをキーとしたレベルが1上がるごとに必要な累積経験値のハッシュマップ
+     * 各時点でのレベルをキーとしたレベルが1上がるごとに必要な累積経験値のハッシュマップ
      */
     private val nextExpMap: MutableMap<Int, Long> = mutableMapOf(1 to significand)
 
