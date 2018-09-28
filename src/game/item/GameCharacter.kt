@@ -12,6 +12,15 @@ import game.param.LevelAndExperience
  */
 abstract class GameCharacter(name: String, display: String, val abilityScore: AbilityScore, field: Field, levelAndExp: LevelAndExperience) : GameObject(name, field) {
 
+    companion object {
+
+        /**
+         * timeWaitの初期値
+         * timeWaitが0以下になった場合にはこの値を加算する。
+         */
+        val TIME_WAIT_START: Int = 1000
+    }
+
     /**
      * 表示
      */
@@ -20,7 +29,7 @@ abstract class GameCharacter(name: String, display: String, val abilityScore: Ab
      * プレイヤーまたは敵キャラクタが行動できるまでの時間(カウント)を表す。
      * 1カウント経過時に1減らす。
      */
-    var timeWait: Int = 300
+    var timeWait: Int = TIME_WAIT_START
 
     /**
      * HPの現在地が0以下の場合か否かを表す
@@ -50,9 +59,9 @@ abstract class GameCharacter(name: String, display: String, val abilityScore: Ab
     override fun onCount() {
         if (this.timeWait <= 0) {
             turn()
-            this.timeWait = 300
+            this.timeWait += TIME_WAIT_START
         } else {
-            this.timeWait--
+            this.timeWait -= this.abilityScore.abilityMold.agility
         }
     }
 

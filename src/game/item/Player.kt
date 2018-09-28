@@ -40,6 +40,10 @@ q:ゲームを終了
      */
     private val moveErrorMessage = "しかし壁があって動けない"
 
+    init {
+        this.timeWait = TIME_WAIT_START / 2
+    }
+
     /**
      * GameCharacterの同名関数をオーバーライドする。
      * 行動可能時になった場合に実行可能なコマンド一覧を表示して、実際の行動をプレイヤー自身にコマンドとして入力させる。
@@ -149,14 +153,18 @@ q:ゲームを終了
     }
 
     /**
-     *  敵キャラクターにダメージを与える。
-     *  @param enemy ダメージを受ける敵キャラクター
+     * メッセージを表示しつつ敵キャラクターにダメージを与える。
+     * 敵のHPを0にした場合は倒した際のメッセージを表示して、プレイヤーの経験値を追加する処理を行う。
+     * @param enemy ダメージを受ける敵キャラクター
      */
     private fun attackEnemy(enemy: Enemy) {
         val damage = this.attackTarget(enemy)
         println("${name}は${enemy.name}に${damage}ダメージを与えた")
+
         if (enemy.abilityScore.hp.now <= 0) {
+            this.levelAndExperience.addExperience(enemy.experience)
             println("${enemy.name}を倒した")
+            println("${enemy.experience}の経験値を獲得した")
         }
     }
 
