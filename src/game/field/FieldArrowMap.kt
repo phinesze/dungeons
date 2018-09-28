@@ -19,7 +19,7 @@ internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
     /**
      * createArrowChainを実行するのに必要なパラメータを格納するキュー
      */
-    private val arrowGenerationQueue = LinkedList<GenerateNextArrowParams>()
+    private val generateNextArrowQueue = LinkedList<GenerateNextArrowParams>()
 
     /**
      * フィールド上のブロックに1対1で対応するカウントの2次元配列
@@ -41,11 +41,8 @@ internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
      * 初めに指定された位置のカウントに0を設定して、
      */
     fun generateFieldArrowMap(x: Int, y: Int) {
-
         setArrowCount(x, y, count = 0)
-
-        arrowGenerationQueue.push(GenerateNextArrowParams(x, y, 0, Arrow.none))
-
+        generateNextArrowQueue.push(GenerateNextArrowParams(x, y, arrowCount = 0, arrow = Arrow.none))
         generateArrowMapInQueue()
     }
 
@@ -87,17 +84,17 @@ internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
      */
     private fun pushArrowGenerationQueueAndRemoveArrowChain(x: Int, y: Int) {
         if (getReferredNum(x, y) > 0) {
-            arrowGenerationQueue.push(GenerateNextArrowParams(x, y, getArrowCount(x, y)!!, Arrow.none))
+            generateNextArrowQueue.push(GenerateNextArrowParams(x, y, getArrowCount(x, y)!!, Arrow.none))
             return
         }
         removeArrowChain(x, y)
     }
 
     fun regenerateBlockChain(x: Int, y: Int) {
-        tryToGetArrowCount(x - 1, y)?.let { arrowCount -> arrowGenerationQueue.add(GenerateNextArrowParams(x - 1, y, arrowCount, Arrow.none)) }
-        tryToGetArrowCount(x + 1, y)?.let { arrowCount -> arrowGenerationQueue.add(GenerateNextArrowParams(x + 1, y, arrowCount, Arrow.none)) }
-        tryToGetArrowCount(x, y - 1)?.let { arrowCount -> arrowGenerationQueue.add(GenerateNextArrowParams(x, y - 1, arrowCount, Arrow.none)) }
-        tryToGetArrowCount(x, y + 1)?.let { arrowCount -> arrowGenerationQueue.add(GenerateNextArrowParams(x, y + 1, arrowCount, Arrow.none)) }
+        tryToGetArrowCount(x - 1, y)?.let { arrowCount -> generateNextArrowQueue.add(GenerateNextArrowParams(x - 1, y, arrowCount, Arrow.none)) }
+        tryToGetArrowCount(x + 1, y)?.let { arrowCount -> generateNextArrowQueue.add(GenerateNextArrowParams(x + 1, y, arrowCount, Arrow.none)) }
+        tryToGetArrowCount(x, y - 1)?.let { arrowCount -> generateNextArrowQueue.add(GenerateNextArrowParams(x, y - 1, arrowCount, Arrow.none)) }
+        tryToGetArrowCount(x, y + 1)?.let { arrowCount -> generateNextArrowQueue.add(GenerateNextArrowParams(x, y + 1, arrowCount, Arrow.none)) }
         generateArrowMapInQueue()
     }
 
@@ -301,9 +298,9 @@ internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
      * キューに貯められたcreateNextArrowの実行待ちをすべて実行する。
      */
     fun generateArrowMapInQueue() {
-        while (arrowGenerationQueue.size > 0) {
-            val params = arrowGenerationQueue.first
-            arrowGenerationQueue.removeFirst()
+        while (generateNextArrowQueue.size > 0) {
+            val params = generateNextArrowQueue.first
+            generateNextArrowQueue.removeFirst()
             generateNextArrow(params)
         }
     }
@@ -340,9 +337,9 @@ internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
 
     private fun generateMazeArrowToQueue(param: GenerateNextArrowParams, x: Int, y: Int) {
         val nextArrowCount = param.arrowCount + 1
-        arrowGenerationQueue.add(GenerateNextArrowParams(x - 1, y, nextArrowCount, Arrow.left, prev = param))
-        arrowGenerationQueue.add(GenerateNextArrowParams(x + 1, y, nextArrowCount, Arrow.right, prev = param))
-        arrowGenerationQueue.add(GenerateNextArrowParams(x, y - 1, nextArrowCount, Arrow.top, prev = param))
-        arrowGenerationQueue.add(GenerateNextArrowParams(x, y + 1, nextArrowCount, Arrow.bottom, prev = param))
+        generateNextArrowQueue.add(GenerateNextArrowParams(x - 1, y, nextArrowCount, Arrow.left, prev = param))
+        generateNextArrowQueue.add(GenerateNextArrowParams(x + 1, y, nextArrowCount, Arrow.right, prev = param))
+        generateNextArrowQueue.add(GenerateNextArrowParams(x, y - 1, nextArrowCount, Arrow.top, prev = param))
+        generateNextArrowQueue.add(GenerateNextArrowParams(x, y + 1, nextArrowCount, Arrow.bottom, prev = param))
     }
 }
