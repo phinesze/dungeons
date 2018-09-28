@@ -32,7 +32,7 @@ class Player(
     private val turnMessage = """
 ${name}は何をしますか？
 w:前へ  s:後ろへ  a:左へ  d:右へ
-n:待機
+x:待機
 m:マップを表示
 p:能力値を表示
 
@@ -90,7 +90,7 @@ q:ゲームを終了
             //右へ移動
             "d" -> return moveRightWithMessage()
             //待機
-            "n" -> return true
+            "x" -> return true
             //マップを表示
             "m" -> println(field.toString())
             //能力値を表示
