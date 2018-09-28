@@ -14,12 +14,12 @@ internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
      * generateArrowMapInQueueを実行するのに必要なパラメータ
      * arrowGenerationQueueに格納される。
      */
-    private class ArrowGenerationParams(val x: Int, val y: Int, val arrowCount: Int, val arrow: Arrow, val prev: ArrowGenerationParams? = null)
+    private class GenerateNextArrowParams(val x: Int, val y: Int, val arrowCount: Int, val arrow: Arrow, val prev: GenerateNextArrowParams? = null)
 
     /**
      * createArrowChainを実行するのに必要なパラメータを格納するキュー
      */
-    private val arrowGenerationQueue = LinkedList<ArrowGenerationParams>()
+    private val arrowGenerationQueue = LinkedList<GenerateNextArrowParams>()
 
     /**
      * フィールド上のブロックに1対1で対応するカウントの2次元配列
@@ -44,7 +44,7 @@ internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
 
         setArrowCount(x, y, count = 0)
 
-        arrowGenerationQueue.push(ArrowGenerationParams(x, y, 0, Arrow.none))
+        arrowGenerationQueue.push(GenerateNextArrowParams(x, y, 0, Arrow.none))
 
         generateArrowMapInQueue()
     }
@@ -87,17 +87,17 @@ internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
      */
     private fun pushArrowGenerationQueueAndRemoveArrowChain(x: Int, y: Int) {
         if (getReferredNum(x, y) > 0) {
-            arrowGenerationQueue.push(ArrowGenerationParams(x, y, getArrowCount(x, y)!!, Arrow.none))
+            arrowGenerationQueue.push(GenerateNextArrowParams(x, y, getArrowCount(x, y)!!, Arrow.none))
             return
         }
         removeArrowChain(x, y)
     }
 
     fun regenerateBlockChain(x: Int, y: Int) {
-        tryToGetArrowCount(x - 1, y)?.let { arrowCount -> arrowGenerationQueue.add(ArrowGenerationParams(x - 1, y, arrowCount, Arrow.none)) }
-        tryToGetArrowCount(x + 1, y)?.let { arrowCount -> arrowGenerationQueue.add(ArrowGenerationParams(x + 1, y, arrowCount, Arrow.none)) }
-        tryToGetArrowCount(x, y - 1)?.let { arrowCount -> arrowGenerationQueue.add(ArrowGenerationParams(x, y - 1, arrowCount, Arrow.none)) }
-        tryToGetArrowCount(x, y + 1)?.let { arrowCount -> arrowGenerationQueue.add(ArrowGenerationParams(x, y + 1, arrowCount, Arrow.none)) }
+        tryToGetArrowCount(x - 1, y)?.let { arrowCount -> arrowGenerationQueue.add(GenerateNextArrowParams(x - 1, y, arrowCount, Arrow.none)) }
+        tryToGetArrowCount(x + 1, y)?.let { arrowCount -> arrowGenerationQueue.add(GenerateNextArrowParams(x + 1, y, arrowCount, Arrow.none)) }
+        tryToGetArrowCount(x, y - 1)?.let { arrowCount -> arrowGenerationQueue.add(GenerateNextArrowParams(x, y - 1, arrowCount, Arrow.none)) }
+        tryToGetArrowCount(x, y + 1)?.let { arrowCount -> arrowGenerationQueue.add(GenerateNextArrowParams(x, y + 1, arrowCount, Arrow.none)) }
         generateArrowMapInQueue()
     }
 
@@ -304,14 +304,14 @@ internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
         while (arrowGenerationQueue.size > 0) {
             val params = arrowGenerationQueue.first
             arrowGenerationQueue.removeFirst()
-            generateArrowMapInQueueNext(params)
+            generateNextArrow(params)
         }
     }
 
-    private fun generateArrowMapInQueueNext(data: ArrowGenerationParams): Boolean {
-        val prev = data.prev
-        val x = data.x
-        val y = data.y
+    private fun generateNextArrow(param: GenerateNextArrowParams): Boolean {
+        val prev = param.prev
+        val x = param.x
+        val y = param.y
 
         //x,y位置が画面内にない場合、x,y位置にあるブロックが床でない場合は中断する。
         if (field.tryToGetFieldBlock(x, y)?.type != FieldBlockType.floor) {
@@ -323,26 +323,26 @@ internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
 
         if (prev != null) {
             //自身の現在のカウントより少ない矢印カウントのブロックにたどり着いた場合は中断する。
-            if (data.arrowCount > blockArrowCount ?: Int.MAX_VALUE) return false
+            if (param.arrowCount > blockArrowCount ?: Int.MAX_VALUE) return false
             //矢印を設定する。
-            setAnySideArrow(prev.x, prev.y, data.arrow.toDirection()!!, data.arrow)
+            setAnySideArrow(prev.x, prev.y, param.arrow.toDirection()!!, param.arrow)
             //カウントが同じになった場合、
-            if (data.arrowCount == blockArrowCount) return false
+            if (param.arrowCount == blockArrowCount) return false
 
         } else if (blockArrowCount == null) {
             return false
         }
         //ブロックに現在のカウントを代入する。
-        setArrowCount(x, y, data.arrowCount)
-        generateMazeArrowToQueue(data, x, y)
+        setArrowCount(x, y, param.arrowCount)
+        generateMazeArrowToQueue(param, x, y)
         return true
     }
 
-    private fun generateMazeArrowToQueue(data: ArrowGenerationParams, x: Int, y: Int) {
-        val nextArrowCount = data.arrowCount + 1
-        arrowGenerationQueue.add(ArrowGenerationParams(x - 1, y, nextArrowCount, Arrow.left, prev = data))
-        arrowGenerationQueue.add(ArrowGenerationParams(x + 1, y, nextArrowCount, Arrow.right, prev = data))
-        arrowGenerationQueue.add(ArrowGenerationParams(x, y - 1, nextArrowCount, Arrow.top, prev = data))
-        arrowGenerationQueue.add(ArrowGenerationParams(x, y + 1, nextArrowCount, Arrow.bottom, prev = data))
+    private fun generateMazeArrowToQueue(param: GenerateNextArrowParams, x: Int, y: Int) {
+        val nextArrowCount = param.arrowCount + 1
+        arrowGenerationQueue.add(GenerateNextArrowParams(x - 1, y, nextArrowCount, Arrow.left, prev = param))
+        arrowGenerationQueue.add(GenerateNextArrowParams(x + 1, y, nextArrowCount, Arrow.right, prev = param))
+        arrowGenerationQueue.add(GenerateNextArrowParams(x, y - 1, nextArrowCount, Arrow.top, prev = param))
+        arrowGenerationQueue.add(GenerateNextArrowParams(x, y + 1, nextArrowCount, Arrow.bottom, prev = param))
     }
 }
