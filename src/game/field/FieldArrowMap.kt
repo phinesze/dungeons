@@ -40,8 +40,10 @@ internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
      * 指定された位置からの矢印マップを生成する。
      * 初めに指定された位置のカウントに0を設定して、
      */
-    fun generateArrowMap(x: Int, y: Int) {
+    fun generateFieldArrowMap(x: Int, y: Int) {
+
         setArrowCount(x, y, count = 0)
+
         arrowGenerationQueue.push(ArrowGenerationParams(x, y, 0, Arrow.none))
 
         generateArrowMapInQueue()

@@ -33,7 +33,7 @@ class MazeField(width: Int, height: Int, floor: Int) : Field(width, height, floo
         //x,yのインデックスが共に奇数になる場所のブロックを壁にする。
         createStatueWall()
         //指定された位置からの矢印の鎖を生成する。
-        arrowMap.generateArrowMap(start.position.x, start.position.y)
+        arrowMap.generateFieldArrowMap(start.position.x, start.position.y)
         //壁を生成する。
         createMazeWall()
     }
