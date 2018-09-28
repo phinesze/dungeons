@@ -297,7 +297,7 @@ internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
     /**
      * キューに貯められたcreateNextArrowの実行待ちをすべて実行する。
      */
-    fun executeGenerateArrowMapWithQueue() {
+    private fun executeGenerateArrowMapWithQueue() {
         while (generateNextArrowQueue.size > 0) {
             val params = generateNextArrowQueue.first
             generateNextArrowQueue.removeFirst()
