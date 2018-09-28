@@ -43,7 +43,7 @@ internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
     fun generateFieldArrowMap(x: Int, y: Int) {
         setArrowCount(x, y, count = 0)
         generateNextArrowQueue.push(GenerateNextArrowParams(x, y, arrowCount = 0, arrow = Arrow.none))
-        generateArrowMapInQueue()
+        executeGenerateArrowMapWithQueue()
     }
 
     /**
@@ -57,7 +57,7 @@ internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
      */
     fun restructureArrowMap(x: Int, y: Int) {
         removeArrowChain(x, y)
-        generateArrowMapInQueue()
+        executeGenerateArrowMapWithQueue()
     }
 
     /**
@@ -95,7 +95,7 @@ internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
         tryToGetArrowCount(x + 1, y)?.let { arrowCount -> generateNextArrowQueue.add(GenerateNextArrowParams(x + 1, y, arrowCount, Arrow.none)) }
         tryToGetArrowCount(x, y - 1)?.let { arrowCount -> generateNextArrowQueue.add(GenerateNextArrowParams(x, y - 1, arrowCount, Arrow.none)) }
         tryToGetArrowCount(x, y + 1)?.let { arrowCount -> generateNextArrowQueue.add(GenerateNextArrowParams(x, y + 1, arrowCount, Arrow.none)) }
-        generateArrowMapInQueue()
+        executeGenerateArrowMapWithQueue()
     }
 
     /**
@@ -297,7 +297,7 @@ internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
     /**
      * キューに貯められたcreateNextArrowの実行待ちをすべて実行する。
      */
-    fun generateArrowMapInQueue() {
+    fun executeGenerateArrowMapWithQueue() {
         while (generateNextArrowQueue.size > 0) {
             val params = generateNextArrowQueue.first
             generateNextArrowQueue.removeFirst()
