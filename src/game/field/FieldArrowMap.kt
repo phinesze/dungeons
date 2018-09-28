@@ -73,16 +73,17 @@ internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
         //現在位置の矢印カウントを削除して上下左右の隣の矢印もnoneにする。
         removeCountAndArrow(x, y)
 
-        if (nearLeftArrow == Arrow.left) pushArrowGenerationQueueAndRemoveArrowChain(x - 1, y)
-        if (nearRightArrow == Arrow.right) pushArrowGenerationQueueAndRemoveArrowChain(x + 1, y)
-        if (nearTopArrow == Arrow.top) pushArrowGenerationQueueAndRemoveArrowChain(x, y - 1)
-        if (nearToBottomArrow == Arrow.bottom) pushArrowGenerationQueueAndRemoveArrowChain(x, y + 1)
+        if (nearLeftArrow == Arrow.left) pushQueueAndRemoveArrowChain(x - 1, y)
+        if (nearRightArrow == Arrow.right) pushQueueAndRemoveArrowChain(x + 1, y)
+        if (nearTopArrow == Arrow.top) pushQueueAndRemoveArrowChain(x, y - 1)
+        if (nearToBottomArrow == Arrow.bottom) pushQueueAndRemoveArrowChain(x, y + 1)
     }
 
     /**
+     * removeArrowChainから呼び出される。
      *
      */
-    private fun pushArrowGenerationQueueAndRemoveArrowChain(x: Int, y: Int) {
+    private fun pushQueueAndRemoveArrowChain(x: Int, y: Int) {
         if (getReferredNum(x, y) > 0) {
             generateNextArrowQueue.push(GenerateNextArrowParams(x, y, getArrowCount(x, y)!!, Arrow.none))
             return
