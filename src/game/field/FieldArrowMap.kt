@@ -3,10 +3,9 @@ package game.field
 import java.util.*
 
 /**
- * フィールドマップのブロックに隣接する矢印のマップと各ブロックに1対1で対応するカウント変数を表す。
- * フィールドマップのスタート地点とゴール地点が移動可能かどうかを検証する。
- *
- * generateArrowMapを使用する。
+ * 指定した位置から各フィールドブロックへの最短ルートと移動に必要な数を表すための
+ * フィールドマップのブロック同士を上下につなぐ矢印のマップと各ブロックに1対1で対応する距離の値のマップ
+ * 主にフィールドマップのスタート地点とゴール地点が移動可能かどうかを検証する。
  */
 internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
 
@@ -14,7 +13,13 @@ internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
      * generateArrowMapInQueueを実行するのに必要なパラメータ
      * arrowGenerationQueueに格納される。
      */
-    private class GenerateNextArrowParams(val x: Int, val y: Int, val arrowCount: Int, val arrow: Arrow, val prev: GenerateNextArrowParams? = null)
+    private class GenerateNextArrowParams(
+            val x: Int,
+            val y: Int,
+            val arrowCount: Int,
+            val arrow: Arrow,
+            val prev: GenerateNextArrowParams? = null
+    )
 
     /**
      * createArrowChainを実行するのに必要なパラメータを格納するキュー
@@ -306,15 +311,17 @@ internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
         }
     }
 
+    /**
+     * 矢印とカウント編巣を設定する。
+     */
     private fun generateNextArrow(param: GenerateNextArrowParams): Boolean {
         val prev = param.prev
         val x = param.x
         val y = param.y
 
         //x,y位置が画面内にない場合、x,y位置にあるブロックが床でない場合は中断する。
-        if (field.tryToGetFieldBlock(x, y)?.type != FieldBlockType.floor) {
-            return false
-        }
+        val fieldBlock = field.tryToGetFieldBlock(x, y)
+        if (fieldBlock == null || !fieldBlock.type.isFloor) return false
 
         //x,y位置のフィールドブロックの矢印カウントを取得する。
         val blockArrowCount = getArrowCount(x, y)
