@@ -13,8 +13,13 @@ class Player(
         abilityMap: Map<Int, AbilityMold>,
         var equipmentState: EquipmentState = EquipmentState(),
         field: Field,
-        levelAndExp: LevelAndExperience
+        levelAndExp: PlayerLevelAndExperience
 ) : GameCharacter(name, display, AbilityScore(abilityMap[levelAndExp.level]!!), field, levelAndExp) {
+
+    /**
+     * レベルと累積経験値を表す
+     */
+    override val levelAndExperience: PlayerLevelAndExperience = levelAndExp
 
     /**
      * 各レベルごとの能力値の型
