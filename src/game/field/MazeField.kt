@@ -91,7 +91,7 @@ class MazeField(width: Int, height: Int, floor: Int) : Field(width, height, floo
             }
 
             //スタートからゴールへの矢印が繋がらなくなったときは
-            if (arrowMap.getArrowCount(goal.position.x, goal.position.y) == null) {
+            if (arrowMap.getDistanceCount(goal.position.x, goal.position.y) == null) {
                 setFieldBlock(x, y, FieldBlock(FieldBlockType.floor))
                 break
             }

@@ -16,13 +16,13 @@ internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
     private class GenerateNextArrowParams(
             val x: Int,
             val y: Int,
-            val arrowCount: Int,
+            val distanceCount: Int,
             val arrow: Arrow,
             val prev: GenerateNextArrowParams? = null
     )
 
     /**
-     * createArrowChainを実行するのに必要なパラメータを格納するキュー
+     * generateNextArrowを実行するのに必要なパラメータを格納するキュー
      */
     private val generateNextArrowQueue = LinkedList<GenerateNextArrowParams>()
 
@@ -46,8 +46,8 @@ internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
      * 初めに指定された位置のカウントに0を設定して、
      */
     fun generateFieldArrowMap(x: Int, y: Int) {
-        setArrowCount(x, y, count = 0)
-        generateNextArrowQueue.push(GenerateNextArrowParams(x, y, arrowCount = 0, arrow = Arrow.none))
+        setDistanceCount(x, y, count = 0)
+        generateNextArrowQueue.push(GenerateNextArrowParams(x, y, distanceCount = 0, arrow = Arrow.none))
         executeGenerateArrowMapWithQueue()
     }
 
@@ -56,9 +56,8 @@ internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
      *
      * 指定した位置から向かう矢印の鎖を削除して、
      * 指定した位置の上下左右の隣の矢印を調べ、指定した位置から外へ向かう矢印の場合は、削除を実行する。
-     * @params x :Int フィールドのx位置
-     * @params y :Int フィールドのy位置
-     * @params isFirst  : Boolean 再起呼び出しでない場合はtrue、再起呼び出しの場合はfalse
+     * @params x フィールドのx位置
+     * @params y フィールドのy位置
      */
     fun restructureArrowMap(x: Int, y: Int) {
         removeArrowChain(x, y)
@@ -66,42 +65,64 @@ internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
     }
 
     /**
-     *  restructureArrowMapから呼び出される関数。
-     *  当関数から再起呼び出しする場合は
+     * フィールド上の指定された位置が「床」に変更された場合に矢印マップを再生成する。
+     * @params x フィールドのx位置
+     * @params y フィールドのy位置
      */
-    private fun removeArrowChain(x: Int, y: Int) {
+    fun regenerateBlockChain(x: Int, y: Int) {
+        tryToGetDistanceCount(x - 1, y)?.let { distanceCount -> generateNextArrowQueue.add(GenerateNextArrowParams(x - 1, y, distanceCount, Arrow.none)) }
+        tryToGetDistanceCount(x + 1, y)?.let { distanceCount -> generateNextArrowQueue.add(GenerateNextArrowParams(x + 1, y, distanceCount, Arrow.none)) }
+        tryToGetDistanceCount(x, y - 1)?.let { distanceCount -> generateNextArrowQueue.add(GenerateNextArrowParams(x, y - 1, distanceCount, Arrow.none)) }
+        tryToGetDistanceCount(x, y + 1)?.let { distanceCount -> generateNextArrowQueue.add(GenerateNextArrowParams(x, y + 1, distanceCount, Arrow.none)) }
+        executeGenerateArrowMapWithQueue()
+    }
+
+    /**
+     * restructureArrowMapから呼び出される関数
+     * フィールド上の指定した位置から矢印に沿うように距離カウントと矢印を削除していく。
+     * 最初に指定した位置の距離カウントを削除し、その位置から上下左右の矢印が出ている場合は、
+     * 矢印の先の位置も同様の処理を行うよう再起呼び出しする。
+     * 再起呼び出しの際に指定した位置に矢印が向かっている場合はgenerateNextArrowQueueにパラメータを追加して
+     * 矢印と距離カウントの再生成の準備をする。
+     *
+     * から向かう矢印の鎖を削除する。
+     * @params x フィールドのx位置
+     * @params y フィールドのy位置
+     * @params isRecursive 再起呼び出しの場合か否か
+     */
+    private fun removeArrowChain(x: Int, y: Int, isRecursive: Boolean = false) {
+
+        //再起呼び出しの場合に指定した位置に矢印が向かっている場合
+        if (isRecursive && getReferredNum(x, y) > 0) {
+            generateNextArrowQueue.push(GenerateNextArrowParams(x, y , getDistanceCount(x, y)!!, Arrow.none))
+            return
+        }
+
+        //現在位置の距離カウントを削除
+        this.setDistanceCount(x, y, null)
+
+        //上下左右の矢印を取得した後にnoneに設定する。
         val nearLeftArrow = getLeftSideArrow(x, y)
         val nearRightArrow = getRightSideArrow(x, y)
         val nearTopArrow = getTopSideArrow(x, y)
         val nearToBottomArrow = getBottomSideArrow(x, y)
+        setAllSideArrowNone(x, y)
 
-        //現在位置の矢印カウントを削除して上下左右の隣の矢印もnoneにする。
-        removeCountAndArrow(x, y)
-
-        if (nearLeftArrow == Arrow.left) pushQueueAndRemoveArrowChain(x - 1, y)
-        if (nearRightArrow == Arrow.right) pushQueueAndRemoveArrowChain(x + 1, y)
-        if (nearTopArrow == Arrow.top) pushQueueAndRemoveArrowChain(x, y - 1)
-        if (nearToBottomArrow == Arrow.bottom) pushQueueAndRemoveArrowChain(x, y + 1)
+        //矢印の向かう方向の位置で再起呼び出し
+        if (nearLeftArrow == Arrow.left) removeArrowChain(x - 1, y, isRecursive = true)
+        if (nearRightArrow == Arrow.right) removeArrowChain(x + 1, y, isRecursive = true)
+        if (nearTopArrow == Arrow.top) removeArrowChain(x, y - 1, isRecursive = true)
+        if (nearToBottomArrow == Arrow.bottom) removeArrowChain(x, y + 1, isRecursive = true)
     }
 
     /**
-     * removeArrowChainから呼び出される。
-     *
+     * 指定した位置の上下左右の矢印をすべてnoneに設定する。
      */
-    private fun pushQueueAndRemoveArrowChain(x: Int, y: Int) {
-        if (getReferredNum(x, y) > 0) {
-            generateNextArrowQueue.push(GenerateNextArrowParams(x, y, getArrowCount(x, y)!!, Arrow.none))
-            return
-        }
-        removeArrowChain(x, y)
-    }
-
-    fun regenerateBlockChain(x: Int, y: Int) {
-        tryToGetArrowCount(x - 1, y)?.let { arrowCount -> generateNextArrowQueue.add(GenerateNextArrowParams(x - 1, y, arrowCount, Arrow.none)) }
-        tryToGetArrowCount(x + 1, y)?.let { arrowCount -> generateNextArrowQueue.add(GenerateNextArrowParams(x + 1, y, arrowCount, Arrow.none)) }
-        tryToGetArrowCount(x, y - 1)?.let { arrowCount -> generateNextArrowQueue.add(GenerateNextArrowParams(x, y - 1, arrowCount, Arrow.none)) }
-        tryToGetArrowCount(x, y + 1)?.let { arrowCount -> generateNextArrowQueue.add(GenerateNextArrowParams(x, y + 1, arrowCount, Arrow.none)) }
-        executeGenerateArrowMapWithQueue()
+    private fun setAllSideArrowNone(x: Int, y: Int) {
+        setLeftSideArrow(x, y, Arrow.none)
+        setRightSideArrow(x, y, Arrow.none)
+        setTopSideArrow(x, y, Arrow.none)
+        setBottomSideArrow(x, y, Arrow.none)
     }
 
     /**
@@ -110,7 +131,7 @@ internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
      *  @param y*Int フィールドのy位置
      *  @return Int? カウント変数
      */
-    fun getArrowCount(x: Int, y: Int): Int? = fieldCountArray[y][x]
+    fun getDistanceCount(x: Int, y: Int): Int? = fieldCountArray[y][x]
 
     /**
      * スタート地点からの移動距離を表すカウント変数を取得する。x,y位置が範囲外の場合はnullを返す。
@@ -118,7 +139,7 @@ internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
      *  @param y*Int フィールドのy位置
      *  @return Int? カウント変数
      */
-    private fun tryToGetArrowCount(x: Int, y: Int): Int? = try {
+    private fun tryToGetDistanceCount(x: Int, y: Int): Int? = try {
         fieldCountArray[y][x]
     } catch (e: ArrayIndexOutOfBoundsException) {
         null
@@ -202,7 +223,7 @@ internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
      * @param y: Int フィールドのy位置
      * @param count: Int カウント変数
      */
-    fun setArrowCount(x: Int, y: Int, count: Int?): Boolean = try {
+    fun setDistanceCount(x: Int, y: Int, count: Int?): Boolean = try {
         fieldCountArray[y][x] = count
         true
     } catch (e: ArrayIndexOutOfBoundsException) {
@@ -278,17 +299,6 @@ internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
     }
 
     /**
-     * 指定した位置のカウントを削除して、上下左右の隣にある矢印もnoneにする。
-     */
-    private fun removeCountAndArrow(x: Int, y: Int) {
-        fieldCountArray[y][x] = null
-        setLeftSideArrow(x, y, Arrow.none)
-        setRightSideArrow(x, y, Arrow.none)
-        setTopSideArrow(x, y, Arrow.none)
-        setBottomSideArrow(x, y, Arrow.none)
-    }
-
-    /**
      * 指定された位置に向かう矢印の本数を取得する。
      */
     private fun getReferredNum(x: Int, y: Int): Int {
@@ -312,7 +322,8 @@ internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
     }
 
     /**
-     * 矢印とカウント編巣を設定する。
+     * executeGenerateArrowMapWithQueueから呼び出される。矢印と距離カウント変数を設定する。
+     *
      */
     private fun generateNextArrow(param: GenerateNextArrowParams): Boolean {
         val prev = param.prev
@@ -324,30 +335,30 @@ internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
         if (fieldBlock == null || !fieldBlock.type.isFloor) return false
 
         //x,y位置のフィールドブロックの矢印カウントを取得する。
-        val blockArrowCount = getArrowCount(x, y)
+        val blockDistanceCount = getDistanceCount(x, y)
 
         if (prev != null) {
             //自身の現在のカウントより少ない矢印カウントのブロックにたどり着いた場合は中断する。
-            if (param.arrowCount > blockArrowCount ?: Int.MAX_VALUE) return false
+            if (param.distanceCount > blockDistanceCount ?: Int.MAX_VALUE) return false
             //矢印を設定する。
             setAnySideArrow(prev.x, prev.y, param.arrow.toDirection()!!, param.arrow)
             //カウントが同じになった場合、
-            if (param.arrowCount == blockArrowCount) return false
+            if (param.distanceCount == blockDistanceCount) return false
 
-        } else if (blockArrowCount == null) {
+        } else if (blockDistanceCount == null) {
             return false
         }
         //ブロックに現在のカウントを代入する。
-        setArrowCount(x, y, param.arrowCount)
+        setDistanceCount(x, y, param.distanceCount)
         generateMazeArrowToQueue(param, x, y)
         return true
     }
 
     private fun generateMazeArrowToQueue(param: GenerateNextArrowParams, x: Int, y: Int) {
-        val nextArrowCount = param.arrowCount + 1
-        generateNextArrowQueue.add(GenerateNextArrowParams(x - 1, y, nextArrowCount, Arrow.left, prev = param))
-        generateNextArrowQueue.add(GenerateNextArrowParams(x + 1, y, nextArrowCount, Arrow.right, prev = param))
-        generateNextArrowQueue.add(GenerateNextArrowParams(x, y - 1, nextArrowCount, Arrow.top, prev = param))
-        generateNextArrowQueue.add(GenerateNextArrowParams(x, y + 1, nextArrowCount, Arrow.bottom, prev = param))
+        val nextDistanceCount = param.distanceCount + 1
+        generateNextArrowQueue.add(GenerateNextArrowParams(x - 1, y, nextDistanceCount, Arrow.left, prev = param))
+        generateNextArrowQueue.add(GenerateNextArrowParams(x + 1, y, nextDistanceCount, Arrow.right, prev = param))
+        generateNextArrowQueue.add(GenerateNextArrowParams(x, y - 1, nextDistanceCount, Arrow.top, prev = param))
+        generateNextArrowQueue.add(GenerateNextArrowParams(x, y + 1, nextDistanceCount, Arrow.bottom, prev = param))
     }
 }

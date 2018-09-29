@@ -51,7 +51,7 @@ open  class Field(val width: Int, val height: Int, val floor :Int = 0) {
     /**
      *  toString時にデバッグ用に矢印マップを出力するか否かの値
      */
-    private var printArrowMap: Boolean = false
+    private var printArrowMap: Boolean = true
 
     /**
      *  フィールド内のプレイヤーオブジェクトを取得する。
@@ -254,7 +254,7 @@ open  class Field(val width: Int, val height: Int, val floor :Int = 0) {
 
                 var fieldCount: Int? = null
                 if (this.printArrowMap)
-                    fieldCount = arrowMap.getArrowCount(x, y)
+                    fieldCount = arrowMap.getDistanceCount(x, y)
 
                 val str = if (fieldBlock.gameObjects.size > 0 || fieldCount == null) fieldBlock.toString() else String.format("%02d", fieldCount)
                 buf.append(str)
