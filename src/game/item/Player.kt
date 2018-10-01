@@ -3,7 +3,7 @@ import game.field.Field
 import game.param.*
 import kotlin.system.exitProcess
 
-/**
+/**ｓ
  * プレイヤーキャラクタを表すクラス。GameCharacterを継承する。
  * GameCharacterのopen関数turnをオーバーライドして、行動可能時に対話型メッセージを出力する。
  */
@@ -170,7 +170,19 @@ q:ゲームを終了
             val raisedLevel = this.levelAndExperience.addExperience(enemy.experience)
             println("${enemy.name}を倒した")
             println("${enemy.experience}の経験値を獲得した")
+
+            if (raisedLevel >= 1) {
+                refleshAbilityByLevel()
+                println("${name}はレベル${this.level}になった")
+            }
         }
+    }
+
+    /**
+     * 現在のレベルに応じた能力値に更新する。レベルアップ時に実行される。
+     */
+    private fun refleshAbilityByLevel() {
+        this.abilityScore.abilityMold = this.abilityMap[this.level]!!
     }
 
     override fun toString(): String {
