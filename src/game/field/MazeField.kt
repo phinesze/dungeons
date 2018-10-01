@@ -97,4 +97,8 @@ class MazeField(width: Int, height: Int, floor: Int) : Field(width, height, floo
             }
         }
     }
+
+    override fun toString(): String {
+        return "floor : ${this.floor} \n${super.toString()}"
+    }
 }

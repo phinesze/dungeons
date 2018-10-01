@@ -63,7 +63,7 @@ q:ゲームを終了
             //マップを表示
             println(field.toString())
             //HP・MPの現在値/最大値を表示
-            println("HP : ${this.abilityScore.hp}  MP : ${this.abilityScore.mp}")
+            println("Lv : ${this.level} HP : ${this.abilityScore.hp}  MP : ${this.abilityScore.mp}")
             //行動可能時のメッセージを表示
             println(turnMessage)
             //入力値を取得してコマンドを実行
