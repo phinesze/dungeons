@@ -17,29 +17,6 @@ class AbilityMold(
 ): Cloneable {
 
     companion object {
-
-        /**
-         *
-         */
-        fun generateAbilityMoldMap(
-                level1AbilityMold: AbilityMold,
-                maxLevel: Int = 99,
-                基数: Double = 1.0625,
-                basicMultiplier: Double = 0.05
-        ): Map<Int, AbilityMold> {
-            val result = mutableMapOf(1 to level1AbilityMold)
-            for (level in 2..maxLevel) {
-
-                //倍率を設定
-                val multiplier =
-                        Math.pow(基数, (level - 1).toDouble()) +
-                                (level - 1) * basicMultiplier
-
-                result[level] = Companion.generateAbilityMoldFrom(level1AbilityMold, multiplier)
-            }
-            return result.toMap()
-        }
-
         /**
          * 指定した倍率から新しいAbilityMoldを作成する。
          */
@@ -54,6 +31,27 @@ class AbilityMold(
                     (abilityMold.agility*倍率).toInt()
             )
         }
+    }
+
+    /**
+     *
+     */
+    fun toAbilityMap(
+            maxLevel: Int = 99,
+            基数: Double = 1.0625,
+            basicMultiplier: Double = 0.05
+    ): Map<Int, AbilityMold> {
+        val result = mutableMapOf(1 to this)
+        for (level in 2..maxLevel) {
+
+            //倍率を設定
+            val multiplier =
+                    Math.pow(基数, (level - 1).toDouble()) +
+                            (level - 1) * basicMultiplier
+
+            result[level] = Companion.generateAbilityMoldFrom(this, multiplier)
+        }
+        return result.toMap()
     }
 
     override fun clone(): AbilityMold {

@@ -23,7 +23,7 @@ class GameBoard() {
     /**
      * プレイヤーのレベルごとの能力値のハッシュマップ
      */
-    private val abilityMoldMap :Map<Int, AbilityMold> = AbilityMold.generateAbilityMoldMap(
+    private val abilityMoldMap :Map<Int, AbilityMold> =
             AbilityMold(
                     50,
                     40,
@@ -32,7 +32,7 @@ class GameBoard() {
                     15,
                     15,
                     10
-            ))
+            ).toAbilityMap()
 
     /**
      * 使用するプレイヤー

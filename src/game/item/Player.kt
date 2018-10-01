@@ -167,7 +167,7 @@ q:ゲームを終了
         println("${name}は${enemy.name}に${damage}ダメージを与えた")
 
         if (enemy.abilityScore.hp.now <= 0) {
-            this.levelAndExperience.addExperience(enemy.experience)
+            val raisedLevel = this.levelAndExperience.addExperience(enemy.experience)
             println("${enemy.name}を倒した")
             println("${enemy.experience}の経験値を獲得した")
         }
