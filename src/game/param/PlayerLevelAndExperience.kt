@@ -36,7 +36,8 @@ class PlayerLevelAndExperience(
      * 次のレベルになるのに必要な累積経験値のハッシュマップ
      * 各レベルの値をキーとして、そのレベルから1レベル上昇するまでの累積経験値を値とする。
      */
-    private val requiredExp: Long? = this.nextExpMap[this.level]
+    private val requiredExp: Long?
+        get() = this.nextExpMap[this.level]
 
     init {
         initNextExpMap(significand, cardinal)

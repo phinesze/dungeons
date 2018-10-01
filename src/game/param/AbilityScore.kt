@@ -11,6 +11,11 @@ class AbilityScore(abilityMold: AbilityMold): Cloneable {
      * 敵キャラクターなどの場合は複数のAbilityScoreがAbilityMoldを参照する形となる。
      */
     var abilityMold:AbilityMold = abilityMold
+            set(abilityMoldValue) {
+                field = abilityMoldValue
+                this.hp.max = abilityMoldValue.maxHp
+                this.mp.max = abilityMoldValue.maxMp
+            }
 
     val hp = MaxNowValue(abilityMold.maxHp)
 
