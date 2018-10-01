@@ -51,7 +51,7 @@ open  class Field(val width: Int, val height: Int, val floor :Int = 0) {
     /**
      *  toString時にデバッグ用に矢印マップを出力するか否かの値
      */
-    private var printArrowMap: Boolean = true
+    private var printArrowMap: Boolean = false
 
     /**
      *  フィールド内のプレイヤーオブジェクトを取得する。
