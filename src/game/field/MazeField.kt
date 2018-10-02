@@ -29,7 +29,7 @@ class MazeField(width: Int, height: Int, floor: Int) : Field(width, height, floo
         addObjectRandom(start)
         addObjectRandom(goal)
         //敵キャラクターを配置する。
-        for(i in 0..5) addObjectRandom(Enemy(enemyList[0], this))
+        for(i in 0..5) addObjectRandom(Enemy(enemyList[0]!!, this))
         //x,yのインデックスが共に奇数になる場所のブロックを壁にする。
         createStatueWall()
         //指定された位置からの矢印の鎖を生成する。
