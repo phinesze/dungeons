@@ -12,6 +12,7 @@ class AbilityMold(
         var magicAttack: Int,
         var magicDefense: Int,
         var agility: Int,
+        var droppingExp: Long = 0,
         var elementAttack: ElementScore = ElementScore(),
         var elementDefense: ElementScore = ElementScore()
 ): Cloneable {

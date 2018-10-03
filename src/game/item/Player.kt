@@ -169,7 +169,7 @@ q:ゲームを終了
         if (enemy.abilityScore.hp.now <= 0) {
             val raisedLevel = this.levelAndExperience.addExperience(enemy.experience)
             println("${enemy.name}を倒した")
-            println("${enemy.experience}の経験値を獲得した")
+            println("${enemy.abilityScore.droppingExp}の経験値を獲得した")
 
             if (raisedLevel >= 1) {
                 refleshAbilityByLevel()

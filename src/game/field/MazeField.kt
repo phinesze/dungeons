@@ -25,11 +25,14 @@ class MazeField(width: Int, height: Int, floor: Int) : Field(width, height, floo
     private val random = Random(floor.toLong())
 
     init {
+        //敵のレベル
+        val enemyLevel = floor
+
         //スタートとゴールをランダムに配置する。
         addObjectRandom(start)
         addObjectRandom(goal)
         //敵キャラクターを配置する。
-        for(i in 0..5) addObjectRandom(Enemy(enemyList[0]!!, this))
+        for(i in 0..5) addObjectRandom(Enemy(enemyList[0]!!, enemyLevel, field = this))
         //x,yのインデックスが共に奇数になる場所のブロックを壁にする。
         createStatueWall()
         //指定された位置からの矢印の鎖を生成する。

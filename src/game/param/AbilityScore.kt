@@ -31,6 +31,8 @@ class AbilityScore(abilityMold: AbilityMold): Cloneable {
             get() = this.abilityMold.magicDefense
     val agility: Int
             get() = this.abilityMold.agility
+    val droppingExp: Long
+            get() = this.abilityMold.droppingExp
 
     public override fun clone(): AbilityScore {
         return AbilityScore(abilityMold)
