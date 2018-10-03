@@ -1,13 +1,17 @@
 package game.field
 
 import game.datalist.enemyList
+import game.datalist.floorList
 import game.item.Enemy
 import game.item.GameObject
 import game.item.Player
 import game.item.Stair
+import game.mold.FloorInfo
 import java.util.*
 
 class MazeField(width: Int, height: Int, floor: Int) : Field(width, height, floor) {
+
+    private var floorInfo : FloorInfo = FloorInfo.getFloorInfo(floor)
 
     /**
      * スタートとなる下り階段
@@ -25,20 +29,26 @@ class MazeField(width: Int, height: Int, floor: Int) : Field(width, height, floo
     private val random = Random(floor.toLong())
 
     init {
-        //敵のレベル
+        //敵のレベルを設定する。
         val enemyLevel = floor
-
         //スタートとゴールをランダムに配置する。
         addObjectRandom(start)
         addObjectRandom(goal)
         //敵キャラクターを配置する。
-        for(i in 0..5) addObjectRandom(Enemy(enemyList[0]!!, enemyLevel, field = this))
+        addEnemiesRandom(enemyLevel)
         //x,yのインデックスが共に奇数になる場所のブロックを壁にする。
         createStatueWall()
         //指定された位置からの矢印の鎖を生成する。
         arrowMap.generateFieldArrowMap(start.position.x, start.position.y)
         //壁を生成する。
         createMazeWall()
+    }
+
+    private fun addEnemiesRandom(enemyLevel: Int) {
+        for (i in 0..5) {
+            val enemyId = floorInfo.getRandomEnemyId(random)
+            addObjectRandom(Enemy(mold = enemyList[enemyId]!!, level = enemyLevel, field = this))
+        }
     }
 
     /**
