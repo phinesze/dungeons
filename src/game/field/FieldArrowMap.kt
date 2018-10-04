@@ -42,6 +42,12 @@ internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
     private val verticalArrowArray = Array(height - 1) { Array(width) { Arrow.none } }
 
     /**
+     * 矢印マップがすでに生成されたか否か
+     */
+    var isGenerated :Boolean = false
+        private set
+
+    /**
      * 指定された位置からの矢印マップを生成する。
      * 初めに指定された位置のカウントに0を設定して、
      */
@@ -49,6 +55,7 @@ internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
         setDistanceCount(x, y, count = 0)
         generateNextArrowQueue.push(GenerateNextArrowParams(x, y, distanceCount = 0, arrow = Arrow.none))
         executeGenerateArrowMapWithQueue()
+        this.isGenerated = true
     }
 
     /**

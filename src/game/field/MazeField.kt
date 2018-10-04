@@ -59,7 +59,8 @@ class MazeField(width: Int, height: Int, floor: Int) : Field(width, height, floo
     }
 
     /**
-     *  フィールドの種類が床であり、かつ既に他のオブジェクトが存在しないランダム位置にゲームオブジェクトを追加する。
+     *  フィールドの種類が床であり、既に他のオブジェクトが存在しない、かつ距離カウントが存在する（フロアのスタート位置から直接移動可能）
+     *  ランダム位置にゲームオブジェクトを追加する。
      *  @param gameObject: GameObject 追加するゲームオブジェクト
      */
     fun addObjectRandom(gameObject: GameObject) {
@@ -70,8 +71,10 @@ class MazeField(width: Int, height: Int, floor: Int) : Field(width, height, floo
             val fieldBlock = getFieldBlock(x, y)
 
             if (fieldBlock.type.isFloor && fieldBlock.gameObjects.size == 0) {
-                this.addObject(x, y, gameObject)
-                break
+                if (!arrowMap.isGenerated || arrowMap.getDistanceCount(x, y) != null) {
+                    this.addObject(x, y, gameObject)
+                    break
+                }
             }
         }
     }
