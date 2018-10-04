@@ -12,6 +12,6 @@ import game.param.LevelAndExperience
  */
 class EnemyMold(name: String,
         var display: String,
-        val abilityMap: Map<Int, AbilityMold>,
-        var levelAndExp: LevelAndExperience
+        val abilityMap: Map<Int, AbilityMold>
+//        var levelAndExp: LevelAndExperience
         ): NamableObject(name)
