@@ -34,14 +34,14 @@ class MazeField(width: Int, height: Int, floor: Int) : Field(width, height, floo
         //スタートとゴールをランダムに配置する。
         addObjectRandom(start)
         addObjectRandom(goal)
-        //敵キャラクターを配置する。
-        addEnemiesRandom(enemyLevel)
         //x,yのインデックスが共に奇数になる場所のブロックを壁にする。
         createStatueWall()
         //指定された位置からの矢印の鎖を生成する。
         arrowMap.generateFieldArrowMap(start.position.x, start.position.y)
         //壁を生成する。
         createMazeWall()
+        //敵キャラクターを配置する。
+        addEnemiesRandom(enemyLevel)
     }
 
     private fun addEnemiesRandom(enemyLevel: Int) {

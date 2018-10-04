@@ -21,34 +21,34 @@ class AbilityMold(
         /**
          * 指定した倍率から新しいAbilityMoldを作成する。
          */
-        private fun generateAbilityMoldFrom(abilityMold: AbilityMold, 倍率: Double):AbilityMold {
+        private fun generateAbilityMoldFrom(abilityMold: AbilityMold, mul: Double):AbilityMold {
             return AbilityMold(
-                    (abilityMold.maxHp*倍率).toInt(),
-                    (abilityMold.maxMp*倍率).toInt(),
-                    (abilityMold.attack*倍率).toInt(),
-                    (abilityMold.defense*倍率).toInt(),
-                    (abilityMold.magicAttack*倍率).toInt(),
-                    (abilityMold.magicDefense*倍率).toInt(),
-                    (abilityMold.agility*倍率).toInt()
+                    (abilityMold.maxHp*mul).toInt(),
+                    (abilityMold.maxMp*mul).toInt(),
+                    (abilityMold.attack*mul).toInt(),
+                    (abilityMold.defense*mul).toInt(),
+                    (abilityMold.magicAttack*mul).toInt(),
+                    (abilityMold.magicDefense*mul).toInt(),
+                    (abilityMold.agility*mul).toInt(),
+                    (abilityMold.droppingExp*mul.toInt())
             )
         }
     }
 
     /**
-     *
+     * 各レベルの能力値の型を生成する
+     * 基数^(レベル-1) + (レベル-1) * basicMultiplier
+     * @param maxLevel レベルの最大値
+     * @param 基数
+     * @param basicMultiplier
      */
-    fun toAbilityMap(
-            maxLevel: Int = 99,
-            基数: Double = 1.0625,
-            basicMultiplier: Double = 0.05
-    ): Map<Int, AbilityMold> {
+    fun toAbilityMap(maxLevel: Int = 99, 基数: Double = 1.0625, basicMultiplier: Double = 0.05): Map<Int, AbilityMold> {
         val result = mutableMapOf(1 to this)
         for (level in 2..maxLevel) {
 
             //倍率を設定
-            val multiplier =
-                    Math.pow(基数, (level - 1).toDouble()) +
-                            (level - 1) * basicMultiplier
+            val levelVal = (level - 1).toDouble()
+            val multiplier = Math.pow(基数, levelVal) + levelVal * basicMultiplier
 
             result[level] = Companion.generateAbilityMoldFrom(this, multiplier)
         }
