@@ -28,6 +28,12 @@ class PlayerLevelAndExperience(
         set(maxLevelValue) { if (this.level > maxLevelValue) throw IllegalArgumentException(); field = maxLevelValue }
 
     /**
+     * 現在の累積経験値から次のレベルになるまでに必要な経験値を取得する。
+     */
+    val restExp: Long
+        get() = requiredExp - experience
+
+    /**
      * 各時点でのレベルをキーとしたレベルが1上がるごとに必要な累積経験値のハッシュマップ
      */
     private val nextExpMap: MutableMap<Int, Long> = mutableMapOf(1 to significand)
@@ -36,8 +42,8 @@ class PlayerLevelAndExperience(
      * 次のレベルになるのに必要な累積経験値のハッシュマップ
      * 各レベルの値をキーとして、そのレベルから1レベル上昇するまでの累積経験値を値とする。
      */
-    private val requiredExp: Long?
-        get() = this.nextExpMap[this.level]
+    private val requiredExp: Long
+        get() = nextExpMap[this.level]!!
 
     init {
         initNextExpMap(significand, cardinal)

@@ -41,16 +41,18 @@ abstract class GameCharacter(name: String, display: String, val abilityScore: Ab
      * 現在のレベルと経験値を表す。
      */
     open val levelAndExperience: LevelAndExperience = levelAndExp
+
     /**
      * 現在のレベルを取得する。
      */
-    val level : Int
-            get() = this.levelAndExperience.level
+    val level: Int
+        get() = this.levelAndExperience.level
+
     /**
      * 現在の累積経験値を取得する。
      */
-    val experience : Long
-            get() = this.levelAndExperience.experience
+    val experience: Long
+        get() = this.levelAndExperience.experience
 
     /**
      * 1カウント経過時の挙動を記述するGameObjectの同名関数をオーバーライドする。

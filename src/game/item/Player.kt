@@ -22,6 +22,12 @@ class Player(
     override val levelAndExperience: PlayerLevelAndExperience = levelAndExp
 
     /**
+     * 次のレベルになるまでの必要な経験値
+     */
+    val restExp :Long?
+        get() = this.levelAndExperience.restExp
+
+    /**
      * 各レベルごとの能力値の型
      */
     val abilityMap: Map<Int, AbilityMold> = abilityMap
@@ -167,7 +173,7 @@ q:ゲームを終了
         println("${name}は${enemy.name}に${damage}ダメージを与えた")
 
         if (enemy.abilityScore.hp.now <= 0) {
-            val raisedLevel = this.levelAndExperience.addExperience(enemy.experience)
+            val raisedLevel = this.levelAndExperience.addExperience(enemy.abilityScore.droppingExp)
             println("${enemy.name}を倒した")
             println("${enemy.abilityScore.droppingExp}の経験値を獲得した")
 
@@ -187,13 +193,15 @@ q:ゲームを終了
 
     override fun toString(): String {
         return """
-${name}:
+$name:
+レベル:
+$level
+次のレベルまで:
+$restExp
 能力値:
-${abilityScore}
-装備:
-${equipmentState}
+$abilityScore
 位置:
-${position}
+$position
         """
     }
 
