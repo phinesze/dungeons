@@ -1,7 +1,9 @@
 package game
 
+import game.datalist.floorList
 import game.field.MazeField
 import game.item.Player
+import game.mold.FloorInfo
 import game.param.AbilityMold
 import game.param.EquipmentState
 import game.param.LevelAndExperience
@@ -74,7 +76,8 @@ class GameBoard() {
     private fun detectMoveFloor() {
         val floor = field.mapMoveId
         if (floor != null) {
-            this.field = MazeField(15, 9, floor)
+            val floorInfo = FloorInfo.getFloorInfo(floor)
+            this.field = MazeField(floorInfo.fieldWidth, floorInfo.fieldHeight, floor)
             this.field.setPlayer(player)
         }
     }

@@ -1,7 +1,6 @@
 package game.field
 
 import game.datalist.enemyList
-import game.datalist.floorList
 import game.item.Enemy
 import game.item.GameObject
 import game.item.Player
@@ -9,9 +8,7 @@ import game.item.Stair
 import game.mold.FloorInfo
 import java.util.*
 
-class MazeField(width: Int, height: Int, floor: Int) : Field(width, height, floor) {
-
-    private var floorInfo : FloorInfo = FloorInfo.getFloorInfo(floor)
+class MazeField(width: Int, height: Int, floor: Int) : Field(floor, FloorInfo.getFloorInfo(floor)) {
 
     /**
      * スタートとなる下り階段
@@ -34,18 +31,19 @@ class MazeField(width: Int, height: Int, floor: Int) : Field(width, height, floo
         //スタートとゴールをランダムに配置する。
         addObjectRandom(start)
         addObjectRandom(goal)
-        //x,yのインデックスが共に奇数になる場所のブロックを壁にする。
+        //壁と矢印マップを生成する。
         createStatueWall()
-        //指定された位置からの矢印の鎖を生成する。
         arrowMap.generateFieldArrowMap(start.position.x, start.position.y)
-        //壁を生成する。
         createMazeWall()
-        //敵キャラクターを配置する。
+        //敵を配置する。
         addEnemiesRandom(enemyLevel)
     }
 
+    /**
+     * 敵キャラクターを配置する。
+     */
     private fun addEnemiesRandom(enemyLevel: Int) {
-        for (i in 0..5) {
+        for (i in 0..floorInfo.enemyNum) {
             val enemyId = floorInfo.getRandomEnemyId(random)
             addObjectRandom(Enemy(mold = enemyList[enemyId]!!, level = enemyLevel, field = this))
         }
@@ -93,7 +91,7 @@ class MazeField(width: Int, height: Int, floor: Int) : Field(width, height, floo
     /**
      * フィールド上にランダムに壁を生成する。
      *  フィールド上のランダムな位置のフィールドブロックを壁に設定していき、その都度 スタートとゴールの間がが移動可能か否かを
-     *  矢印マップ(FieldrArrowMap)を用いて調べる。 移動不能となった場合は最後に設定した壁を床に戻して生成を終了する。
+     *  矢印マップ(FieldArrowMap)を用いて調べる。 移動不能となった場合は最後に設定した壁を床に戻して生成を終了する。
      */
     private fun createMazeWall() {
 

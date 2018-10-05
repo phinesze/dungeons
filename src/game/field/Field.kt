@@ -2,21 +2,24 @@ package game.field
 
 import game.item.GameObject
 import game.item.Player
+import game.mold.FloorInfo
 
 /**
  * プレイヤーが行動するフィールドマップを表す。
  * マップ用の2次元配列とプレイヤーや敵キャラクタなどのオブジェクトのリストを内包する。
  * また、ある地点から別の地点への移動が壁によって遮られていないか否かを監視する矢印とカウントの情報(@seeFieldArrowLayer)を所有する。
- * @property width フィールドの幅を表す数値
- * @property height フィールドの高さを表す数値
- * @property  floor 現在の階層を表す数値
+ * @property floorInfo フロアの情報を表すオブジェクト
+ * @property floor 現在の階層を表す数値
  */
-open  class Field(val width: Int, val height: Int, val floor :Int = 0) {
+open  class Field(val floor: Int = 0, val floorInfo: FloorInfo) {
+
+    val width :Int = floorInfo.fieldWidth
+    val height :Int = floorInfo.fieldHeight
 
     /**
      * フィールドマップを表現するためのフィールドブロックの2次元配列
      */
-    private val fieldBlockArray = Array<Array<FieldBlock>>(height,init = {i -> Array(width) { FieldBlock(FieldBlockType.floor)} })
+    private val fieldBlockArray = Array<Array<FieldBlock>>(height,init = { Array(width) { FieldBlock(FieldBlockType.floor)} })
 
     /**
      * フィールド上に存在する全てのゲームオブジェクトのリスト
@@ -36,7 +39,7 @@ open  class Field(val width: Int, val height: Int, val floor :Int = 0) {
     /**
      * ある地点から別の地点への移動がさえぎられていないか否かを監視する矢印とカウントの情報
      */
-    internal val arrowMap = FieldArrowMap(width, height, this)
+    internal val arrowMap = FieldArrowMap(floorInfo.fieldWidth, height, field = this)
 
     /**
      * 時間経過を表す値
