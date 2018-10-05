@@ -16,26 +16,71 @@ val enemyList = mapOf(
         ENEMY_PALIN to EnemyMold(
                 name = "パリン",
                 display = "Θ",
-                abilityMap = AbilityMold(maxHp = 8, maxMp = 0, attack = 8, defense = 10, magicAttack = 10, magicDefense = 10, agility = 10, droppingExp = 1).toAbilityMap()
+                abilityMap = AbilityMold.toAbilityMap(AbilityMold(
+                        maxHp = 8.0,
+                        maxMp = 0.0,
+                        attack = 8.0,
+                        defense = 10.0,
+                        magicAttack = 10.0,
+                        magicDefense = 10.0,
+                        agility = 10.0,
+                        droppingExp = 1.0
+                ))
         ),
         ENEMY_GOBLIN to EnemyMold(
                 name = "ゴブリン",
                 display = "§",
-                abilityMap = AbilityMold(maxHp = 15, maxMp = 0, attack = 10, defense = 10, magicAttack = 10, magicDefense = 10, agility = 10, droppingExp = 2).toAbilityMap()
+                abilityMap = AbilityMold.toAbilityMap(AbilityMold(
+                        maxHp = 15.0,
+                        maxMp = 0.0,
+                        attack = 10.0,
+                        defense = 10.0,
+                        magicAttack = 10.0,
+                        magicDefense = 10.0,
+                        agility = 10.0,
+                        droppingExp = 2.0
+                ))
         ),
         ENEMY_COBOLT to EnemyMold(
                 name = "コボルト",
                 display = "Ξ",
-                abilityMap = AbilityMold(maxHp = 20, maxMp = 10, attack = 12, defense = 12, magicAttack = 4, magicDefense = 4, agility = 8, droppingExp = 3).toAbilityMap()
+                abilityMap = AbilityMold.toAbilityMap(AbilityMold(
+                        maxHp = 20.0,
+                        maxMp = 10.0,
+                        attack = 12.0,
+                        defense = 12.0,
+                        magicAttack = 4.0,
+                        magicDefense = 4.0,
+                        agility = 8.0,
+                        droppingExp = 3.0
+                ))
         ),
         ENEMY_KILLER_RAT to EnemyMold(
                 name = "キラーラット",
                 display = "Β",
-                abilityMap = AbilityMold(maxHp = 8, maxMp = 10, attack = 10, defense = 6, magicAttack = 6, magicDefense = 6, agility = 25, droppingExp = 3).toAbilityMap()
+                abilityMap = AbilityMold.toAbilityMap(AbilityMold(
+                        maxHp = 8.0,
+                        maxMp = 10.0,
+                        attack = 10.0,
+                        defense = 6.0,
+                        magicAttack = 6.0,
+                        magicDefense = 6.0,
+                        agility = 25.0,
+                        droppingExp = 3.0
+                ))
         ),
         ENEMY_HELLDOG to EnemyMold(
                 name = "ヘルドッグ",
                 display = "×",
-                abilityMap = AbilityMold(maxHp = 30, maxMp = 0, attack = 15, defense = 10, magicAttack = 10, magicDefense = 10, agility = 12, droppingExp = 4).toAbilityMap()
+                abilityMap = AbilityMold.toAbilityMap(AbilityMold(
+                        maxHp = 30.0,
+                        maxMp = 0.0,
+                        attack = 15.0,
+                        defense = 10.0,
+                        magicAttack = 10.0,
+                        magicDefense = 10.0,
+                        agility = 12.0,
+                        droppingExp = 4.0
+                ))
         )
 )

@@ -4,13 +4,13 @@ package game.param
  * プレイヤー/敵キャラクターの能力値を表す。
  * 現在HP、現在MPを除いた能力値は2つ以上のキャラクタで共有される可能性のあるのでAbilityMoldとして共有される。
  */
-class AbilityScore(abilityMold: AbilityMold): Cloneable {
+class AbilityScore(abilityMold: AbilityMold<Int>): Cloneable {
 
     /**
      * 2つ以上のキャラクタで共有される可能性のある能力値
      * 敵キャラクターなどの場合は複数のAbilityScoreがAbilityMoldを参照する形となる。
      */
-    var abilityMold:AbilityMold = abilityMold
+    var abilityMold:AbilityMold<Int> = abilityMold
             set(abilityMoldValue) {
                 field = abilityMoldValue
                 this.hp.max = abilityMoldValue.maxHp
@@ -31,7 +31,7 @@ class AbilityScore(abilityMold: AbilityMold): Cloneable {
             get() = this.abilityMold.magicDefense
     val agility: Int
             get() = this.abilityMold.agility
-    val droppingExp: Long
+    val droppingExp: Int
             get() = this.abilityMold.droppingExp
 
     public override fun clone(): AbilityScore {

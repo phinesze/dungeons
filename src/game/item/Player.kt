@@ -10,7 +10,7 @@ import kotlin.system.exitProcess
 class Player(
         name: String,
         display: String,
-        abilityMap: Map<Int, AbilityMold>,
+        abilityMap: Map<Int, AbilityMold<Int>>,
         var equipmentState: EquipmentState = EquipmentState(),
         field: Field,
         levelAndExp: PlayerLevelAndExperience
@@ -30,7 +30,7 @@ class Player(
     /**
      * 各レベルごとの能力値の型
      */
-    val abilityMap: Map<Int, AbilityMold> = abilityMap
+    val abilityMap: Map<Int, AbilityMold<Int>> = abilityMap
 
     /**
      * 行動可能時に出力されるメッセージ文字列
@@ -173,7 +173,7 @@ q:ゲームを終了
         println("${name}は${enemy.name}に${damage}ダメージを与えた")
 
         if (enemy.isDead) {
-            val raisedLevel = this.levelAndExperience.addExperience(enemy.abilityScore.droppingExp)
+            val raisedLevel = this.levelAndExperience.addExperience(enemy.abilityScore.droppingExp.toLong())
             println("${enemy.name}を倒した")
             println("${enemy.abilityScore.droppingExp}の経験値を獲得した")
 
