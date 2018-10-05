@@ -5,14 +5,16 @@ import java.util.*
 
 /**
  * フロアごとの情報を表す
- * @property enemyIds 出現する敵の種類のIDの配列、enemyListのキーの値を表す
+ * @property enemyIds フロアに出現する敵の種類のIDの配列、enemyListのキーの値を表す
+ * @property enemyNum フロアに出現する敵の数
  * @property fieldWidth フロアの幅を表す数値
  * @property fieldHeight フロアの高さを表す数値
  */
 class FloorInfo(
-        var enemyIds : Array<Int>? = null,
-        var fieldWidth: Int? = null,
-        var fieldHeight: Int? = null
+        var enemyIds : Array<Int> = arrayOf(),
+        var enemyNum :Int = 0,
+        var fieldWidth: Int = 10,
+        var fieldHeight: Int = 10
 ) {
     companion object {
 
