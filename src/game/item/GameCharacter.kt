@@ -59,7 +59,7 @@ abstract class GameCharacter(name: String, display: String, val abilityScore: Ab
             turn()
             this.timeWait += TIME_WAIT_START
         } else {
-            this.timeWait -= this.abilityScore.abilityMold.agility
+            this.timeWait -= this.abilityScore.agility
         }
     }
 
@@ -75,8 +75,8 @@ abstract class GameCharacter(name: String, display: String, val abilityScore: Ab
      */
     fun attackTarget(target: GameCharacter): Int {
 
-        val thisAttack = this.abilityScore.abilityMold.attack
-        val targetDefense = target.abilityScore.abilityMold.defense
+        val thisAttack = this.abilityScore.attack
+        val targetDefense = target.abilityScore.defense
 
         val damage = thisAttack - targetDefense / 2
         target.abilityScore.hp.damage(damage)
