@@ -19,8 +19,8 @@ val itemList = mapOf(
         ),
         ITEM_POTION to ItemMold(
                 name = "マジックポーション",
-                func = fun(gameCharactor: GameCharacter) {
-                    gameCharactor.abilityScore.hp.restoreRatio(0.5)
+                func = fun(gameCharacter: GameCharacter) {
+                    gameCharacter.abilityScore.hp.restoreRatio(0.5)
                 },
                 key = "w",
                 display = "Ｍ"
