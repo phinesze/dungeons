@@ -11,21 +11,32 @@ const val ITEM_PROTECTOR= 3
 val itemList = mapOf(
         ITEM_POTION to ItemMold(
                 name = "ポーション",
-                display = "💊",
                 func = fun(gameCharactor: GameCharacter) {
-//                    gameCharactor.abilityScore.hp.restore()
-                }
+                    gameCharactor.abilityScore.hp.restoreRatio(0.5)
+                },
+                key = "q",
+                display = "💊"
         ),
         ITEM_POTION to ItemMold(
                 name = "マジックポーション",
-                display = "",
                 func = fun(gameCharactor: GameCharacter) {
-                }
+                    gameCharactor.abilityScore.hp.restoreRatio(0.5)
+                },
+                key = "w",
+                display = "Ｍ"
         ),
         ITEM_BOOSTER to ItemMold(
                 name = "ブースター",
-                display = "",
                 func = fun(gameCharactor: GameCharacter) {
-                }
+                },
+                key = "e",
+                display = "Ｂ"
+        ),
+        ITEM_PROTECTOR to ItemMold(
+                name = "プロテクター",
+                func = fun(gameCharactor: GameCharacter) {
+                },
+                key = "r",
+                display = "Ｐ"
         )
 )
