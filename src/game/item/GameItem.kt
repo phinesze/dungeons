@@ -13,6 +13,17 @@ class GameItem(mold: ItemMold, field: Field) : GameObject(mold.name, field, mold
      */
     val action: (GameCharacter) -> Unit = mold.action
 
+    /**
+     * フィールド上のプレイヤーと重なった場合にプレイヤーがアイテムを使用する動作を行う。
+     * GameItemの同名関数をオーバーライドする。
+     */
+    override fun collisionDetected(otherObject: GameObject) {
+        if (otherObject is Player) {
+            this.action(otherObject)
+            this.field.trashObject(this)
+        }
+    }
+
     init {
         this.isThroughable = true
     }
