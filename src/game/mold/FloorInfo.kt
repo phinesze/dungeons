@@ -36,10 +36,10 @@ class FloorInfo(
         get() = itemNumParam ?: inherits?.itemNumParam ?: 0
 
     val fieldWidth: Int
-        get() = fieldWidthParam ?: inherits?.fieldWidthParam ?: 0
+        get() = fieldWidthParam ?: inherits?.fieldWidth ?: 0
 
     val fieldHeight: Int
-        get() = fieldHeightParam ?: inherits?.fieldHeightParam ?: 0
+        get() = fieldHeightParam ?: inherits?.fieldHeight ?: 0
 
     companion object {
 
