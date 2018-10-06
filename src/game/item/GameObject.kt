@@ -10,7 +10,7 @@ import game.param.Position
  * このクラスから派生するクラスのすべてのオブジェクトは1つのフィールドオブジェクト(field)に所属する。
  * @param field 自身が存在しているフィールド
  */
- abstract class GameObject(name: String, internal var field: Field) : NamableObject(name) {
+ abstract class GameObject(name: String, internal var field: Field, display: String) : NamableObject(name) {
 
     /**
      *  自身が位置しているフィールド上のブロック
@@ -27,11 +27,10 @@ import game.param.Position
      */
     val position: Position = Position(0, 0)
 
-
     /**
-     * 自身の所属するFieldのtoStringで出力した際にオブジェクトの表示として表される文字
+     * 自身の所属するフィールドをtoStringで出力した場合の自身のフィールド内での表示文字列
      */
-    abstract fun display() : String
+    var display: String = display
 
     /**
      * ゲームボード上での1カウント経過時の挙動を記述することができる仮想関数
@@ -54,7 +53,7 @@ import game.param.Position
     protected fun tryToMove(x: Int, y: Int) : Boolean {
         try {
             //フィールドブロックを取得して床ではない場合はfalse
-            if (field.getFieldBlock(x, y)!!.type.isFloor !== true) return false
+            if (field.getFieldBlock(x, y).type.isFloor !== true) return false
             //衝突判定
             val otherObject = this.field.getNotThroughable(x, y)
             if (otherObject != null) { this.collisionDetected(otherObject); return true }

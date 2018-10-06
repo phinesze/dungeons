@@ -10,7 +10,7 @@ import game.param.LevelAndExperience
  * 経過ごとにtimeWaitを1減らしていき0になった場合にメソッドturnを呼び出し、その後にtimeWaitを一定値に戻す。
  * turnは派生先のプレイヤー/敵キャラクターでオーバーライドされる。
  */
-abstract class GameCharacter(name: String, display: String, val abilityScore: AbilityScore, field: Field, levelAndExp: LevelAndExperience) : GameObject(name, field) {
+abstract class GameCharacter(name: String, display: String, val abilityScore: AbilityScore, field: Field, levelAndExp: LevelAndExperience) : GameObject(name, field, display) {
 
     companion object {
 
@@ -21,10 +21,6 @@ abstract class GameCharacter(name: String, display: String, val abilityScore: Ab
         val TIME_WAIT_START: Int = 1000
     }
 
-    /**
-     * 表示
-     */
-    var display: String = display
     /**
      * プレイヤーまたは敵キャラクタが行動できるまでの時間(カウント)を表す。
      * 1カウント経過時に1減らす。
@@ -94,9 +90,4 @@ abstract class GameCharacter(name: String, display: String, val abilityScore: Ab
     protected fun moveRight(): Boolean = tryToMove(position.x + 1, position.y)
     protected fun moveUp(): Boolean = tryToMove(position.x, position.y - 1)
     protected fun moveDown(): Boolean = tryToMove(position.x, position.y + 1)
-
-    /**
-     * 表示する。
-     */
-    override fun display(): String = display
 }

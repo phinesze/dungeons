@@ -16,7 +16,7 @@ class FieldBlock(var type: FieldBlockType) {
         if (gameObjects.size > 0) {
             for (i in gameObjects.size - 1 downTo 0) {
                 val gameObject = gameObjects[i]
-                return gameObject.display()
+                return gameObject.display
             }
         }
         return type.toString()
