@@ -16,6 +16,8 @@ class Player(
         levelAndExp: PlayerLevelAndExperience
 ) : GameCharacter(name, display, AbilityScore(abilityMap[levelAndExp.level]!!), field, levelAndExp) {
 
+
+
     /**
      * レベルと累積経験値を表す
      */
@@ -157,7 +159,7 @@ q:ゲームを終了
      */
     override fun collisionDetected(otherObject: GameObject) {
         if (otherObject is Enemy) {
-            attackEnemy(otherObject)
+            attackTarget(otherObject)
         } else if (otherObject is GameItem) {
             //TODO("アイテム取得関連")
         }
@@ -168,8 +170,9 @@ q:ゲームを終了
      * 敵のHPを0にした場合は倒した際のメッセージを表示して、プレイヤーの経験値を追加する処理を行う。
      * @param enemy ダメージを受ける敵キャラクター
      */
-    private fun attackEnemy(enemy: Enemy) {
-        val damage = this.attackTarget(enemy)
+    override fun attackTarget(enemy: GameCharacter, isMagic: Boolean): Int {
+
+        val damage = super.attackTarget(enemy, isMagic)
         println("${name}は${enemy.name}に${damage}ダメージを与えた")
 
         if (enemy.isDead) {
@@ -182,6 +185,7 @@ q:ゲームを終了
                 println("${name}はレベル${this.level}になった")
             }
         }
+        return damage
     }
 
     /**

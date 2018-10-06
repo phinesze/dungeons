@@ -56,7 +56,7 @@ class Enemy(
      */
     override fun collisionDetected(otherObject: GameObject) {
         if (otherObject is Player) {
-            attackPlayer(otherObject)
+            attackTarget(otherObject)
         }
     }
 
@@ -64,9 +64,10 @@ class Enemy(
      * プレイヤーにダメージを与える
      * @param player ダメージを受けるプレイヤー
      */
-    private fun attackPlayer(player: Player) {
-        val damage = this.attackTarget(player)
+    override fun attackTarget(player: GameCharacter, isMagic: Boolean):Int {
+        val damage = super.attackTarget(player, isMagic)
         println("${player.name}は${this.name}に${damage}ダメージを受けた")
         if (player.abilityScore.hp.now <= 0) println("${player.name}は死んでしまった")
+        return damage
     }
 }

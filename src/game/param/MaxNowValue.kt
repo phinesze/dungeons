@@ -9,7 +9,7 @@ class MaxNowValue(var max: Int, var now: Int = max) {
      * 現在値を減少させる。
      */
     fun damage(value: Int): Int {
-        val damageVal = if (value <= now) value else now
+        val damageVal = if (value > now) now else if (value < 0) 0 else value
         now -= damageVal
         return damageVal
     }

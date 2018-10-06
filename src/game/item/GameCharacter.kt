@@ -70,25 +70,20 @@ abstract class GameCharacter(name: String, display: String, val abilityScore: Ab
     open fun turn() {}
 
     /**
-     * 別のゲームキャラクターに物理攻撃でダメージを与える。
+     * 別のゲームキャラクターに物理攻撃または魔法攻撃でダメージを与える。
      * @param target ダメージを受ける相手キャラクター
      * @return 与えたダメージの量を表す数値
      */
-    fun attackTarget(target: GameCharacter): Int {
-        val thisAttack = this.abilityScore.attack
-        val targetDefense = target.abilityScore.defense
-        return attackTargetWithAttackAndDefense(thisAttack, targetDefense, target)
-    }
+    open fun attackTarget(target: GameCharacter, isMagic: Boolean = false): Int {
 
-    /**
-     * 別のゲームキャラクターに魔法攻撃でダメージを与える。
-     * @param target ダメージを受ける相手キャラクター
-     * @return 与えたダメージの量を表す数値
-     */
-    fun attackTargetByMagic(target: GameCharacter): Int {
-        val thisAttack = this.abilityScore.magicAttack
-        val targetDefense = target.abilityScore.magicDefense
-        return attackTargetWithAttackAndDefense(thisAttack, targetDefense, target)
+        val abilityScore = this.abilityScore
+        val thisAttack = if (isMagic) abilityScore.magicAttack else abilityScore.attack
+        val targetDefense = if (isMagic) abilityScore.magicAttack else target.abilityScore.defense
+
+        val damage = thisAttack - targetDefense / 2
+        target.abilityScore.hp.damage(damage)
+        if (target.abilityScore.hp.now <= 0) field.trashObject(target)
+        return damage
     }
 
     /**
@@ -136,12 +131,4 @@ abstract class GameCharacter(name: String, display: String, val abilityScore: Ab
 
     protected fun moveDown(): Boolean = tryToMove(position.x, position.y + 1)
 
-    private fun attackTargetWithAttackAndDefense(thisAttack: Int, targetDefense: Int, target: GameCharacter): Int {
-        val damage = thisAttack - targetDefense / 2
-        target.abilityScore.hp.damage(damage)
-
-        if (target.abilityScore.hp.now <= 0) field.trashObject(target)
-
-        return damage
-    }
 }

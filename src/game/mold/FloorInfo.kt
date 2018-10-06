@@ -24,16 +24,16 @@ class FloorInfo(
 ) {
 
     val enemyIds: Array<Int>
-        get() = enemyIdsParam ?: inherits?.enemyIdsParam ?: arrayOf()
+        get() = enemyIdsParam ?: inherits?.enemyIds ?: arrayOf()
 
     val enemyNum: Int
-        get() = enemyNumParam ?: inherits?.enemyNumParam ?: 0
+        get() = enemyNumParam ?: inherits?.enemyNum ?: 0
 
     val itemIds: Array<Int>
-        get() = itemIdsParam ?: inherits?.itemIdsParam ?: arrayOf()
+        get() = itemIdsParam ?: inherits?.itemIds ?: arrayOf()
 
     val itemNum: Int
-        get() = itemNumParam ?: inherits?.itemNumParam ?: 0
+        get() = itemNumParam ?: inherits?.itemNum ?: 0
 
     val fieldWidth: Int
         get() = fieldWidthParam ?: inherits?.fieldWidth ?: 0

@@ -18,7 +18,7 @@ class GameBoard() {
     /**
      * 使用するフィールド
      */
-    private var field: MazeField = MazeField(15, 9, 1)
+    private var field: MazeField = MazeField(15, 9, 6)
 
     /**
      * プレイヤーのレベルごとの能力値のハッシュマップ
