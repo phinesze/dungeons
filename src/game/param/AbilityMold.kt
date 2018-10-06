@@ -9,7 +9,7 @@ package game.param
  * @property defense 物理防御力
  * @property magicAttack 魔法攻撃力
  * @property magicDefense 魔法防御力
- * @property
+ * @property droppingExp 倒された場合に倒したキャラクター（プレイヤー）が獲得する経験値
  */
 class AbilityMold<T: Number>(
         var maxHp: T,
@@ -50,24 +50,29 @@ class AbilityMold<T: Number>(
          * @param maxLevel レベルの最大値
          * @param cardinal 能力値計算式の中の基数。この値にレベルに1を引いた値を累乗する。
          * @param extraMul 能力値計算式の中の乗数。この値にレベルに1を引いた値を掛ける。
+         * @param expCardinal 倒した時に落とす経験値の計算式の中の基数。この値にレベルに1を引いた値を累乗する
+         * @param expMul 倒した時に落とす経験値の計算式の中の乗数。この値にレベルに1を引いた値を掛ける。
          * @return 各レベルをキーとする能力値の型のハッシュマップ
          */
         fun toAbilityMap(
                 baseMold: AbilityMold<Double>,
                 maxLevel: Int = 99,
                 cardinal: Double = 1.0625,
-                extraMul: Double = 0.05
+                extraMul: Double = 0.05,
+                expCardinal: Double = 0.0,
+                expMul: Double = 1.125
         ): Map<Int, AbilityMold<Int>> {
 
             //戻り値となるハッシュマップを生成
             val result = mutableMapOf<Int, AbilityMold<Int>>()
 
-            //2～maxLevelまでの能力値を生成してハッシュマップに追加
+            //1～maxLevelまでの能力値を生成してハッシュマップに追加
             for (level in 1..maxLevel) {
                 val levelMinus1 = (level - 1).toDouble()
                 val abilityMoldMultiplier = Math.pow(cardinal, levelMinus1) + levelMinus1 * extraMul
+                val droppingExpMultiplier = Math.pow(expCardinal, levelMinus1) + levelMinus1 * expMul
 
-                result[level] = generateAbilityMoldFrom(baseMold, abilityMoldMultiplier, 0.0)
+                result[level] = generateAbilityMoldFrom(baseMold, abilityMoldMultiplier, droppingExpMultiplier)
             }
             return result.toMap()
         }
