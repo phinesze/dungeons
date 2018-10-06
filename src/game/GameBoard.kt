@@ -1,12 +1,10 @@
 package game
 
-import game.datalist.floorList
 import game.field.MazeField
 import game.item.Player
 import game.mold.FloorInfo
 import game.param.AbilityMold
 import game.param.EquipmentState
-import game.param.LevelAndExperience
 import game.param.PlayerLevelAndExperience
 import kotlin.system.exitProcess
 

@@ -39,7 +39,7 @@ open  class Field(val floor: Int = 0, val floorInfo: FloorInfo) {
     /**
      * ある地点から別の地点への移動がさえぎられていないか否かを監視する矢印とカウントの情報
      */
-    internal val arrowMap = FieldArrowMap(floorInfo.fieldWidth, height, field = this)
+    internal val arrowMap = FieldArrowMap(width, height, field = this)
 
     /**
      * 時間経過を表す値

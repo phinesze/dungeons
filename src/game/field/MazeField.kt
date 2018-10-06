@@ -4,6 +4,7 @@ import game.datalist.enemyList
 import game.datalist.itemList
 import game.item.*
 import game.mold.FloorInfo
+import java.lang.Exception
 import java.util.*
 
 class MazeField(width: Int, height: Int, floor: Int) : Field(floor, FloorInfo.getFloorInfo(floor)) {
@@ -43,7 +44,7 @@ class MazeField(width: Int, height: Int, floor: Int) : Field(floor, FloorInfo.ge
      * 敵キャラクターを配置する。
      */
     private fun addEnemiesRandom(enemyLevel: Int) {
-        for (i in 0..floorInfo.enemyNum) {
+        for (i in 0..(floorInfo.enemyNum - 1)) {
             val enemyId = floorInfo.getRandomEnemyId(random)
             addObjectRandom(Enemy(mold = enemyList[enemyId]!!, level = enemyLevel, field = this))
         }
@@ -53,7 +54,7 @@ class MazeField(width: Int, height: Int, floor: Int) : Field(floor, FloorInfo.ge
      * アイテムを配置する。
      */
     private fun addItemsRandom() {
-        for (i in 0..floorInfo.itemNum) {
+        for (i in 0..(floorInfo.itemNum - 1)) {
             val itemId = floorInfo.getRandomItemId(random)
             addObjectRandom(GameItem(mold = itemList[itemId]!!, field = this))
         }
@@ -74,7 +75,7 @@ class MazeField(width: Int, height: Int, floor: Int) : Field(floor, FloorInfo.ge
      */
     fun addObjectRandom(gameObject: GameObject) {
 
-        while (true) {
+        for (i in 0..9999) {
             val x = (random.nextInt((width + 1) / 2)) * 2
             val y = (random.nextInt((height + 1) / 2)) * 2
             val fieldBlock = getFieldBlock(x, y)
@@ -82,10 +83,12 @@ class MazeField(width: Int, height: Int, floor: Int) : Field(floor, FloorInfo.ge
             if (fieldBlock.type.isFloor && fieldBlock.gameObjects.size == 0) {
                 if (!arrowMap.isGenerated || arrowMap.getDistanceCount(x, y) != null) {
                     this.addObject(x, y, gameObject)
-                    break
+                    return
                 }
             }
         }
+
+        throw(Exception("ゲームオブジェクト追加の試行回数の上限を超えました。"))
     }
 
     /**
