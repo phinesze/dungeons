@@ -1,10 +1,8 @@
 package game.field
 
 import game.datalist.enemyList
-import game.item.Enemy
-import game.item.GameObject
-import game.item.Player
-import game.item.Stair
+import game.datalist.itemList
+import game.item.*
 import game.mold.FloorInfo
 import java.util.*
 
@@ -37,6 +35,8 @@ class MazeField(width: Int, height: Int, floor: Int) : Field(floor, FloorInfo.ge
         createMazeWall()
         //敵を配置する。
         addEnemiesRandom(enemyLevel)
+        //アイテムを配置する。
+        addItemsRandom()
     }
 
     /**
@@ -48,6 +48,17 @@ class MazeField(width: Int, height: Int, floor: Int) : Field(floor, FloorInfo.ge
             addObjectRandom(Enemy(mold = enemyList[enemyId]!!, level = enemyLevel, field = this))
         }
     }
+
+    /**
+     * アイテムを配置する。
+     */
+    private fun addItemsRandom() {
+        for (i in 0..floorInfo.itemNum) {
+            val itemId = floorInfo.getRandomItemId(random)
+            addObjectRandom(GameItem(mold = itemList[itemId]!!, field = this))
+        }
+    }
+
 
     /**
      * プレイヤーをスタートに配置する。
