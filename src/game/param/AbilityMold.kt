@@ -9,6 +9,7 @@ package game.param
  * @property defense 物理防御力
  * @property magicAttack 魔法攻撃力
  * @property magicDefense 魔法防御力
+ * @property agility 行動力
  * @property droppingExp 倒された場合に倒したキャラクター（プレイヤー）が獲得する経験値
  */
 class AbilityMold<T: Number>(
