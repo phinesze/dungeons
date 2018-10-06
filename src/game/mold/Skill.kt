@@ -1,5 +1,17 @@
 package game.mold
 
 import game.NamableObject
+import game.field.Field
+import game.field.FieldBlock
+import game.item.GameCharacter
 
-class Skill(name: String, var timeCost: Int, var mpCost: Int): NamableObject(name)
+/**
+ * スキルを表す。
+ */
+class Skill(
+        name: String,
+        var action: (GameCharacter) -> Unit,
+        var timeCost: Int,
+        var mpCost: Int,
+        var key: String
+) : NamableObject(name)

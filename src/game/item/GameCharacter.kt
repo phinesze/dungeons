@@ -1,6 +1,7 @@
 package game.item
 
 import game.field.Field
+import game.field.FieldBlock
 import game.param.AbilityScore
 import game.param.LevelAndExperience
 
@@ -84,6 +85,43 @@ abstract class GameCharacter(name: String, display: String, val abilityScore: Ab
         if (target.abilityScore.hp.now <= 0) field.trashObject(target)
 
         return damage
+    }
+
+    /**
+     * フィールド上の指定された位置から移動して敵キャラクタ/プレイヤーに当たった場合に
+     * そのキャラクターを相手に指定された動作を実行する。
+     * @param startX 開始位置であるフィールド上のx位置
+     * @param startY 開始位置であるフィールド上のy位置
+     * @param moveX
+     * @param moveY
+     * @param isWallTransfixable 壁を貫通するか否か
+     * @param isObjectTransfixable 通過不可なゲームオブジェクトを貫通するか否か
+     * @param action 指定する動作
+     */
+    fun actionLinear(
+            moveX: Int,
+            moveY: Int,
+            isWallTransfixable: Boolean = false,
+            isObjectTransfixable: Boolean = false,
+            action: (GameCharacter) -> Unit
+    ) {
+        var x = this.position.x
+        var y = this.position.y
+
+        for (i in 0..9999) {
+            x += moveX
+            y += moveY
+
+            val fieldBlock: FieldBlock = this.field.tryToGetFieldBlock(x, y) ?: return
+            if (!isWallTransfixable && !fieldBlock.type.isFloor) return
+
+            for (gameObject in fieldBlock.gameObjects) {
+                if (!gameObject.isTraversable) {
+                    if (gameObject is GameCharacter) action(gameObject)
+                    if (!isObjectTransfixable) return
+                }
+            }
+        }
     }
 
     protected fun moveLeft(): Boolean = tryToMove(position.x - 1, position.y)
