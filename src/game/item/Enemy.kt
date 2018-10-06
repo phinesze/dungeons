@@ -50,6 +50,10 @@ class Enemy(
         }
     }
 
+    /**
+     * フィールド上のプレイヤーと衝突した場合にプレイヤーを攻撃する動作を行う。
+     * GameItemの同名関数をオーバーライドする。
+     */
     override fun collisionDetected(otherObject: GameObject) {
         if (otherObject is Player) {
             attackPlayer(otherObject)
