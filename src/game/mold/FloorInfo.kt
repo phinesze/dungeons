@@ -11,8 +11,10 @@ import java.util.*
  * @property fieldHeight フロアの高さを表す数値
  */
 class FloorInfo(
-        var enemyIds : Array<Int> = arrayOf(),
-        var enemyNum :Int = 0,
+        var enemyIds: Array<Int> = arrayOf(),
+        var enemyNum: Int = 0,
+        var itemIds: Array<Int> = arrayOf(),
+        var itemNum: Int = 0,
         var fieldWidth: Int = 10,
         var fieldHeight: Int = 10
 ) {
@@ -32,12 +34,22 @@ class FloorInfo(
     }
 
     /**
-     * ランダムオブジェクトを渡してランダム敵の種類のIDを取得する
+     * ランダムオブジェクトを渡してランダムに敵の種類のIDを取得する
      * @param random ランダムオブジェクト
      * @throws
      */
     fun getRandomEnemyId(random: Random) :Int {
         val length = this.enemyIds!!.size
         return this.enemyIds!![random.nextInt(length)!!]
+    }
+
+    /**
+     * ランダムオブジェクトを渡してランダムにアイテムの種類のIDを取得する
+     * @param random ランダムオブジェクト
+     * @throws
+     */
+    fun getRandomItemId(random: Random) :Int {
+        val length = this.itemIds!!.size
+        return this.itemIds!![random.nextInt(length)!!]
     }
 }
