@@ -9,7 +9,7 @@ class Stair(var isUp: Boolean, field: Field) : GameObject(
 ) {
 
     init {
-        this.isThroughable = true
+        this.isTraversable = true
     }
 
     override fun collisionDetected(otherObject: GameObject) {

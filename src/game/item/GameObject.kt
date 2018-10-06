@@ -20,7 +20,7 @@ import game.param.Position
     /**
      *  ほかのオブジェクトの移動を妨げない個体であるかどうかを表す真偽値
      */
-    internal var isThroughable: Boolean = false
+    internal var isTraversable: Boolean = false
 
     /**
      * 自身のフィールド内でのx, y位置を表す値
@@ -55,7 +55,7 @@ import game.param.Position
             //フィールドブロックを取得して床ではない場合はfalse
             if (field.getFieldBlock(x, y).type.isFloor !== true) return false
             //衝突判定
-            val otherObject = this.field.getNotThroughable(x, y)
+            val otherObject = this.field.getNotTraversableObject(x, y)
             if (otherObject != null) { this.collisionDetected(otherObject); return true }
             //指定した位置への移動
             this.field.moveObject(x, y, this)

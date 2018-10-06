@@ -25,6 +25,6 @@ class GameItem(mold: ItemMold, field: Field) : GameObject(mold.name, field, mold
     }
 
     init {
-        this.isThroughable = true
+        this.isTraversable = true
     }
 }

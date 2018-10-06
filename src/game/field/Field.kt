@@ -153,10 +153,10 @@ open  class Field(val floor: Int = 0, val floorInfo: FloorInfo) {
      * @param y フィールド内のy位置
      * @return 指定された位置の一番上にあるゲームオブジェクト。存在しない場合はnullを返す。
      */
-    fun getNotThroughable(x: Int, y: Int): GameObject? {
+    fun getNotTraversableObject(x: Int, y: Int): GameObject? {
         val fieldBlock = this.getFieldBlock(x, y)
         for(obj in fieldBlock.gameObjects) {
-            if (!obj.isThroughable) return obj
+            if (!obj.isTraversable) return obj
         }
         return null
     }
