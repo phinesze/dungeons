@@ -1,7 +1,10 @@
 package game.item
 
+import game.datalist.SKILL_NORMAL_ATTACK
+import game.datalist.skillList
 import game.field.Field
 import game.field.FieldBlock
+import game.mold.Skill
 import game.param.AbilityScore
 import game.param.LevelAndExperience
 
@@ -72,27 +75,24 @@ abstract class GameCharacter(name: String, display: String, val abilityScore: Ab
     /**
      * 別のゲームキャラクターに物理攻撃または魔法攻撃でダメージを与える。
      * @param target ダメージを受ける相手キャラクター
+     * @param skill 物理通常攻撃の場合はnull、スキル攻撃の場合はtrue
      * @return 与えたダメージの量を表す数値
      */
-    open fun attackTarget(target: GameCharacter, isMagic: Boolean = false): Int {
+    open fun attackTarget(target: GameCharacter, skill: Skill = skillList[SKILL_NORMAL_ATTACK]!!): Int {
 
-        val abilityScore = this.abilityScore
-        val thisAttack = if (isMagic) abilityScore.magicAttack else abilityScore.attack
-        val targetDefense = if (isMagic) abilityScore.magicAttack else target.abilityScore.defense
+        val targetScore = target.abilityScore
+        val damage = skill.calculator(this.abilityScore, targetScore, skill)
 
-        val damage = thisAttack - targetDefense / 2
-        target.abilityScore.hp.damage(damage)
-        if (target.abilityScore.hp.now <= 0) field.trashObject(target)
+        targetScore.hp.damage(damage)
+        if (target.isDead) field.trashObject(target)
         return damage
     }
 
     /**
      * フィールド上の指定された位置から移動して敵キャラクタ/プレイヤーに当たった場合に
      * そのキャラクターを相手に指定された動作を実行する。
-     * @param startX 開始位置であるフィールド上のx位置
-     * @param startY 開始位置であるフィールド上のy位置
-     * @param moveX
-     * @param moveY
+     * @param moveX 探索する際のフィールドのx移動量
+     * @param moveY 探索する際のフィールドのy移動量
      * @param isWallTransfixable 壁を貫通するか否か
      * @param isObjectTransfixable 通過不可なゲームオブジェクトを貫通するか否か
      * @param action 指定する動作

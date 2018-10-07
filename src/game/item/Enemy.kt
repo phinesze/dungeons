@@ -2,6 +2,7 @@ package game.item
 
 import game.field.Field
 import game.mold.EnemyMold
+import game.mold.Skill
 import game.param.AbilityScore
 import game.param.LevelAndExperience
 
@@ -39,8 +40,8 @@ class Enemy(
         //プレイヤーオブジェクトを取得
         val player = field.getPlayer(0)
         //敵キャラクターとプレイヤーとの間のx, y位置の差を取得
-        var x = player.position.x - this.position.x
-        var y = player.position.y - this.position.y
+        val x = player.position.x - this.position.x
+        val y = player.position.y - this.position.y
 
         //上下左右どちらに移動するかを決定
         if (Math.abs(x) > Math.abs(y)) {
@@ -62,12 +63,12 @@ class Enemy(
 
     /**
      * プレイヤーにダメージを与える
-     * @param player ダメージを受けるプレイヤー
+     * @param target ダメージを受けるプレイヤー
      */
-    override fun attackTarget(player: GameCharacter, isMagic: Boolean):Int {
-        val damage = super.attackTarget(player, isMagic)
-        println("${player.name}は${this.name}に${damage}ダメージを受けた")
-        if (player.abilityScore.hp.now <= 0) println("${player.name}は死んでしまった")
+    override fun attackTarget(target: GameCharacter, skill: Skill): Int {
+        val damage = super.attackTarget(target, skill)
+        println("${target.name}は${this.name}に${damage}ダメージを受けた")
+        if (target.abilityScore.hp.now <= 0) println("${target.name}は死んでしまった")
         return damage
     }
 }

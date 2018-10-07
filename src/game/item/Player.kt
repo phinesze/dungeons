@@ -5,20 +5,26 @@ import game.datalist.SKILL_FIRE_A
 import game.datalist.skillList
 import game.field.Field
 import game.mold.Skill
-import game.param.*
+import game.param.AbilityMold
+import game.param.AbilityScore
+import game.param.EquipmentState
+import game.param.PlayerLevelAndExperience
 import kotlin.system.exitProcess
 
 /**ｓ
  * プレイヤーキャラクタを表すクラス。GameCharacterを継承する。
  * GameCharacterのopen関数turnをオーバーライドして、行動可能時に対話型メッセージを出力する。
+ * @property abilityMap 各レベルの値をキーとしたレベルごとの能力値の型のハッシュマップ
+ * @property skillMap 各レベルの値をキーとしたレベルごとに覚えるスキルのハッシュマップ
  */
 class Player(
         name: String,
         display: String,
-        abilityMap: Map<Int, AbilityMold<Int>>,
-        var equipmentState: EquipmentState = EquipmentState(),
+        val abilityMap: Map<Int, AbilityMold<Int>>,
+        val skillMap: Map<Int, Skill>,
         field: Field,
-        levelAndExp: PlayerLevelAndExperience
+        levelAndExp: PlayerLevelAndExperience,
+        var equipmentState: EquipmentState = EquipmentState()
 ) : GameCharacter(name, display, AbilityScore(abilityMap[levelAndExp.level]!!), field, levelAndExp) {
 
     /**
@@ -29,13 +35,8 @@ class Player(
     /**
      * 次のレベルになるまでの必要な経験値
      */
-    val restExp :Long?
+    val restExp: Long?
         get() = this.levelAndExperience.restExp
-
-    /**
-     * 各レベルの値をキーとしたレベルごとの能力値の型のハッシュマップ
-     */
-    val abilityMap: Map<Int, AbilityMold<Int>> = abilityMap
 
     /**
      * スキルの実行のためのキー入力の値をキーとした習得済みのスキルのハッシュマップ
@@ -44,11 +45,6 @@ class Player(
             "fire-a" to skillList[SKILL_FIRE_A]!!,
             "cold-a" to skillList[SKILL_COLD_A]!!
     )
-
-    /**
-     * 各レベルの値をキーとしたレベルごとに覚えるスキルのハッシュマップ
-     */
-    val skillMap: Map<Int, Skill> = mapOf()
 
     /**
      * 行動可能時に出力されるメッセージ文字列
@@ -98,7 +94,7 @@ q:ゲームを終了
 
     /**
      * プレイヤー自身に入力を求め、入力された値をもとにコマンドを実行する。
-     * @return Boolean この入力で行動が終了する場合はtrue、 入力が正しくない場合や行動が終了しないコマンドを入力した場合はfalse
+     * @return この入力で行動が終了する場合はtrue、 入力が正しくない場合や行動が終了しないコマンドを入力した場合はfalse
      */
     private fun doInputAction(): Boolean {
 
@@ -130,6 +126,7 @@ q:ゲームを終了
             //入力失敗
             else -> println("もう一度入力してください。")
         }
+        println()
         return false
     }
 
@@ -152,7 +149,7 @@ q:ゲームを終了
         return if (selectedSkill != null) {
             if (this.abilityScore.mp.now >= selectedSkill.mpCost) {
                 this.abilityScore.mp.damage(selectedSkill.mpCost)
-                selectedSkill.action(this); true
+                selectedSkill.action(selectedSkill, this, null); true
             } else {
                 println("MPが不足しています。"); false
             }
@@ -215,17 +212,17 @@ q:ゲームを終了
     /**
      * メッセージを表示しつつ敵キャラクターにダメージを与える。
      * 敵のHPを0にした場合は倒した際のメッセージを表示して、プレイヤーの経験値を追加する処理を行う。
-     * @param enemy ダメージを受ける敵キャラクター
+     * @param target ダメージを受ける敵キャラクター
      */
-    override fun attackTarget(enemy: GameCharacter, isMagic: Boolean): Int {
+    override fun attackTarget(target: GameCharacter, skill: Skill): Int {
 
-        val damage = super.attackTarget(enemy, isMagic)
-        println("${name}は${enemy.name}に${damage}ダメージを与えた")
+        val damage = super.attackTarget(target, skill)
+        println("${name}は${target.name}に${damage}ダメージを与えた")
 
-        if (enemy.isDead) {
-            val raisedLevel = this.levelAndExperience.addExperience(enemy.abilityScore.droppingExp.toLong())
-            println("${enemy.name}を倒した")
-            println("${enemy.abilityScore.droppingExp}の経験値を獲得した")
+        if (target.isDead) {
+            val raisedLevel = this.levelAndExperience.addExperience(target.abilityScore.droppingExp.toLong())
+            println("${target.name}を倒した")
+            println("${target.abilityScore.droppingExp}の経験値を獲得した")
 
             if (raisedLevel >= 1) {
                 refleshAbilityByLevel()

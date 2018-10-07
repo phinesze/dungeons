@@ -3,8 +3,8 @@ package game
 import game.field.MazeField
 import game.item.Player
 import game.mold.FloorInfo
+import game.mold.Skill
 import game.param.AbilityMold
-import game.param.EquipmentState
 import game.param.PlayerLevelAndExperience
 import kotlin.system.exitProcess
 
@@ -13,12 +13,12 @@ import kotlin.system.exitProcess
  * 追加されたプレイヤーのリストと、
  * プレイヤーや敵などが動き回る場所として「フィールド」オブジェクトを含む。
  */
-class GameBoard() {
+class GameBoard {
 
     /**
      * 使用するフィールド
      */
-    private var field: MazeField = MazeField(15, 9, 6)
+    private var field: MazeField = MazeField(15, 9, 1)
 
     /**
      * プレイヤーのレベルごとの能力値のハッシュマップ
@@ -42,7 +42,7 @@ class GameBoard() {
             "あなた",
             "主",
             abilityMoldMap,
-            EquipmentState(),
+            emptyMap<Int, Skill>(),
             field,
             PlayerLevelAndExperience()
     )
