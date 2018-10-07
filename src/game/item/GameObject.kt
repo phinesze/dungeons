@@ -8,9 +8,10 @@ import game.param.Position
 /**
  * 名前と位置情報を持つオブジェクトを表す抽象クラス。プレイヤー、敵キャラクター、アイテムなどはすべてこのクラスを継承する。
  * このクラスから派生するクラスのすべてのオブジェクトは1つのフィールドオブジェクト(field)に所属する。
- * @param field 自身が存在しているフィールド
+ * @property field 自身が存在しているフィールド
+ * @property field 自身の所属するフィールドをtoStringで出力した場合の自身のフィールド内での表示文字列
  */
- abstract class GameObject(name: String, internal var field: Field, display: String) : NamableObject(name) {
+abstract class GameObject(name: String, internal var field: Field, var display: String) : NamableObject(name) {
 
     /**
      *  自身が位置しているフィールド上のブロック
@@ -28,11 +29,6 @@ import game.param.Position
     val position: Position = Position(0, 0)
 
     /**
-     * 自身の所属するフィールドをtoStringで出力した場合の自身のフィールド内での表示文字列
-     */
-    var display: String = display
-
-    /**
      * ゲームボード上での1カウント経過時の挙動を記述することができる仮想関数
      * 例としてプレイヤー(Player)または敵キャラクター(Enemy)の場合は、カウントを1減らして0になった場合に特定の行動を取らせる。
      */
@@ -44,6 +40,41 @@ import game.param.Position
     open fun collisionDetected(otherObject: GameObject) {}
 
     /**
+     * フィールド上の指定された位置から移動して敵キャラクタ/プレイヤーに当たった場合に
+     * そのキャラクターを相手に指定された動作を実行する。
+     * @param moveX 探索する際のフィールドのx移動量
+     * @param moveY 探索する際のフィールドのy移動量
+     * @param isWallTransfixable 壁を貫通するか否か
+     * @param isObjectTransfixable 通過不可なゲームオブジェクトを貫通するか否か
+     * @param action 指定する動作
+     */
+    fun actionLinear(
+            moveX: Int,
+            moveY: Int,
+            isWallTransfixable: Boolean = false,
+            isObjectTransfixable: Boolean = false,
+            action: (GameCharacter) -> Unit
+    ) {
+        var x = this.position.x
+        var y = this.position.y
+
+        for (i in 0..9999) {
+            x += moveX
+            y += moveY
+
+            val fieldBlock: FieldBlock = this.field.tryToGetFieldBlock(x, y) ?: return
+            if (!isWallTransfixable && !fieldBlock.type.isFloor) return
+
+            for (gameObject in fieldBlock.gameObjects) {
+                if (!gameObject.isTraversable) {
+                    if (gameObject is GameCharacter) action(gameObject)
+                    if (!isObjectTransfixable) return
+                }
+            }
+        }
+    }
+
+    /**
      * フィールド内での指定したx, y位置への移動を試みる。
      * 移動先に指定したx, y位置がフィールド内で移動可能なブロックの場合は移動を完了してtrueを返す。
      * 移動可能なブロックでない場合はfalseを返す。
@@ -53,7 +84,7 @@ import game.param.Position
     protected fun tryToMove(x: Int, y: Int) : Boolean {
         try {
             //フィールドブロックを取得して床ではない場合はfalse
-            if (field.getFieldBlock(x, y).type.isFloor !== true) return false
+            if (!field.getFieldBlock(x, y).type.isFloor) return false
             //衝突判定
             val otherObject = this.field.getNotTraversableObject(x, y)
             if (otherObject != null) { this.collisionDetected(otherObject); return true }
@@ -64,4 +95,28 @@ import game.param.Position
         }
         return true
     }
+
+    /**
+     * フィールド内での左への移動を試みる。
+     * 移動可能なブロックの場合は移動を完了してtrueを返す。移動可能でない場合はfalseを返す。
+     */
+    protected fun moveLeft(): Boolean = tryToMove(position.x - 1, position.y)
+
+    /**
+     * フィールド内での左への移動を試みる。
+     * 移動可能なブロックの場合は移動を完了してtrueを返す。移動可能でない場合はfalseを返す。
+     */
+    protected fun moveRight(): Boolean = tryToMove(position.x + 1, position.y)
+
+    /**
+     * フィールド内での左への移動を試みる。
+     * 移動可能なブロックの場合は移動を完了してtrueを返す。移動可能でない場合はfalseを返す。
+     */
+    protected fun moveUp(): Boolean = tryToMove(position.x, position.y - 1)
+
+    /**
+     * フィールド内での左への移動を試みる。
+     * 移動可能なブロックの場合は移動を完了してtrueを返す。移動可能でない場合はfalseを返す。
+     */
+    protected fun moveDown(): Boolean = tryToMove(position.x, position.y + 1)
 }

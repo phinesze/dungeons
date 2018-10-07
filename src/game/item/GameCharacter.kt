@@ -1,7 +1,6 @@
 package game.item
 
 import game.field.Field
-import game.field.FieldBlock
 import game.mold.Skill
 import game.param.AbilityScore
 import game.param.LevelAndExperience
@@ -86,48 +85,6 @@ abstract class GameCharacter(name: String, display: String, val abilityScore: Ab
         return damage
     }
 
-    /**
-     * フィールド上の指定された位置から移動して敵キャラクタ/プレイヤーに当たった場合に
-     * そのキャラクターを相手に指定された動作を実行する。
-     * @param moveX 探索する際のフィールドのx移動量
-     * @param moveY 探索する際のフィールドのy移動量
-     * @param isWallTransfixable 壁を貫通するか否か
-     * @param isObjectTransfixable 通過不可なゲームオブジェクトを貫通するか否か
-     * @param action 指定する動作
-     */
-    fun actionLinear(
-            moveX: Int,
-            moveY: Int,
-            isWallTransfixable: Boolean = false,
-            isObjectTransfixable: Boolean = false,
-            action: (GameCharacter) -> Unit
-    ) {
-        var x = this.position.x
-        var y = this.position.y
-
-        for (i in 0..9999) {
-            x += moveX
-            y += moveY
-
-            val fieldBlock: FieldBlock = this.field.tryToGetFieldBlock(x, y) ?: return
-            if (!isWallTransfixable && !fieldBlock.type.isFloor) return
-
-            for (gameObject in fieldBlock.gameObjects) {
-                if (!gameObject.isTraversable) {
-                    if (gameObject is GameCharacter) action(gameObject)
-                    if (!isObjectTransfixable) return
-                }
-            }
-        }
-    }
-
-    protected fun moveLeft(): Boolean = tryToMove(position.x - 1, position.y)
-
-    protected fun moveRight(): Boolean = tryToMove(position.x + 1, position.y)
-
-    protected fun moveUp(): Boolean = tryToMove(position.x, position.y - 1)
-
-    protected fun moveDown(): Boolean = tryToMove(position.x, position.y + 1)
     /**
      * スキルを実行する。現在のMPがスキルのMPコスト以上ある場合はスキルの動作を実行して、MPを消費して、スキル特有の待ち時間を加算する。
      * 現在のMPがMPコスト未満の場合は中断する。
