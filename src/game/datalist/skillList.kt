@@ -13,7 +13,7 @@ val skillList = arrayOf(
                         val damage = user.attackTarget(target, isMagic = true)
                     })
                 },
-                key = "fire-a",
+                keyInput = "fire-a",
                 timeCost = 1000,
                 mpCost = 5
         ),
@@ -22,7 +22,7 @@ val skillList = arrayOf(
                 action = fun(user: GameCharacter) {
 
                 },
-                key = "cold-a",
+                keyInput = "cold-a",
                 timeCost = 1000,
                 mpCost = 5
         )

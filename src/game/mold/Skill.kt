@@ -13,5 +13,5 @@ class Skill(
         var action: (GameCharacter) -> Unit,
         var timeCost: Int,
         var mpCost: Int,
-        var key: String
+        var keyInput: String
 ) : NamableObject(name)

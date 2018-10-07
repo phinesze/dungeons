@@ -16,6 +16,11 @@ open  class Field(val floor: Int = 0, val floorInfo: FloorInfo) {
     val width :Int = floorInfo.fieldWidth
     val height :Int = floorInfo.fieldHeight
 
+    init {
+        if (width < 7) throw (Exception(""))
+        if (height < 7) throw (Exception(""))
+    }
+
     /**
      * フィールドマップを表現するためのフィールドブロックの2次元配列
      */

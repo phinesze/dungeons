@@ -1,5 +1,10 @@
 package game.item
+
+import game.datalist.SKILL_COLD_A
+import game.datalist.SKILL_FIRE_A
+import game.datalist.skillList
 import game.field.Field
+import game.mold.Skill
 import game.param.*
 import kotlin.system.exitProcess
 
@@ -16,8 +21,6 @@ class Player(
         levelAndExp: PlayerLevelAndExperience
 ) : GameCharacter(name, display, AbilityScore(abilityMap[levelAndExp.level]!!), field, levelAndExp) {
 
-
-
     /**
      * レベルと累積経験値を表す
      */
@@ -30,9 +33,22 @@ class Player(
         get() = this.levelAndExperience.restExp
 
     /**
-     * 各レベルごとの能力値の型
+     * 各レベルの値をキーとしたレベルごとの能力値の型のハッシュマップ
      */
     val abilityMap: Map<Int, AbilityMold<Int>> = abilityMap
+
+    /**
+     * スキルの実行のためのキー入力の値をキーとした習得済みのスキルのハッシュマップ
+     */
+    val executableSkills: MutableMap<String, Skill> = mutableMapOf(
+            "fire-a" to skillList[SKILL_FIRE_A]!!,
+            "cold-a" to skillList[SKILL_COLD_A]!!
+    )
+
+    /**
+     * 各レベルの値をキーとしたレベルごとに覚えるスキルのハッシュマップ
+     */
+    val skillMap: Map<Int, Skill> = mapOf()
 
     /**
      * 行動可能時に出力されるメッセージ文字列
@@ -40,6 +56,7 @@ class Player(
     private val turnMessage = """
 ${name}は何をしますか？
 w:前へ  s:後ろへ  a:左へ  d:右へ
+e:スキル
 x:待機
 m:マップを表示
 p:能力値を表示
@@ -97,6 +114,8 @@ q:ゲームを終了
             "a" -> return moveLeftWithMessage()
             //右へ移動
             "d" -> return moveRightWithMessage()
+            //スキル
+            "e" -> return doInputSkill()
             //待機
             "x" -> return true
             //マップを表示
@@ -112,6 +131,34 @@ q:ゲームを終了
             else -> println("もう一度入力してください。")
         }
         return false
+    }
+
+    /**
+     * 習得したスキルと実行に必要なキー入力のペアの一覧を表示してスキルの入力を求める。
+     * スキルが入力されたされた場合はそのスキルを実行する。
+     * @return この入力で行動が終了する場合はtrue、 入力されたスキルが存在しない場合やMPが不足している場合はfalse
+     */
+    private fun doInputSkill(): Boolean {
+
+        println("スキルを入力してください。")
+        for ((keyInput, skill) in this.executableSkills) {
+            println("${keyInput}:${skill.name}")
+        }
+
+        val input = readLine()
+        val selectedSkill = executableSkills[input]
+        println()
+
+        return if (selectedSkill != null) {
+            if (this.abilityScore.mp.now >= selectedSkill.mpCost) {
+                this.abilityScore.mp.damage(selectedSkill.mpCost)
+                selectedSkill.action(this); true
+            } else {
+                println("MPが不足しています。"); false
+            }
+        } else {
+            println("入力されたスキルは存在しません。"); false
+        }
     }
 
     /**
