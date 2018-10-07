@@ -7,8 +7,10 @@ val skillList = arrayOf(
         Skill(
                 name = "ファイア・α",
                 action = fun(user: GameCharacter) {
-                    user.actionLinear(moveX = -1, moveY = 0, action = fun(otherCharacter: GameCharacter) {
-                        TODO("魔法を実装")
+
+                    println("${user.name}の周りに炎の柱が巻き起こる")
+                    user.actionLinear(moveX = -1, moveY = 0, action = fun(target: GameCharacter) {
+                        val damage = user.attackTarget(target, isMagic = true)
                     })
                 },
                 key = "fire-a",
