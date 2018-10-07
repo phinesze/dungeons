@@ -147,9 +147,8 @@ q:ゲームを終了
         println()
 
         return if (selectedSkill != null) {
-            if (this.abilityScore.mp.now >= selectedSkill.mpCost) {
-                this.abilityScore.mp.damage(selectedSkill.mpCost)
-                selectedSkill.action(selectedSkill, this, null); true
+            return if (this.executeSkill(selectedSkill)) {
+                true
             } else {
                 println("MPが不足しています。"); false
             }

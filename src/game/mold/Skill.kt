@@ -13,19 +13,33 @@ class Skill(
         name: String,
         var isMagic: Boolean,
         var mpCost: Int,
-        var timeCost: Int,
-        val power: Int,
+        var timeCostPlus: Int,
+        val powerPlus: Int,
         var keyInput: String,
         var action: (Skill, GameCharacter, GameCharacter?) -> Unit,
         var calculator: (AbilityScore, AbilityScore, Skill) -> Int
 ) : NamableObject(name) {
 
     companion object {
-        fun calculatePhysicsDamage(targetScore: AbilityScore, thisScore: AbilityScore, skill: Skill) =
-                thisScore.attack + skill.power - targetScore.defense / 2
+
+        val normalAttack = Skill(
+                "",
+                isMagic = false,
+                mpCost = 0,
+                powerPlus = 0,
+                timeCostPlus = 1000,
+                keyInput = "",
+                action = fun(skill: Skill, user: GameCharacter, target: GameCharacter?) {
+                    user.attackTarget(target!!, skill)
+                },
+                calculator = fun(userScore, targetScore, skill) = Skill.calculatePhysicsDamage(skill, userScore, targetScore)
+        )
+
+        fun calculatePhysicsDamage(skill: Skill, thisScore: AbilityScore, targetScore: AbilityScore) =
+                thisScore.attack + skill.powerPlus - targetScore.defense / 2
 
         fun calculateMagicDamage(skill: Skill, thisScore: AbilityScore, targetScore: AbilityScore) =
-                thisScore.magicAttack + skill.power - targetScore.magicDefense / 2
+                thisScore.magicAttack + skill.powerPlus - targetScore.magicDefense / 2
     }
 
 }

@@ -1,7 +1,5 @@
 package game.item
 
-import game.datalist.SKILL_NORMAL_ATTACK
-import game.datalist.skillList
 import game.field.Field
 import game.field.FieldBlock
 import game.mold.Skill
@@ -78,7 +76,7 @@ abstract class GameCharacter(name: String, display: String, val abilityScore: Ab
      * @param skill 物理通常攻撃の場合はnull、スキル攻撃の場合はtrue
      * @return 与えたダメージの量を表す数値
      */
-    open fun attackTarget(target: GameCharacter, skill: Skill = skillList[SKILL_NORMAL_ATTACK]!!): Int {
+    open fun attackTarget(target: GameCharacter, skill: Skill = Skill.normalAttack): Int {
 
         val targetScore = target.abilityScore
         val damage = skill.calculator(this.abilityScore, targetScore, skill)
@@ -130,5 +128,21 @@ abstract class GameCharacter(name: String, display: String, val abilityScore: Ab
     protected fun moveUp(): Boolean = tryToMove(position.x, position.y - 1)
 
     protected fun moveDown(): Boolean = tryToMove(position.x, position.y + 1)
+    /**
+     * スキルを実行する。現在のMPがスキルのMPコスト以上ある場合はスキルの動作を実行して、MPを消費して、スキル特有の待ち時間を加算する。
+     * 現在のMPがMPコスト未満の場合は中断する。
+     * @param skill 実行するスキル
+     * @param target 実行する対象。魔法攻撃はnullとなる場合が多い。
+     * @return スキルの実行された場合はtrue、中断された場合はfalse
+     */
+    fun executeSkill(skill: Skill, target: GameCharacter? = null): Boolean {
+
+        if (this.abilityScore.mp.now < skill.mpCost) return false
+        this.abilityScore.mp.now -= skill.mpCost
+        this.timeWait += skill.timeCostPlus
+
+        skill.action(skill, this, target)
+        return true
+    }
 
 }
