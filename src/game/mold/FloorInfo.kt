@@ -14,13 +14,12 @@ import java.util.*
  * @property inherits
  */
 class FloorInfo(
-        var enemyIdsParam: Array<Int>? = null,
-        var enemyNumParam: Int? = null,
-        var itemIdsParam: Array<Int>? = null,
-        var itemNumParam: Int? = null,
-        var fieldWidthParam: Int? = null,
-        var fieldHeightParam: Int? = null,
-        var inherits: FloorInfo? = null
+        val enemyIdsParam: Array<Int>? = null,
+        val enemyNumParam: Int? = null,
+        val itemIdsParam: Array<Int>? = null,
+        val itemNumParam: Int? = null,
+        val fieldWidthParam: Int? = null,
+        val fieldHeightParam: Int? = null
 ) {
 
     private val enemyIds: Array<Int>
@@ -40,6 +39,8 @@ class FloorInfo(
 
     val fieldHeight: Int
         get() = fieldHeightParam ?: inherits?.fieldHeight ?: 0
+
+    private var inherits: FloorInfo? = null
 
     companion object {
 

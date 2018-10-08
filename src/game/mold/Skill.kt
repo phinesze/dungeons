@@ -1,6 +1,5 @@
 package game.mold
 
-import game.NamableObject
 import game.item.GameCharacter
 import game.param.AbilityScore
 
@@ -10,13 +9,13 @@ import game.param.AbilityScore
  * @param action
  */
 class Skill(
-        name: String,
-        var mpCost: Int,
-        var timeCostPlus: Int,
+        val name: String,
+        val mpCost: Int,
+        val timeCostPlus: Int,
         val powerPlus: Int,
-        var action: (Skill, GameCharacter, GameCharacter?) -> Unit,
-        var calculator: (AbilityScore, AbilityScore, Skill) -> Int
-) : NamableObject(name) {
+        val action: (Skill, GameCharacter, GameCharacter?) -> Unit,
+        val calculator: (AbilityScore, AbilityScore, Skill) -> Int
+) {
 
     companion object {
 
