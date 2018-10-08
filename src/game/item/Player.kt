@@ -2,12 +2,11 @@ package game.item
 
 import game.datalist.SKILL_COLD_A
 import game.datalist.SKILL_FIRE_A
-import game.datalist.skillList
+import game.datalist.SKILL_LIST
 import game.field.Field
 import game.mold.Skill
 import game.param.AbilityMold
 import game.param.AbilityScore
-import game.param.EquipmentState
 import game.param.PlayerLevelAndExperience
 import kotlin.system.exitProcess
 
@@ -20,11 +19,10 @@ import kotlin.system.exitProcess
 class Player(
         name: String,
         display: String,
-        val abilityMap: Map<Int, AbilityMold<Int>>,
-        val skillMap: Map<Int, Skill>,
+        private val abilityMap: Map<Int, AbilityMold<Int>>,
+        private val skillMap: Map<Int, Skill>,
         field: Field,
-        levelAndExp: PlayerLevelAndExperience,
-        var equipmentState: EquipmentState = EquipmentState()
+        levelAndExp: PlayerLevelAndExperience
 ) : GameCharacter(name, display, AbilityScore(abilityMap[levelAndExp.level]!!), field, levelAndExp) {
 
     /**
@@ -35,15 +33,15 @@ class Player(
     /**
      * 次のレベルになるまでの必要な経験値
      */
-    val restExp: Long?
+    private val restExp: Long?
         get() = this.levelAndExperience.restExp
 
     /**
      * スキルの実行のためのキー入力の値をキーとした習得済みのスキルのハッシュマップ
      */
-    val executableSkills: MutableMap<String, Skill> = mutableMapOf(
-            "fire-a" to skillList[SKILL_FIRE_A]!!,
-            "cold-a" to skillList[SKILL_COLD_A]!!
+    private val executableSkills: MutableMap<String, Skill> = mutableMapOf(
+            "fire-a" to SKILL_LIST[SKILL_FIRE_A]!!,
+            "cold-a" to SKILL_LIST[SKILL_COLD_A]!!
     )
 
     /**
@@ -139,7 +137,7 @@ q:ゲームを終了
 
         println("スキルを入力してください。")
         for ((keyInput, skill) in this.executableSkills) {
-            println("${keyInput}:${skill.name}")
+            println("$keyInput:${skill.name}")
         }
 
         val input = readLine()
@@ -224,7 +222,7 @@ q:ゲームを終了
             println("${target.abilityScore.droppingExp}の経験値を獲得した")
 
             if (raisedLevel >= 1) {
-                refleshAbilityByLevel()
+                refreshAbilityByLevel()
                 println("${name}はレベル${this.level}になった")
             }
         }
@@ -234,7 +232,7 @@ q:ゲームを終了
     /**
      * 現在のレベルに応じた能力値に更新する。レベルアップ時に実行される。
      */
-    private fun refleshAbilityByLevel() {
+    private fun refreshAbilityByLevel() {
         this.abilityScore.abilityMold = this.abilityMap[this.level]!!
     }
 

@@ -11,11 +11,9 @@ import game.param.AbilityScore
  */
 class Skill(
         name: String,
-        var isMagic: Boolean,
         var mpCost: Int,
         var timeCostPlus: Int,
         val powerPlus: Int,
-        var keyInput: String,
         var action: (Skill, GameCharacter, GameCharacter?) -> Unit,
         var calculator: (AbilityScore, AbilityScore, Skill) -> Int
 ) : NamableObject(name) {
@@ -24,18 +22,16 @@ class Skill(
 
         val normalAttack = Skill(
                 "",
-                isMagic = false,
                 mpCost = 0,
-                powerPlus = 0,
                 timeCostPlus = 1000,
-                keyInput = "",
+                powerPlus = 0,
                 action = fun(skill: Skill, user: GameCharacter, target: GameCharacter?) {
                     user.attackTarget(target!!, skill)
                 },
                 calculator = fun(userScore, targetScore, skill) = Skill.calculatePhysicsDamage(skill, userScore, targetScore)
         )
 
-        fun calculatePhysicsDamage(skill: Skill, thisScore: AbilityScore, targetScore: AbilityScore) =
+        private fun calculatePhysicsDamage(skill: Skill, thisScore: AbilityScore, targetScore: AbilityScore) =
                 thisScore.attack + skill.powerPlus - targetScore.defense / 2
 
         fun calculateMagicDamage(skill: Skill, thisScore: AbilityScore, targetScore: AbilityScore) =

@@ -24,7 +24,7 @@ open  class Field(val floor: Int = 0, val floorInfo: FloorInfo) {
     /**
      * フィールドマップを表現するためのフィールドブロックの2次元配列
      */
-    private val fieldBlockArray = Array<Array<FieldBlock>>(height,init = { Array(width) { FieldBlock(FieldBlockType.floor)} })
+    private val fieldBlockArray = Array(height, init = { it -> Array(width) { FieldBlock(FieldBlockType.floor) } })
 
     /**
      * フィールド上に存在する全てのゲームオブジェクトのリスト
@@ -106,14 +106,6 @@ open  class Field(val floor: Int = 0, val floorInfo: FloorInfo) {
      *  @return  取得したフィールドブロック
      */
     fun tryToGetFieldBlock(x: Int, y: Int): FieldBlock? = try { getFieldBlock(x, y) } catch (e: ArrayIndexOutOfBoundsException) { null }
-
-    /**
-     * 指定したx,y位置のフィールドブロックを設定する。x,y位置が範囲外の場合はnullを返す。
-     *  @param x フィールド内のx位置
-     *  @param y フィールド内のy位置
-     *  @param fieldBlock 設定するフィールドブロック
-     */
-    fun tryToSetFieldBlock(x: Int, y: Int, fieldBlock: FieldBlock) { try { setFieldBlock(x, y, fieldBlock) } catch (e: ArrayIndexOutOfBoundsException) { null } }
 
     /**
      * フィールド内のx, y位置にゲームオブジェクトを追加する。
@@ -254,8 +246,8 @@ open  class Field(val floor: Int = 0, val floorInfo: FloorInfo) {
      * フィールドを文字列で描画する。
      */
     override fun toString(): String {
-        var buf = StringBuffer()
-        var buf2 = StringBuffer()
+        val buf = StringBuffer()
+        val buf2 = StringBuffer()
 
         for ( (y, fieldBlockRow) in fieldBlockArray.withIndex() ) {
             for ( (x, fieldBlock) in fieldBlockRow.withIndex() ) {
@@ -274,7 +266,11 @@ open  class Field(val floor: Int = 0, val floorInfo: FloorInfo) {
                 }
             }
 
-            buf.append(if (this.printArrowMap) {"\n${buf2}\n"} else {"\n"})
+            buf.append(if (this.printArrowMap) {
+                "\n$buf2\n"
+            } else {
+                "\n"
+            })
             buf2.setLength(0)
         }
         return buf.toString()

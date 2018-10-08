@@ -1,5 +1,5 @@
 package game.mold
 
 enum class EquipmentMoldType {
-    head, body, leftHand, rightHand, leg, foot, accessary
+    Head, Body, LeftHand, RightHand, Leg, Foot, Accessary
 }

@@ -1,13 +1,13 @@
 package game.mold
 
-import game.datalist.floorList
+import game.datalist.FLOOR_LIST
 import java.util.*
 
 /**
  * フロアごとの情報を表す
  * @property enemyIdsParam フロアに出現する敵の種類のIDの配列、enemyListのキーの値を表す
  * @property enemyNumParam フロアに出現する敵の数
- * @property itemIdsParam フロア内に落ちているのアイテムの種類のIDの配列、itenListのキーの値を表す。
+ * @property itemIdsParam フロア内に落ちているのアイテムの種類のIDの配列、itemListのキーの値を表す。
  * @property itemNumParam フロア内の落ちているアイテムの数
  * @property fieldWidthParam フロアの幅を表す数値
  * @property fieldHeightParam フロアの高さを表す数値
@@ -23,13 +23,13 @@ class FloorInfo(
         var inherits: FloorInfo? = null
 ) {
 
-    val enemyIds: Array<Int>
+    private val enemyIds: Array<Int>
         get() = enemyIdsParam ?: inherits?.enemyIds ?: arrayOf()
 
     val enemyNum: Int
         get() = enemyNumParam ?: inherits?.enemyNum ?: 0
 
-    val itemIds: Array<Int>
+    private val itemIds: Array<Int>
         get() = itemIdsParam ?: inherits?.itemIds ?: arrayOf()
 
     val itemNum: Int
@@ -49,7 +49,7 @@ class FloorInfo(
          */
         fun getFloorInfo(floor :Int): FloorInfo {
             for (searchFloor in floor downTo 1) {
-                var floorInfo = floorList[searchFloor]
+                val floorInfo = FLOOR_LIST[searchFloor]
                 if (floorInfo != null) {
                     if(floorInfo.inherits == null) floorInfo.inherits = getFloorInfo(searchFloor - 1)
                     return floorInfo
@@ -66,7 +66,7 @@ class FloorInfo(
      */
     fun getRandomEnemyId(random: Random) :Int {
         val length = this.enemyIds.size
-        return this.enemyIds[random.nextInt(length)!!]
+        return this.enemyIds[random.nextInt(length)]
     }
 
     /**
@@ -76,6 +76,6 @@ class FloorInfo(
      */
     fun getRandomItemId(random: Random) :Int {
         val length = this.itemIds.size
-        return this.itemIds[random.nextInt(length)!!]
+        return this.itemIds[random.nextInt(length)]
     }
 }

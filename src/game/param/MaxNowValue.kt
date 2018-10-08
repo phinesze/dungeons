@@ -17,7 +17,7 @@ class MaxNowValue(var max: Int, var now: Int = max) {
     /**
      * 現在値を回復させる。
      */
-    fun restore(value: Int): Int {
+    private fun restore(value: Int): Int {
         val restoreVal = if (value <= max - now) value else max - now
         now += restoreVal
         return restoreVal
@@ -30,5 +30,5 @@ class MaxNowValue(var max: Int, var now: Int = max) {
         return restore((max * ratio).toInt())
     }
 
-    override fun toString(): String = "${now}/${max}"
+    override fun toString(): String = "$now/$max"
 }

@@ -2,7 +2,6 @@ package game.datalist
 
 import game.mold.EnemyMold
 import game.param.AbilityMold
-import game.param.LevelAndExperience
 
 const val ENEMY_PALIN = 0
 const val ENEMY_GOBLIN = 1
@@ -10,9 +9,7 @@ const val ENEMY_COBOLT = 2
 const val ENEMY_KILLER_RAT = 3
 const val ENEMY_HELLDOG = 4
 
-//val list = object (a = 0)
-
-val enemyList = mapOf(
+val ENEMY_LIST = mapOf(
         ENEMY_PALIN to EnemyMold(
                 name = "パリン",
                 display = "Θ",

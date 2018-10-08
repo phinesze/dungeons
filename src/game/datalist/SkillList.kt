@@ -6,14 +6,12 @@ import game.mold.Skill
 const val SKILL_FIRE_A = 0
 const val SKILL_COLD_A = 1
 
-val skillList = mapOf(
+val SKILL_LIST = mapOf(
         SKILL_FIRE_A to Skill(
                 name = "ファイア・α",
-                isMagic = true,
                 mpCost = 5,
                 timeCostPlus = 200,
                 powerPlus = 5,
-                keyInput = "fire-a",
                 action = fun(skill: Skill, user: GameCharacter, _: GameCharacter?) {
 
                     val func = fun(target: GameCharacter) { user.attackTarget(target, skill) }
@@ -26,11 +24,9 @@ val skillList = mapOf(
         ),
         SKILL_COLD_A to Skill(
                 name = "コールド・α",
-                isMagic = true,
                 mpCost = 5,
                 timeCostPlus = 200,
                 powerPlus = 0,
-                keyInput = "cold-a",
                 action = fun(skill: Skill, user: GameCharacter, dummy: GameCharacter?) {
 
                     val func = fun(target: GameCharacter) { user.attackTarget(target, skill) }

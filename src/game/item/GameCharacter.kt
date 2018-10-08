@@ -7,7 +7,7 @@ import game.param.LevelAndExperience
 
 /**
  * プレイヤー(Player)と敵キャラクター(Enemy)の基となる派生元クラス。GameObjectを継承する。
- * 次に行動できるまでの時間を表すtimeWaitを実装して、1カウント経過時の挙動を記述するmoveInCoutをオーバーライドして、
+ * 次に行動できるまでの時間を表すtimeWaitを実装して、1カウント経過時の挙動を記述するonCountをオーバーライドして、
  * 経過ごとにtimeWaitを1減らしていき0になった場合にメソッドturnを呼び出し、その後にtimeWaitを一定値に戻す。
  * turnは派生先のプレイヤー/敵キャラクターでオーバーライドされる。
  */
@@ -19,7 +19,7 @@ abstract class GameCharacter(name: String, display: String, val abilityScore: Ab
          * timeWaitの初期値
          * timeWaitが0以下になった場合にはこの値を加算する。
          */
-        val TIME_WAIT_START: Int = 1000
+        const val TIME_WAIT_START: Int = 1000
     }
 
     /**

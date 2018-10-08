@@ -44,15 +44,15 @@ abstract class GameObject(name: String, internal var field: Field, var display: 
      * そのキャラクターを相手に指定された動作を実行する。
      * @param moveX 探索する際のフィールドのx移動量
      * @param moveY 探索する際のフィールドのy移動量
-     * @param isWallTransfixable 壁を貫通するか否か
-     * @param isObjectTransfixable 通過不可なゲームオブジェクトを貫通するか否か
+     * @param canTransfix 壁を貫通するか否か
+     * @param canTransfixObjects 通過不可なゲームオブジェクトを貫通するか否か
      * @param action 指定する動作
      */
     fun actionLinear(
             moveX: Int,
             moveY: Int,
-            isWallTransfixable: Boolean = false,
-            isObjectTransfixable: Boolean = false,
+            canTransfix: Boolean = false,
+            canTransfixObjects: Boolean = false,
             action: (GameCharacter) -> Unit
     ) {
         var x = this.position.x
@@ -63,12 +63,12 @@ abstract class GameObject(name: String, internal var field: Field, var display: 
             y += moveY
 
             val fieldBlock: FieldBlock = this.field.tryToGetFieldBlock(x, y) ?: return
-            if (!isWallTransfixable && !fieldBlock.type.isFloor) return
+            if (!canTransfix && !fieldBlock.type.isFloor) return
 
             for (gameObject in fieldBlock.gameObjects) {
                 if (!gameObject.isTraversable) {
                     if (gameObject is GameCharacter) action(gameObject)
-                    if (!isObjectTransfixable) return
+                    if (!canTransfixObjects) return
                 }
             }
         }

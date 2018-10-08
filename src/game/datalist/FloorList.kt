@@ -3,7 +3,7 @@ package game.datalist
 import game.mold.FloorInfo
 
 
-val floorList = mapOf(
+val FLOOR_LIST = mapOf(
         1 to FloorInfo(
                 enemyIdsParam = arrayOf(ENEMY_PALIN),
                 enemyNumParam = 10,

@@ -24,7 +24,7 @@ class PlayerLevelAndExperience(
     /**
      * 最大レベル
      */
-    var maxLevel: Int = maxLevel
+    private var maxLevel: Int = maxLevel
         set(maxLevelValue) { if (this.level > maxLevelValue) throw IllegalArgumentException(); field = maxLevelValue }
 
     /**
@@ -54,7 +54,7 @@ class PlayerLevelAndExperience(
      */
     private fun initNextExpMap(significand: Long, cardinal: Double) {
         for (level in 2..99) {
-            nextExpMap!![level] =
+            nextExpMap[level] =
                     nextExpMap[level - 1]!! + (significand * Math.pow(cardinal, level.toDouble())).toLong()
         }
     }
@@ -66,10 +66,10 @@ class PlayerLevelAndExperience(
      */
     fun addExperience(exp :Long): Int{
 
-        var raisedLevel: Int = 0
+        var raisedLevel = 0
         this.experience += exp
 
-        while (this.level < this.maxLevel && this.experience >= requiredExp!!) {
+        while (this.level < this.maxLevel && this.experience >= requiredExp) {
             this.level++
             raisedLevel++
         }
