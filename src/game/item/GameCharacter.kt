@@ -7,9 +7,14 @@ import game.param.LevelAndExperience
 
 /**
  * プレイヤー(Player)と敵キャラクター(Enemy)の基となる派生元クラス。GameObjectを継承する。
- * 次に行動できるまでの時間を表すtimeWaitを実装して、1カウント経過時の挙動を記述するonCountをオーバーライドして、
- * 経過ごとにtimeWaitを1減らしていき0になった場合にメソッドturnを呼び出し、その後にtimeWaitを一定値に戻す。
+ * 次に行動できるまでの時間を表すtimeWaitを実装して、オーバーライドした関数onCount内で1カウントごとにtimeWaitを1減らしていく。
+ * 0になった場合に関数turnを呼び出し、その後にtimeWaitを一定値に戻す。
  * turnは派生先のプレイヤー/敵キャラクターでオーバーライドされる。
+ * @param name ゲームキャラクターの名前
+ * @param display 表示する
+ * @property abilityScore
+ * @param field 所属するフィールド
+ * @param levelAndExp レベルと経験値のペア
  */
 abstract class GameCharacter(name: String, display: String, val abilityScore: AbilityScore, field: Field, levelAndExp: LevelAndExperience) : GameObject(name, field, display) {
 
