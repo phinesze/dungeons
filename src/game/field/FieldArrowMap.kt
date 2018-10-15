@@ -6,6 +6,9 @@ import java.util.*
  * 指定した位置から各フィールドブロックへの最短ルートと移動に必要な数を表すための
  * フィールドマップのブロック同士を上下につなぐ矢印のマップと各ブロックに1対1で対応する距離の値のマップ
  * 主にフィールドマップのスタート地点とゴール地点が移動可能かどうかを検証する。
+ * @param width フィールドの幅を表す数値
+ * @param height フィールドの高さを表す数値
+ * @property field フィールド
  */
 internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
 

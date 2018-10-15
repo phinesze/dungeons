@@ -46,7 +46,6 @@ class GameBoard {
     )
 
     init {
-
         field.setPlayer(player)
     }
 

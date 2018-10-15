@@ -6,6 +6,9 @@ import game.mold.Skill
 const val SKILL_FIRE_A = 0
 const val SKILL_COLD_A = 1
 
+/**
+ * スキルのリストを定義する。
+ */
 val SKILL_LIST = mapOf(
         SKILL_FIRE_A to Skill(
                 name = "ファイア・α",

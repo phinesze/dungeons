@@ -9,6 +9,9 @@ const val ENEMY_COBOLT = 2
 const val ENEMY_KILLER_RAT = 3
 const val ENEMY_HELLDOG = 4
 
+/**
+ * 敵キャラクターのリストを定義する。
+ */
 val ENEMY_LIST = mapOf(
         ENEMY_PALIN to EnemyMold(
                 name = "パリン",

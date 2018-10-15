@@ -2,7 +2,9 @@ package game.datalist
 
 import game.mold.FloorInfo
 
-
+/**
+ * 各フロアに対する情報のリストを定義する。
+ */
 val FLOOR_LIST = mapOf(
         1 to FloorInfo(
                 enemyIdsParam = arrayOf(ENEMY_PALIN),

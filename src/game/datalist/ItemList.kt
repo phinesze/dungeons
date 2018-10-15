@@ -8,6 +8,9 @@ const val ITEM_MAGIC_POTION = 1
 const val ITEM_BOOSTER = 2
 const val ITEM_PROTECTOR= 3
 
+/**
+ * アイテムのリストを定義する。
+ */
 val ITEM_LIST = mapOf(
         ITEM_POTION to ItemMold(
                 name = "ポーション",

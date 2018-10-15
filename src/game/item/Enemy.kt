@@ -8,6 +8,11 @@ import game.param.LevelAndExperience
 
 /**
  * 敵キャラクターを表すクラス。GameCharacterを継承する。
+ * @param name ゲームキャラクター名
+ * @param display 自身の所属するFieldのtoStringで出力した際にオブジェクトの表示として表される文字
+ * @param abilityScore 能力値を表す値
+ * @param field 自身が存在しているフィールド
+ * @param levelAndExp レベルと累積経験値を表す値
  */
 class Enemy(
         name: String,

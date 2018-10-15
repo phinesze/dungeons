@@ -8,8 +8,9 @@ import game.param.Position
 /**
  * 名前と位置情報を持つオブジェクトを表す抽象クラス。プレイヤー、敵キャラクター、アイテムなどはすべてこのクラスを継承する。
  * このクラスから派生するクラスのすべてのオブジェクトは1つのフィールドオブジェクト(field)に所属する。
+ * @param name
  * @property field 自身が存在しているフィールド
- * @property field 自身の所属するフィールドをtoStringで出力した場合の自身のフィールド内での表示文字列
+ * @property display フィールドをtoStringで出力した場合の自身のフィールド内での表示文字列
  */
 abstract class GameObject(name: String, internal var field: Field, var display: String) : NamableObject(name) {
 

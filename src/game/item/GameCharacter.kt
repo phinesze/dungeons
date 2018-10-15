@@ -10,6 +10,12 @@ import game.param.LevelAndExperience
  * 次に行動できるまでの時間を表すtimeWaitを実装して、1カウント経過時の挙動を記述するonCountをオーバーライドして、
  * 経過ごとにtimeWaitを1減らしていき0になった場合にメソッドturnを呼び出し、その後にtimeWaitを一定値に戻す。
  * turnは派生先のプレイヤー/敵キャラクターでオーバーライドされる。
+ *
+ * @param name ゲームキャラクター名
+ * @param display 自身の所属するFieldのtoStringで出力した際にオブジェクトの表示として表される文字
+ * @property abilityScore 能力値を表す
+ * @param field 自身が存在しているフィールド
+ * @param levelAndExp レベルと累積経験値を表す値
  */
 abstract class GameCharacter(name: String, display: String, val abilityScore: AbilityScore, field: Field, levelAndExp: LevelAndExperience) : GameObject(name, field, display) {
 
