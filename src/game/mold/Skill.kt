@@ -5,7 +5,9 @@ import game.param.AbilityScore
 
 /**
  * スキルを表す。
- * @param name スキル名
+ * @property name スキル名
+ * @property mpCost MP消費量
+ * @property timeCostPlus 待ち時間 通常行動時の1000に
  * @param action
  */
 class Skill(
