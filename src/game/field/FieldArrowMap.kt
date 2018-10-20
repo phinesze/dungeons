@@ -81,48 +81,51 @@ internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
      */
     private fun executeGenerateAllArrow() {
         while (generateNextArrowQueue.size > 0) {
-            generateNextArrow(generateNextArrowQueue.pollFirst())
+            val param = generateNextArrowQueue.pollFirst()
+            generateNextArrow(param, param.x, param.y, param.distanceCount, param.arrow, param.prev)
         }
     }
 
     /**
      * executeGenerateAllArrowから呼び出される。矢印と距離カウント変数を設定する。
+     *
+     * 指定されたx,y位置が画面内かつブロックが床である場合はのみ処理を継続する。
+     * 現在のx,y位置の距離カウントを取得して、その距離カウントがnullまたは指定された距離カウント以上の値の場合に矢印と距離カウントを設定・更新する。
+     * 現在の距離カウントと指定された距離カウントが同じでなければgenerateNextArrowを指定された位置の上下左右の隣で再び実行するためのキューに格納する。
      */
-    private fun generateNextArrow(param: GenerateNextArrowParams): Boolean {
-        val prev = param.prev
-        val x = param.x
-        val y = param.y
+    private fun generateNextArrow(param: GenerateNextArrowParams, x: Int, y: Int, distanceCount: Int, arrow: Arrow, prev: GenerateNextArrowParams? = null): Boolean {
 
-        //x,y位置が画面内にない場合、x,y位置にあるブロックが床でない場合は中断する。
         val fieldBlock = field.tryToGetFieldBlock(x, y)
         if (fieldBlock == null || !fieldBlock.type.isFloor) return false
 
-        //x,y位置のフィールドブロックの矢印カウントを取得する。
         val blockDistanceCount = getDistanceCount(x, y)
 
-        if (prev != null) {
+        if (arrow != Arrow.None) {
             //自身の現在のカウントより少ない矢印カウントのブロックにたどり着いた場合は中断する。
             if (param.distanceCount > blockDistanceCount ?: Int.MAX_VALUE) return false
             //矢印を設定する。
-            setAnySideArrow(prev.x, prev.y, param.arrow.toDirection()!!, param.arrow)
+            setAnySideArrow(prev!!.x, prev.y, param.arrow.toDirection()!!, param.arrow)
             //カウントが同じになった場合、
             if (param.distanceCount == blockDistanceCount) return false
 
         } else if (blockDistanceCount == null) {
             return false
         }
-        //ブロックに現在のカウントを代入する。
-        setDistanceCount(x, y, param.distanceCount)
-        generateMazeArrowToQueue(param, x, y)
+        setDistanceCount(x, y, distanceCount)
+        prepareToGenerateNextArrowToAllSide(param, x, y)
         return true
     }
 
-    private fun generateMazeArrowToQueue(param: GenerateNextArrowParams, x: Int, y: Int) {
+    /**
+     *
+     */
+    private fun prepareToGenerateNextArrowToAllSide(param: GenerateNextArrowParams, x: Int, y: Int) {
+
         val nextDistanceCount = param.distanceCount + 1
-        prepareToGenerateNextArrow(x - 1, y, nextDistanceCount, Arrow.Left, prev = param)
-        prepareToGenerateNextArrow(x + 1, y, nextDistanceCount, Arrow.Right, prev = param)
-        prepareToGenerateNextArrow(x, y - 1, nextDistanceCount, Arrow.Top, prev = param)
-        prepareToGenerateNextArrow(x, y + 1, nextDistanceCount, Arrow.Bottom, prev = param)
+        //上下左右の隣を探索する。
+        for ((direction, move) in Direction.positionMoves) {
+            prepareToGenerateNextArrow(x + move.x, y + move.y, nextDistanceCount, direction.toArrow()!!, prev = param)
+        }
     }
 
     /**

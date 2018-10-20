@@ -86,7 +86,7 @@ class MazeField(floor: Int) : Field(floor, FloorInfo.getFloorInfo(floor)) {
                 }
             }
         }
-
+        this.toString()
         throw(Exception("ゲームオブジェクト追加の試行回数の上限を超えました。"))
     }
 

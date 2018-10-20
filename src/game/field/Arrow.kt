@@ -25,14 +25,14 @@ enum class Arrow {
     }
 
     /**
-     *
+     * 矢印から方向に変換する。
      */
     fun toDirection(): Direction? {
         return arrowToDirection[this]
     }
 
     /**
-     * 
+     * 矢印を文字列として出力する。
      */
     override fun toString(): String {
         return str[this] ?: "  "
