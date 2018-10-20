@@ -90,7 +90,12 @@ internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
      * executeGenerateAllArrowから呼び出される。矢印と距離カウント変数を設定する。
      *
      * 指定されたx,y位置が画面内かつブロックが床である場合はのみ処理を継続する。
-     * 現在のx,y位置の距離カウントを取得して、その距離カウントがnullまたは指定された距離カウント以上の値の場合に矢印と距離カウントを設定・更新する。
+     *
+     * チェーンの最初に当たる関数の場合は、現在のx,y位置の距離カウントを取得してnullでなければ矢印を設定・更新しgenerateNextArrowを指定された
+     * 位置の上下左右の隣で再び実行するためのキューに格納する
+     *
+     * チェーンの次以降に当たる関数の場合は現在のx,y位置の距離カウントを取得して、その距離カウントがnullまたは指定された距離カウント以上の値の場合に
+     * 矢印と距離カウントを設定・更新する。
      * 現在の距離カウントと指定された距離カウントが同じでなければgenerateNextArrowを指定された位置の上下左右の隣で再び実行するためのキューに格納する。
      */
     private fun generateNextArrow(param: GenerateNextArrowParams, x: Int, y: Int, distanceCount: Int, arrow: Arrow, prev: GenerateNextArrowParams? = null): Boolean {
@@ -100,24 +105,30 @@ internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
 
         val blockDistanceCount = getDistanceCount(x, y)
 
-        if (arrow != Arrow.None) {
-            //自身の現在のカウントより少ない矢印カウントのブロックにたどり着いた場合は中断する。
-            if (param.distanceCount > blockDistanceCount ?: Int.MAX_VALUE) return false
-            //矢印を設定する。
-            setAnySideArrow(prev!!.x, prev.y, param.arrow.toDirection()!!, param.arrow)
-            //カウントが同じになった場合、
-            if (param.distanceCount == blockDistanceCount) return false
-
-        } else if (blockDistanceCount == null) {
-            return false
+        //矢印マップの再構成実行時などのためにこの関数がチェーンの最初に呼び出された場合に現在の距離カウントが0の場合は実行を中断する。
+        if (prev == null) {
+            if (blockDistanceCount == null) {
+                return false
+            }
+            //チェーンの次以降に当たる関数の場合
+        } else {
+            if (blockDistanceCount == null || distanceCount <= blockDistanceCount) {
+                //矢印を設定する。
+                setAnySideArrow(prev.x, prev.y, arrow.toDirection()!!, arrow)
+                //カウントが同じになった場合、
+                if (distanceCount == blockDistanceCount) return false
+            } else {
+                return false
+            }
         }
+
         setDistanceCount(x, y, distanceCount)
         prepareToGenerateNextArrowToAllSide(param, x, y)
         return true
     }
 
     /**
-     *
+     * generateNextArrowを実行するためのキューを格納する。
      */
     private fun prepareToGenerateNextArrowToAllSide(param: GenerateNextArrowParams, x: Int, y: Int) {
 
