@@ -64,24 +64,29 @@ internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
      */
     fun generateFieldArrowMap(x: Int, y: Int) {
         setDistanceCount(x, y, 0)
-        generateNextArrowQueue.push(GenerateNextArrowParams(x, y, distanceCount = 0, arrow = Arrow.None))
-        executeGenerateArrowMapWithQueue()
+        prepareToGenerateNextArrow(x, y, distanceCount = 0, arrow = Arrow.None, prev = null)
+        executeGenerateAllArrow()
         this.isGenerated = true
     }
 
     /**
-     * キューに貯められたcreateNextArrowの実行待ちをすべて実行する。
+     * generateNextArrow実行のためのキューをためて実行待ちにする。
      */
-    private fun executeGenerateArrowMapWithQueue() {
+    private fun prepareToGenerateNextArrow(x: Int, y: Int, distanceCount: Int, arrow: Arrow, prev: GenerateNextArrowParams?) {
+        generateNextArrowQueue.addLast(GenerateNextArrowParams(x, y, distanceCount, arrow, prev))
+    }
+
+    /**
+     * キューに貯められたgenerateNextArrowの実行待ちをすべて実行する。
+     */
+    private fun executeGenerateAllArrow() {
         while (generateNextArrowQueue.size > 0) {
-            val params = generateNextArrowQueue.first
-            generateNextArrowQueue.removeFirst()
-            generateNextArrow(params)
+            generateNextArrow(generateNextArrowQueue.pollFirst())
         }
     }
 
     /**
-     * executeGenerateArrowMapWithQueueから呼び出される。矢印と距離カウント変数を設定する。
+     * executeGenerateAllArrowから呼び出される。矢印と距離カウント変数を設定する。
      */
     private fun generateNextArrow(param: GenerateNextArrowParams): Boolean {
         val prev = param.prev
@@ -114,10 +119,10 @@ internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
 
     private fun generateMazeArrowToQueue(param: GenerateNextArrowParams, x: Int, y: Int) {
         val nextDistanceCount = param.distanceCount + 1
-        generateNextArrowQueue.add(GenerateNextArrowParams(x - 1, y, nextDistanceCount, Arrow.Left, prev = param))
-        generateNextArrowQueue.add(GenerateNextArrowParams(x + 1, y, nextDistanceCount, Arrow.Right, prev = param))
-        generateNextArrowQueue.add(GenerateNextArrowParams(x, y - 1, nextDistanceCount, Arrow.Top, prev = param))
-        generateNextArrowQueue.add(GenerateNextArrowParams(x, y + 1, nextDistanceCount, Arrow.Bottom, prev = param))
+        prepareToGenerateNextArrow(x - 1, y, nextDistanceCount, Arrow.Left, prev = param)
+        prepareToGenerateNextArrow(x + 1, y, nextDistanceCount, Arrow.Right, prev = param)
+        prepareToGenerateNextArrow(x, y - 1, nextDistanceCount, Arrow.Top, prev = param)
+        prepareToGenerateNextArrow(x, y + 1, nextDistanceCount, Arrow.Bottom, prev = param)
     }
 
     /**
@@ -127,7 +132,7 @@ internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
      */
     fun restructureArrowMap(x: Int, y: Int) {
         removeArrowChain(x, y)
-        executeGenerateArrowMapWithQueue()
+        executeGenerateAllArrow()
     }
 
     /**
@@ -140,7 +145,7 @@ internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
         tryToGetDistanceCount(x + 1, y)?.let { distanceCount -> generateNextArrowQueue.add(GenerateNextArrowParams(x + 1, y, distanceCount, Arrow.None)) }
         tryToGetDistanceCount(x, y - 1)?.let { distanceCount -> generateNextArrowQueue.add(GenerateNextArrowParams(x, y - 1, distanceCount, Arrow.None)) }
         tryToGetDistanceCount(x, y + 1)?.let { distanceCount -> generateNextArrowQueue.add(GenerateNextArrowParams(x, y + 1, distanceCount, Arrow.None)) }
-        executeGenerateArrowMapWithQueue()
+        executeGenerateAllArrow()
     }
 
     /**
@@ -156,7 +161,7 @@ internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
 
         //再起呼び出しの場合に指定した位置に矢印が向かっている場合はgenerateNextArrowQueueに追加する。
         if (isRecursive && getReferredNum(x, y) > 0) {
-            generateNextArrowQueue.push(GenerateNextArrowParams(x, y, getDistanceCount(x, y)!!, Arrow.None))
+            prepareToGenerateNextArrow(x, y, distanceCount = getDistanceCount(x, y)!!, arrow = Arrow.None, prev = null)
             return
         }
 
