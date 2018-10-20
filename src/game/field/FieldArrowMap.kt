@@ -3,12 +3,14 @@ package game.field
 import java.util.*
 
 /**
- * 指定した位置から各フィールドブロックへの最短ルートと移動に必要な数を表すための
- * フィールドマップのブロック同士を上下につなぐ矢印のマップと各ブロックに1対1で対応する距離の値のマップ
- * 主にフィールドマップのスタート地点とゴール地点が移動可能かどうかを検証する。
+ * フィールドマップのスタート地点と各ブロックの地点まで移動可能かどうか、移動可能な場合はスタートから各ブロックまでの
+ * 最短距離を測るための距離カウントと矢印のマップ表す。
+ * フィールドマップの各ブロックに対応する距離カウントのマップとブロック同士を繋ぐように上下と左右に隣接する矢印のマップで表される。
+ * generateFieldArrowMapを実行することによって距離カウントと矢印が生成される。
+ *
  * @param width フィールドの幅を表す数値
  * @param height フィールドの高さを表す数値
- * @property field フィールド
+ * @property field 対象となるフィールド
  */
 internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
 
@@ -16,13 +18,7 @@ internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
      * generateArrowMapInQueueを実行するのに必要なパラメータ
      * arrowGenerationQueueに格納される。
      */
-    private class GenerateNextArrowParams(
-            val x: Int,
-            val y: Int,
-            val distanceCount: Int,
-            val arrow: Arrow,
-            val prev: GenerateNextArrowParams? = null
-    )
+    private class GenerateNextArrowParams(val x: Int, val y: Int, val distanceCount: Int, val arrow: Arrow, val prev: GenerateNextArrowParams? = null)
 
     /**
      * generateNextArrowを実行するのに必要なパラメータを格納するキュー
@@ -62,6 +58,58 @@ internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
     }
 
     /**
+     * キューに貯められたcreateNextArrowの実行待ちをすべて実行する。
+     */
+    private fun executeGenerateArrowMapWithQueue() {
+        while (generateNextArrowQueue.size > 0) {
+            val params = generateNextArrowQueue.first
+            generateNextArrowQueue.removeFirst()
+            generateNextArrow(params)
+        }
+    }
+
+    /**
+     * executeGenerateArrowMapWithQueueから呼び出される。矢印と距離カウント変数を設定する。
+     *
+     */
+    private fun generateNextArrow(param: GenerateNextArrowParams): Boolean {
+        val prev = param.prev
+        val x = param.x
+        val y = param.y
+
+        //x,y位置が画面内にない場合、x,y位置にあるブロックが床でない場合は中断する。
+        val fieldBlock = field.tryToGetFieldBlock(x, y)
+        if (fieldBlock == null || !fieldBlock.type.isFloor) return false
+
+        //x,y位置のフィールドブロックの矢印カウントを取得する。
+        val blockDistanceCount = getDistanceCount(x, y)
+
+        if (prev != null) {
+            //自身の現在のカウントより少ない矢印カウントのブロックにたどり着いた場合は中断する。
+            if (param.distanceCount > blockDistanceCount ?: Int.MAX_VALUE) return false
+            //矢印を設定する。
+            setAnySideArrow(prev.x, prev.y, param.arrow.toDirection()!!, param.arrow)
+            //カウントが同じになった場合、
+            if (param.distanceCount == blockDistanceCount) return false
+
+        } else if (blockDistanceCount == null) {
+            return false
+        }
+        //ブロックに現在のカウントを代入する。
+        setDistanceCount(x, y, param.distanceCount)
+        generateMazeArrowToQueue(param, x, y)
+        return true
+    }
+
+    private fun generateMazeArrowToQueue(param: GenerateNextArrowParams, x: Int, y: Int) {
+        val nextDistanceCount = param.distanceCount + 1
+        generateNextArrowQueue.add(GenerateNextArrowParams(x - 1, y, nextDistanceCount, Arrow.Left, prev = param))
+        generateNextArrowQueue.add(GenerateNextArrowParams(x + 1, y, nextDistanceCount, Arrow.Right, prev = param))
+        generateNextArrowQueue.add(GenerateNextArrowParams(x, y - 1, nextDistanceCount, Arrow.Top, prev = param))
+        generateNextArrowQueue.add(GenerateNextArrowParams(x, y + 1, nextDistanceCount, Arrow.Bottom, prev = param))
+    }
+
+    /**
      * フィールド上の指定された位置が「壁」に変更された場合に矢印マップを再構築する。
      *
      * 指定した位置から向かう矢印の鎖を削除して、
@@ -71,19 +119,6 @@ internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
      */
     fun restructureArrowMap(x: Int, y: Int) {
         removeArrowChain(x, y)
-        executeGenerateArrowMapWithQueue()
-    }
-
-    /**
-     * フィールド上の指定された位置が「床」に変更された場合に矢印マップを再生成する。
-     * @params x フィールドのx位置
-     * @params y フィールドのy位置
-     */
-    fun regenerateBlockChain(x: Int, y: Int) {
-        tryToGetDistanceCount(x - 1, y)?.let { distanceCount -> generateNextArrowQueue.add(GenerateNextArrowParams(x - 1, y, distanceCount, Arrow.None)) }
-        tryToGetDistanceCount(x + 1, y)?.let { distanceCount -> generateNextArrowQueue.add(GenerateNextArrowParams(x + 1, y, distanceCount, Arrow.None)) }
-        tryToGetDistanceCount(x, y - 1)?.let { distanceCount -> generateNextArrowQueue.add(GenerateNextArrowParams(x, y - 1, distanceCount, Arrow.None)) }
-        tryToGetDistanceCount(x, y + 1)?.let { distanceCount -> generateNextArrowQueue.add(GenerateNextArrowParams(x, y + 1, distanceCount, Arrow.None)) }
         executeGenerateArrowMapWithQueue()
     }
 
@@ -123,6 +158,19 @@ internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
         if (nearRightArrow == Arrow.Right) removeArrowChain(x + 1, y, isRecursive = true)
         if (nearTopArrow == Arrow.Top) removeArrowChain(x, y - 1, isRecursive = true)
         if (nearToBottomArrow == Arrow.Bottom) removeArrowChain(x, y + 1, isRecursive = true)
+    }
+
+    /**
+     * フィールド上の指定された位置が「床」に変更された場合に矢印マップを再生成する。
+     * @params x フィールドのx位置
+     * @params y フィールドのy位置
+     */
+    fun regenerateBlockChain(x: Int, y: Int) {
+        tryToGetDistanceCount(x - 1, y)?.let { distanceCount -> generateNextArrowQueue.add(GenerateNextArrowParams(x - 1, y, distanceCount, Arrow.None)) }
+        tryToGetDistanceCount(x + 1, y)?.let { distanceCount -> generateNextArrowQueue.add(GenerateNextArrowParams(x + 1, y, distanceCount, Arrow.None)) }
+        tryToGetDistanceCount(x, y - 1)?.let { distanceCount -> generateNextArrowQueue.add(GenerateNextArrowParams(x, y - 1, distanceCount, Arrow.None)) }
+        tryToGetDistanceCount(x, y + 1)?.let { distanceCount -> generateNextArrowQueue.add(GenerateNextArrowParams(x, y + 1, distanceCount, Arrow.None)) }
+        executeGenerateArrowMapWithQueue()
     }
 
     /**
@@ -300,57 +348,5 @@ internal class FieldArrowMap(width: Int, height: Int, val field: Field) {
         if (getTopSideArrow(x, y) == Arrow.Bottom) num++
         if (getBottomSideArrow(x, y) == Arrow.Top) num++
         return num
-    }
-
-    /**
-     * キューに貯められたcreateNextArrowの実行待ちをすべて実行する。
-     */
-    private fun executeGenerateArrowMapWithQueue() {
-        while (generateNextArrowQueue.size > 0) {
-            val params = generateNextArrowQueue.first
-            generateNextArrowQueue.removeFirst()
-            generateNextArrow(params)
-        }
-    }
-
-    /**
-     * executeGenerateArrowMapWithQueueから呼び出される。矢印と距離カウント変数を設定する。
-     *
-     */
-    private fun generateNextArrow(param: GenerateNextArrowParams): Boolean {
-        val prev = param.prev
-        val x = param.x
-        val y = param.y
-
-        //x,y位置が画面内にない場合、x,y位置にあるブロックが床でない場合は中断する。
-        val fieldBlock = field.tryToGetFieldBlock(x, y)
-        if (fieldBlock == null || !fieldBlock.type.isFloor) return false
-
-        //x,y位置のフィールドブロックの矢印カウントを取得する。
-        val blockDistanceCount = getDistanceCount(x, y)
-
-        if (prev != null) {
-            //自身の現在のカウントより少ない矢印カウントのブロックにたどり着いた場合は中断する。
-            if (param.distanceCount > blockDistanceCount ?: Int.MAX_VALUE) return false
-            //矢印を設定する。
-            setAnySideArrow(prev.x, prev.y, param.arrow.toDirection()!!, param.arrow)
-            //カウントが同じになった場合、
-            if (param.distanceCount == blockDistanceCount) return false
-
-        } else if (blockDistanceCount == null) {
-            return false
-        }
-        //ブロックに現在のカウントを代入する。
-        setDistanceCount(x, y, param.distanceCount)
-        generateMazeArrowToQueue(param, x, y)
-        return true
-    }
-
-    private fun generateMazeArrowToQueue(param: GenerateNextArrowParams, x: Int, y: Int) {
-        val nextDistanceCount = param.distanceCount + 1
-        generateNextArrowQueue.add(GenerateNextArrowParams(x - 1, y, nextDistanceCount, Arrow.Left, prev = param))
-        generateNextArrowQueue.add(GenerateNextArrowParams(x + 1, y, nextDistanceCount, Arrow.Right, prev = param))
-        generateNextArrowQueue.add(GenerateNextArrowParams(x, y - 1, nextDistanceCount, Arrow.Top, prev = param))
-        generateNextArrowQueue.add(GenerateNextArrowParams(x, y + 1, nextDistanceCount, Arrow.Bottom, prev = param))
     }
 }
