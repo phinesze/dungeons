@@ -18,7 +18,7 @@ val ITEM_LIST = mapOf(
                     val restoreVal = gameCharacter.abilityScore.hp.restoreRatio(0.5)
                     println("${gameCharacter.name}はHPを${restoreVal}回復した！！")
                 },
-                display = "💊"
+                display = "ポ"
         ),
         ITEM_MAGIC_POTION to ItemMold(
                 name = "マジックポーション",

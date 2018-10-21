@@ -4,6 +4,7 @@ import game.mold.FloorInfo
 
 /**
  * 各フロアに対する情報のリストを定義する。
+ * フロアの情報が定義されていない、またはリストの各パラメータが定義されていない場合は自身のフロアよりも下のフロアの情報が継承される。
  */
 val FLOOR_LIST = mapOf(
         1 to FloorInfo(

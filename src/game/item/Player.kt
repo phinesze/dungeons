@@ -202,10 +202,10 @@ q:ゲームを終了
         if (otherObject is Enemy) {
             attackTarget(otherObject)
         } else if (otherObject is GameItem) {
-            //TODO("アイテム取得関連")
+            otherObject.action
         }
-    }
 
+    }
     /**
      * メッセージを表示しつつ敵キャラクターにダメージを与える。
      * 敵のHPを0にした場合は倒した際のメッセージを表示して、プレイヤーの経験値を追加する処理を行う。
