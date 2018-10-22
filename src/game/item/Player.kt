@@ -118,7 +118,7 @@ q:ゲームを終了
             "p" -> println(this)
             //ゲームを終了
             "q" -> {
-                println("さよならだ・・また会う日まで")
+                println("ゲームを終了しました。")
                 exitProcess(0)
             }
             //入力失敗
