@@ -38,7 +38,7 @@ val ENEMY_LIST = mapOf(
                         magicAttack = 10.0,
                         magicDefense = 10.0,
                         agility = 10.0,
-                        droppingExp = 2.0
+                        droppingExp = 1.6
                 ))
         ),
         ENEMY_COBOLT to EnemyMold(
@@ -52,7 +52,7 @@ val ENEMY_LIST = mapOf(
                         magicAttack = 4.0,
                         magicDefense = 4.0,
                         agility = 8.0,
-                        droppingExp = 3.0
+                        droppingExp = 1.8
                 ))
         ),
         ENEMY_KILLER_RAT to EnemyMold(
@@ -61,12 +61,12 @@ val ENEMY_LIST = mapOf(
                 abilityMap = AbilityMold.toAbilityMap(AbilityMold(
                         maxHp = 8.0,
                         maxMp = 10.0,
-                        attack = 10.0,
+                        attack = 8.0,
                         defense = 6.0,
                         magicAttack = 6.0,
                         magicDefense = 6.0,
                         agility = 25.0,
-                        droppingExp = 3.0
+                        droppingExp = 1.6
                 ))
         ),
         ENEMY_HELLDOG to EnemyMold(
@@ -80,7 +80,7 @@ val ENEMY_LIST = mapOf(
                         magicAttack = 10.0,
                         magicDefense = 10.0,
                         agility = 12.0,
-                        droppingExp = 4.0
+                        droppingExp = 2.4
                 ))
         )
 )
