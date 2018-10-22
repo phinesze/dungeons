@@ -8,7 +8,7 @@ import game.param.LevelAndExperience
 /**
  * プレイヤー(Player)と敵キャラクター(Enemy)の基となる派生元クラス。GameObjectを継承する。
  * 次に行動できるまでの時間を表すtimeWaitを実装して、1カウント経過時の挙動を記述するonCountをオーバーライドして、
- * 経過ごとにtimeWaitをagilityの分だけ減らしていき0以下になった場合にメソッドturnを呼び出し、その後にtimeWaitを一定値に戻す。
+ * 経過ごとにtimeWaitをagilityの分だけ減らしていき0以下になった場合にメソッドturnを呼び出し、その後にtimeWaitの初期値(TIME_WAIT_START)を再び加算する。
  * turnは派生先のプレイヤー/敵キャラクターでオーバーライドされる。
  *
  * @param name ゲームキャラクター名
@@ -29,8 +29,8 @@ abstract class GameCharacter(name: String, display: String, val abilityScore: Ab
     }
 
     /**
-     * プレイヤーまたは敵キャラクタが行動できるまでの時間(カウント)を表す。
-     * 1カウント経過時に1減らす。
+     * プレイヤーまたは敵キャラクタが行動できるまでの時間を表す。
+     * 1カウント経過時に各プレイヤー/敵キャラクターのagilityの分だけ減らす。
      */
     var timeWait: Int = TIME_WAIT_START
 
@@ -92,7 +92,7 @@ abstract class GameCharacter(name: String, display: String, val abilityScore: Ab
     }
 
     /**
-     * スキルを実行する。現在のMPがスキルのMPコスト以上ある場合はスキルの動作を実行して、MPを消費して、スキル特有の待ち時間を加算する。
+     * スキルを実行する。現在のMPがスキルのMPコスト以上ある場合はスキルの動作を実行して、MPを消費して、スキル特有の追加のタイムウェイトを加算する。
      * 現在のMPがMPコスト未満の場合は中断する。
      * @param skill 実行するスキル
      * @param target 実行する対象。魔法攻撃はnullとなる場合が多い。
@@ -102,7 +102,7 @@ abstract class GameCharacter(name: String, display: String, val abilityScore: Ab
 
         if (this.abilityScore.mp.now < skill.mpCost) return false
         this.abilityScore.mp.now -= skill.mpCost
-        this.timeWait += skill.timeCostPlus
+        this.timeWait += skill.timeWaitPlus
 
         skill.action(skill, this, target)
         return true

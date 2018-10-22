@@ -13,7 +13,7 @@ val SKILL_LIST = mapOf(
         SKILL_FIRE_A to Skill(
                 name = "ファイア・α",
                 mpCost = 5,
-                timeCostPlus = 200,
+                timeWaitPlus = 200,
                 powerPlus = 5,
                 action = fun(skill: Skill, user: GameCharacter, _: GameCharacter?) {
 
@@ -28,7 +28,7 @@ val SKILL_LIST = mapOf(
         SKILL_COLD_A to Skill(
                 name = "コールド・α",
                 mpCost = 5,
-                timeCostPlus = 200,
+                timeWaitPlus = 200,
                 powerPlus = 0,
                 action = fun(skill: Skill, user: GameCharacter, dummy: GameCharacter?) {
 

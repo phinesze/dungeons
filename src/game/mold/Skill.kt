@@ -7,13 +7,13 @@ import game.param.AbilityScore
  * スキルを表す。
  * @property name スキル名
  * @property mpCost MP消費量
- * @property timeCostPlus 待ち時間 通常行動時の1000に
+ * @property timeWaitPlus ゲームキャラクターの行動終了時にに追加で初期値(GameCharacter.TIME_WAIT_START)に加えて加算されるtimeWaitの値
  * @param action
  */
 class Skill(
         val name: String,
         val mpCost: Int,
-        val timeCostPlus: Int,
+        val timeWaitPlus: Int,
         val powerPlus: Int,
         val action: (Skill, GameCharacter, GameCharacter?) -> Unit,
         val calculator: (AbilityScore, AbilityScore, Skill) -> Int
@@ -24,12 +24,12 @@ class Skill(
         val normalAttack = Skill(
                 "",
                 mpCost = 0,
-                timeCostPlus = 1000,
+                timeWaitPlus = 0,
                 powerPlus = 0,
                 action = fun(skill: Skill, user: GameCharacter, target: GameCharacter?) {
                     user.attackTarget(target!!, skill)
                 },
-                calculator = fun(userScore, targetScore, skill) = Skill.calculatePhysicsDamage(skill, userScore, targetScore)
+                calculator = { userScore, targetScore, skill -> Skill.calculatePhysicsDamage(skill, userScore, targetScore) }
         )
 
         private fun calculatePhysicsDamage(skill: Skill, thisScore: AbilityScore, targetScore: AbilityScore) =
