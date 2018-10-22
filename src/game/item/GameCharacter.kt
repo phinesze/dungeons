@@ -8,7 +8,7 @@ import game.param.LevelAndExperience
 /**
  * プレイヤー(Player)と敵キャラクター(Enemy)の基となる派生元クラス。GameObjectを継承する。
  * 次に行動できるまでの時間を表すtimeWaitを実装して、1カウント経過時の挙動を記述するonCountをオーバーライドして、
- * 経過ごとにtimeWaitを1減らしていき0になった場合にメソッドturnを呼び出し、その後にtimeWaitを一定値に戻す。
+ * 経過ごとにtimeWaitをagilityの分だけ減らしていき0以下になった場合にメソッドturnを呼び出し、その後にtimeWaitを一定値に戻す。
  * turnは派生先のプレイヤー/敵キャラクターでオーバーライドされる。
  *
  * @param name ゲームキャラクター名
@@ -25,7 +25,7 @@ abstract class GameCharacter(name: String, display: String, val abilityScore: Ab
          * timeWaitの初期値
          * timeWaitが0以下になった場合にはこの値を加算する。
          */
-        const val TIME_WAIT_START: Int = 1000
+        const val TIME_WAIT_START: Int = 10000
     }
 
     /**
@@ -59,7 +59,7 @@ abstract class GameCharacter(name: String, display: String, val abilityScore: Ab
 
     /**
      * 1カウント経過時の挙動を記述するGameObjectの同名関数をオーバーライドする。
-     * timeWaitが1以上ある場合はagilityの分を減らし、 0になった場合はturnを呼び出す。timeWaitはturn終了後に一定の値に戻す。
+     * timeWaitが1以上ある場合はagilityの分を減らし、 0以下になった場合はturnを呼び出す。timeWaitはturn終了後に一定の値に戻す。
      */
     override fun onCount() {
         if (this.timeWait <= 0) {
