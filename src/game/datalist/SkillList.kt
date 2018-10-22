@@ -13,7 +13,7 @@ val SKILL_LIST = mapOf(
         SKILL_FIRE_A to Skill(
                 name = "ファイア・α",
                 mpCost = 5,
-                timeWaitPlus = 200,
+                timeWaitPlus = 2000,
                 powerPlus = 5,
                 action = { skill, user, _ ->
                     val func = fun(target: GameCharacter) { user.attackTarget(target, skill) }
@@ -27,7 +27,7 @@ val SKILL_LIST = mapOf(
         SKILL_COLD_A to Skill(
                 name = "コールド・α",
                 mpCost = 5,
-                timeWaitPlus = 200,
+                timeWaitPlus = 2000,
                 powerPlus = 0,
                 action = { skill, user, dummy ->
                     val func = fun(target: GameCharacter) { user.attackTarget(target, skill) }
