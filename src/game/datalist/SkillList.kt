@@ -28,7 +28,7 @@ val SKILL_LIST = mapOf(
                 name = "コールド・α",
                 mpCost = 5,
                 timeWaitPlus = 5000,
-                powerPlus = 0,
+                powerPlus = 5,
                 action = { skill, user, dummy ->
                     val func = fun(target: GameCharacter) { user.attackTarget(target, skill) }
 
