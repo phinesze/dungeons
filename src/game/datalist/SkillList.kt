@@ -15,8 +15,7 @@ val SKILL_LIST = mapOf(
                 mpCost = 5,
                 timeWaitPlus = 200,
                 powerPlus = 5,
-                action = fun(skill: Skill, user: GameCharacter, _: GameCharacter?) {
-
+                action = { skill, user, _ ->
                     val func = fun(target: GameCharacter) { user.attackTarget(target, skill) }
 
                     println("${user.name}の左右に炎の球が放たれる")
@@ -30,8 +29,7 @@ val SKILL_LIST = mapOf(
                 mpCost = 5,
                 timeWaitPlus = 200,
                 powerPlus = 0,
-                action = fun(skill: Skill, user: GameCharacter, dummy: GameCharacter?) {
-
+                action = { skill, user, dummy ->
                     val func = fun(target: GameCharacter) { user.attackTarget(target, skill) }
 
                     println("${user.name}の周りに氷の柱が巻き起こる")

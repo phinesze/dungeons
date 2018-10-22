@@ -26,11 +26,8 @@ class Skill(
                 mpCost = 0,
                 timeWaitPlus = 0,
                 powerPlus = 0,
-                action = fun(skill: Skill, user: GameCharacter, target: GameCharacter?) {
-                    user.attackTarget(target!!, skill)
-                },
-                calculator = { userScore, targetScore, skill -> Skill.calculatePhysicsDamage(skill, userScore, targetScore) }
-        )
+                action = { skill, user, target -> user.attackTarget(target!!, skill) }
+        ) { userScore, targetScore, skill -> Skill.calculatePhysicsDamage(skill, userScore, targetScore) }
 
         private fun calculatePhysicsDamage(skill: Skill, thisScore: AbilityScore, targetScore: AbilityScore) =
                 thisScore.attack + skill.powerPlus - targetScore.defense / 2
