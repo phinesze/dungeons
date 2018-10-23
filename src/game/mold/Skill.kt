@@ -8,7 +8,7 @@ import game.param.AbilityScore
  * @property name スキル名
  * @property mpCost MP消費量
  * @property timeWaitPlus ゲームキャラクターの行動終了時にに追加で初期値(GameCharacter.TIME_WAIT_START)に加えて加算されるtimeWaitの値
- * @param action
+ * @param action スキル実行時の動作を表す関数
  */
 class Skill(
         val name: String,
