@@ -29,9 +29,19 @@ class Skill(
                 action = { skill, user, target -> user.attackTarget(target!!, skill) }
         ) { userScore, targetScore, skill -> Skill.calculatePhysicsDamage(skill, userScore, targetScore) }
 
-        private fun calculatePhysicsDamage(skill: Skill, thisScore: AbilityScore, targetScore: AbilityScore) =
+        /**
+         * 使用者と被使用者の能力値とスキルを指定して物理攻撃のダメージを計算する。
+         * @property thisScore 使用者の能力値
+         * @property targetScore 被使用者の能力値
+         */
+        fun calculatePhysicsDamage(skill: Skill, thisScore: AbilityScore, targetScore: AbilityScore) =
                 thisScore.attack + skill.powerPlus - targetScore.defense / 2
 
+        /**
+         * 使用者と被使用者の能力値とスキルを指定して魔法攻撃のダメージを計算する。
+         * @property thisScore 使用者の能力値
+         * @property targetScore 被使用者の能力値
+         */
         fun calculateMagicDamage(skill: Skill, thisScore: AbilityScore, targetScore: AbilityScore) =
                 thisScore.magicAttack + skill.powerPlus - targetScore.magicDefense / 2
     }
